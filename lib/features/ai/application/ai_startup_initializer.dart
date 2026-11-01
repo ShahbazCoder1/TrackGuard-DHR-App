@@ -79,7 +79,7 @@ class AiStartupInitializer {
         _updateReadiness(
           const AiStartupReadiness(
             status: AiStartupReadinessStatus.ready,
-            message: 'Offline Gemma ready',
+            message: 'Offline photo helper ready',
           ),
         );
         return;
@@ -90,7 +90,7 @@ class AiStartupInitializer {
         _updateReadiness(
           const AiStartupReadiness(
             status: AiStartupReadinessStatus.initializing,
-            message: 'Initializing Gemma 4 E2B...',
+            message: 'Starting offline photo helper...',
           ),
         );
 
@@ -99,7 +99,7 @@ class AiStartupInitializer {
           _updateReadiness(
             const AiStartupReadiness(
               status: AiStartupReadinessStatus.ready,
-              message: 'Offline Gemma ready',
+              message: 'Offline photo helper ready',
             ),
           );
         } catch (initError) {
@@ -107,7 +107,7 @@ class AiStartupInitializer {
           _updateReadiness(
             AiStartupReadiness(
               status: AiStartupReadinessStatus.unavailable,
-              message: 'Offline Gemma unavailable',
+              message: 'Offline photo helper unavailable',
               error: initError.toString(),
             ),
           );

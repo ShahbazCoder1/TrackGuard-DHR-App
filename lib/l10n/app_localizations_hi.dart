@@ -863,7 +863,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get offlineModelMobileDataWarning =>
-      'मोबाइल डेटा पर ~1.2 GB डाउनलोड करने पर ऑपरेटर शुल्क लग सकता है।';
+      'मोबाइल डेटा पर ~2.6 GB डाउनलोड करने पर ऑपरेटर शुल्क लग सकता है।';
 
   @override
   String get offlineModelCancelDownload => 'डाउनलोड रद्द करें';

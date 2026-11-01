@@ -1579,7 +1579,7 @@ abstract class AppLocalizations {
   /// No description provided for @offlineModelMobileDataWarning.
   ///
   /// In en, this message translates to:
-  /// **'Downloading ~1.2 GB over mobile data may incur carrier charges or consume data limits.'**
+  /// **'Downloading ~2.6 GB over mobile data may incur carrier charges or consume data limits.'**
   String get offlineModelMobileDataWarning;
 
   /// No description provided for @offlineModelCancelDownload.

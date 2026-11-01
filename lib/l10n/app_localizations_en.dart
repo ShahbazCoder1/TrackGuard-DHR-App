@@ -866,7 +866,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get offlineModelMobileDataWarning =>
-      'Downloading ~1.2 GB over mobile data may incur carrier charges or consume data limits.';
+      'Downloading ~2.6 GB over mobile data may incur carrier charges or consume data limits.';
 
   @override
   String get offlineModelCancelDownload => 'Cancel Download';
