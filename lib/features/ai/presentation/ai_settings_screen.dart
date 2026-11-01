@@ -37,7 +37,7 @@ class AiSettingsScreen extends ConsumerWidget {
         );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Smart Photo Helper')),
+      appBar: AppBar(title: Text(l10n.smartPhotoHelperTitle)),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -71,8 +71,8 @@ class AiSettingsScreen extends ConsumerWidget {
 
                   _buildModeOption(
                     context,
-                    title: 'Automatic Photo Helper (Recommended)',
-                    subtitle: 'Suggests a hazard type and note from your photo, online or offline.',
+                    title: l10n.aiModeAutomaticHelper,
+                    subtitle: l10n.aiModeAutomaticHelperDesc,
                     mode: AiMode.automatic,
                     currentMode: settings.mode,
                     onSelected: (mode) => settingsNotifier.setMode(mode),
@@ -80,9 +80,8 @@ class AiSettingsScreen extends ConsumerWidget {
                   const Divider(height: 16),
                   _buildModeOption(
                     context,
-                    title: 'Online Photo Helper',
-                    subtitle:
-                        'Use the connected online vision model; needs a network connection.',
+                    title: l10n.aiModeOnlineHelper,
+                    subtitle: l10n.aiModeOnlineHelperDesc,
                     mode: AiMode.onlineGemini,
                     currentMode: settings.mode,
                     onSelected: (mode) => settingsNotifier.setMode(mode),
@@ -90,9 +89,8 @@ class AiSettingsScreen extends ConsumerWidget {
                   const Divider(height: 16),
                   _buildModeOption(
                     context,
-                    title: 'Offline Photo Helper',
-                    subtitle:
-                        'Use the downloaded Gemma model without a network connection.',
+                    title: l10n.aiModeOfflineHelper,
+                    subtitle: l10n.aiModeOfflineHelperDesc,
                     mode: AiMode.offlineGemma,
                     currentMode: settings.mode,
                     onSelected: (mode) => settingsNotifier.setMode(mode),
@@ -100,8 +98,8 @@ class AiSettingsScreen extends ConsumerWidget {
                   const Divider(height: 16),
                   _buildModeOption(
                     context,
-                    title: 'Manual Only',
-                    subtitle: 'Turn off photo suggestions; I will choose the hazard myself.',
+                    title: l10n.aiModeManualOnly,
+                    subtitle: l10n.aiModeManualOnlyDesc,
                     mode: AiMode.manual,
                     currentMode: settings.mode,
                     onSelected: (mode) => settingsNotifier.setMode(mode),
@@ -152,7 +150,7 @@ class AiSettingsScreen extends ConsumerWidget {
                       ),
                       const SizedBox(width: 8),
                       _buildStatusBadge(
-                        label: isOnline ? 'Online Ready' : 'Network Required',
+                        label: isOnline ? l10n.onlineReadyStatus : l10n.networkRequiredStatus,
                         color: isOnline
                             ? AppTheme.statusGreen
                             : AppTheme.statusRed,
@@ -166,7 +164,7 @@ class AiSettingsScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   _buildInfoRow(
-                    label: 'Integration',
+                    label: l10n.integrationLabel,
                     value: 'Supabase Edge Function (Zero Client Keys)',
                   ),
                   const SizedBox(height: 10),
@@ -324,7 +322,7 @@ class AiSettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             _buildInfoRow(
-              label: 'Source',
+              label: l10n.sourceLabel,
               value: 'Hugging Face (${AiProviderConfig.offlineGemmaRepository})',
             ),
 
@@ -333,7 +331,7 @@ class AiSettingsScreen extends ConsumerWidget {
               const SizedBox(height: 8),
               if (modelState.downloadedAt != null)
                 _buildInfoRow(
-                  label: 'Installed Date',
+                  label: l10n.installedDateLabel,
                   value:
                       '${modelState.downloadedAt!.day}/${modelState.downloadedAt!.month}/${modelState.downloadedAt!.year}',
                 ),

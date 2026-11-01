@@ -4,8 +4,6 @@ import 'package:trackguard_dhr/app/theme.dart';
 import 'package:trackguard_dhr/core/constants/dhr_waypoints.dart';
 import 'package:trackguard_dhr/l10n/app_localizations.dart';
 
-// Strings below are not localized yet; move them into the .arb files.
-const _kNearest = 'Nearest';
 const _kKmUnit = 'km';
 
 /// Daylight palette keeps location selection legible outdoors.
@@ -59,9 +57,7 @@ class _WaypointPickerSheetState extends State<WaypointPickerSheet> {
   DhrWaypoint? _nearestTo(double km) {
     final all = DhrWaypoints.waypoints;
     if (all.isEmpty) return null;
-    return all.reduce(
-      (a, b) => (a.km - km).abs() <= (b.km - km).abs() ? a : b,
-    );
+    return all.reduce((a, b) => (a.km - km).abs() <= (b.km - km).abs() ? a : b);
   }
 
   @override
@@ -131,9 +127,8 @@ class _WaypointPickerSheetState extends State<WaypointPickerSheet> {
                           height: 40,
                         ),
                         iconSize: 20,
-                        tooltip: MaterialLocalizations.of(
-                          context,
-                        ).closeButtonTooltip,
+                        tooltip: MaterialLocalizations.of(context)
+                            .closeButtonTooltip,
                         icon: const Icon(Icons.close_rounded, color: _C.text),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
@@ -259,6 +254,7 @@ class _StationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Semantics(
       selected: isSelected,
       child: Material(
@@ -291,7 +287,7 @@ class _StationTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          waypoint.name,
+                          l10n.stationName(waypoint.id),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -305,7 +301,7 @@ class _StationTile extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Km ${waypoint.km.toStringAsFixed(1)}  ·  ${DhrWaypoints.getSectionName(waypoint.sectionId)}',
+                          '${l10n.kmMarker(waypoint.km.toStringAsFixed(1))}  ·  ${DhrWaypoints.getSectionName(waypoint.sectionId)}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -320,7 +316,7 @@ class _StationTile extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8, right: 12),
-                  child: Center(child: _trailing()),
+                  child: Center(child: _trailing(l10n)),
                 ),
               ],
             ),
@@ -331,10 +327,7 @@ class _StationTile extends StatelessWidget {
   }
 
   Widget _railLine({required bool visible}) => Center(
-    child: Container(
-      width: 2,
-      color: visible ? _C.rail : Colors.transparent,
-    ),
+    child: Container(width: 2, color: visible ? _C.rail : Colors.transparent),
   );
 
   Widget _node() => SizedBox(
@@ -366,7 +359,7 @@ class _StationTile extends StatelessWidget {
     ),
   );
 
-  Widget _trailing() {
+  Widget _trailing(AppLocalizations l10n) {
     if (isSelected) {
       return const Icon(Icons.check_circle_rounded, color: _C.brass, size: 22);
     }
@@ -377,9 +370,9 @@ class _StationTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: _C.brass.withValues(alpha: 0.5)),
         ),
-        child: const Text(
-          _kNearest,
-          style: TextStyle(
+        child: Text(
+          l10n.nearestWaypointBadge,
+          style: const TextStyle(
             color: _C.brass,
             fontSize: 11.5,
             fontWeight: FontWeight.w700,

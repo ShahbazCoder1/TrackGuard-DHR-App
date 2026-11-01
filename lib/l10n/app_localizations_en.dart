@@ -191,6 +191,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectWaypoint => 'Select Nearest DHR Station / Waypoint';
 
   @override
+  String stationName(String stationId) {
+    String _temp0 = intl.Intl.selectLogic(stationId, {
+      'kurseong': 'Kurseong Station',
+      'tung': 'Tung Station',
+      'dilaram': 'Dilaram Point',
+      'sonada': 'Sonada Station',
+      'rongbull': 'Rongbull Loop',
+      'jorebungalow': 'Jorebungalow',
+      'ghum': 'Ghum Station',
+      'batasia': 'Batasia Loop',
+      'darjeeling': 'Darjeeling Station',
+      'other': 'stationId',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String get editKm => 'Edit Km Marker';
 
   @override
@@ -946,4 +963,332 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get locationAccuracyPromptTurnOn => 'Continue';
+
+  @override
+  String get reportTrackHazardDescription =>
+      'Take a photo of a slip, rockfall, drain, or track issue';
+
+  @override
+  String get sendNow => 'Send Now';
+
+  @override
+  String get viewMyReports => 'View My Reports';
+
+  @override
+  String get willSendAtNextStation =>
+      'Will send automatically at next station signal';
+
+  @override
+  String get allReportsSentToSupervisor =>
+      'Your latest reports have reached the supervisor.';
+
+  @override
+  String get gpsLockedStatus => 'GPS locked';
+
+  @override
+  String get setManually => 'Set manually';
+
+  @override
+  String get startingCamera => 'Starting camera…';
+
+  @override
+  String get retryCamera => 'Retry camera';
+
+  @override
+  String get dhrAlignment => 'DHR alignment';
+
+  @override
+  String get savesSafelyOnPhoneFirst => 'Saves safely on your phone first.';
+
+  @override
+  String get draftMissing => 'Draft Missing';
+
+  @override
+  String get inspectionDraftCouldNotBeLoaded =>
+      'Inspection draft could not be loaded.';
+
+  @override
+  String hazardReportTitle(String hazard) {
+    return '$hazard Report';
+  }
+
+  @override
+  String get statusStepSent => 'Sent';
+
+  @override
+  String get statusStepSeenBySupervisor => 'Seen by Supervisor';
+
+  @override
+  String get statusStepResolved => 'Resolved';
+
+  @override
+  String get technicalAndAiAuditDetails => 'Technical & AI Audit Details';
+
+  @override
+  String get reportAuditInformation => 'REPORT AUDIT INFORMATION';
+
+  @override
+  String get noPhotoAttached => 'No photo attached';
+
+  @override
+  String get photoNotFoundOnDevice => 'Photo not found on device';
+
+  @override
+  String reportSource(String source, String accuracy) {
+    return 'Source: $source $accuracy';
+  }
+
+  @override
+  String reportIdLabel(String id) {
+    return 'Report ID: $id';
+  }
+
+  @override
+  String get nearestWaypointBadge => 'Nearest';
+
+  @override
+  String get allDhrAlignment => 'All DHR Alignment';
+
+  @override
+  String get profileIdentifier => 'Profile Identifier';
+
+  @override
+  String get appAlignmentTitle => 'TrackGuard DHR Alignment';
+
+  @override
+  String get appEditionVersion => 'Version 1.0.0 • Field Operations Edition';
+
+  @override
+  String get adminDashboardTitle => 'TrackGuard Admin';
+
+  @override
+  String get adminOverviewTab => 'Overview';
+
+  @override
+  String get adminReportsTab => 'Reports';
+
+  @override
+  String get adminUsersTab => 'Users';
+
+  @override
+  String get adminReportOverview => 'REPORT OVERVIEW';
+
+  @override
+  String get adminSectionSummary => 'SECTION SUMMARY';
+
+  @override
+  String get adminLatestReports => 'LATEST REPORTS';
+
+  @override
+  String get adminTotalReports => 'Total reports';
+
+  @override
+  String get adminNoRemoteReportsFound => 'No remote reports found.';
+
+  @override
+  String get adminNoProfilesFound => 'No profiles found.';
+
+  @override
+  String get adminProfileUpdated => 'Profile updated';
+
+  @override
+  String adminUpdateFailed(String error) {
+    return 'Update failed: $error';
+  }
+
+  @override
+  String get adminRoleLabel => 'Role';
+
+  @override
+  String get adminAssignedSection => 'Assigned section';
+
+  @override
+  String get adminStatusUpdated => 'Status updated. Check audit history below.';
+
+  @override
+  String adminStatusUpdateFailed(String error) {
+    return 'Status update failed: $error';
+  }
+
+  @override
+  String get adminReportDetailTitle => 'Admin report detail';
+
+  @override
+  String get adminReportNotFound => 'Report not found or access denied.';
+
+  @override
+  String adminSeverityLabel(String severity) {
+    return 'Severity: $severity';
+  }
+
+  @override
+  String adminSectionLabel(String section) {
+    return 'Section: $section';
+  }
+
+  @override
+  String adminStationLabel(String station) {
+    return 'Station: $station';
+  }
+
+  @override
+  String adminKmMarkerLabel(String km) {
+    return 'Km marker: $km';
+  }
+
+  @override
+  String adminCreatedLabel(String created) {
+    return 'Created: $created';
+  }
+
+  @override
+  String adminGpsLabel(String lat, String lng) {
+    return 'GPS: $lat, $lng';
+  }
+
+  @override
+  String get adminUpdateStatusHeading => 'UPDATE STATUS';
+
+  @override
+  String get adminInspectionStatusLabel => 'Inspection status';
+
+  @override
+  String get adminSaveStatusButton => 'Save status';
+
+  @override
+  String get adminSavingStatus => 'Saving…';
+
+  @override
+  String get adminAuditHistoryHeading => 'AUDIT HISTORY';
+
+  @override
+  String adminCouldNotLoadHistory(String error) {
+    return 'Could not load history: $error';
+  }
+
+  @override
+  String get adminNoStatusChangesYet => 'No status changes recorded yet.';
+
+  @override
+  String get adminLoadingPhoto => 'Loading inspection photo...';
+
+  @override
+  String get adminNoPhotoAvailable =>
+      'No inspection photo available for this report';
+
+  @override
+  String get adminFailedToLoadImage => 'Failed to load image from storage';
+
+  @override
+  String get adminTapToEnlarge => 'Tap to enlarge';
+
+  @override
+  String get adminInspectionPhotoBadge => 'INSPECTION PHOTO';
+
+  @override
+  String get adminHazardPhotoTitle => 'Hazard Photo';
+
+  @override
+  String get adminFailedToLoadFullImage => 'Failed to load full image';
+
+  @override
+  String get adminNotSpecified => 'Not specified';
+
+  @override
+  String get adminActiveStatus => 'ACTIVE';
+
+  @override
+  String get adminInactiveStatus => 'INACTIVE';
+
+  @override
+  String adminChangedBy(String user) {
+    return 'Changed by $user';
+  }
+
+  @override
+  String get smartPhotoHelperTitle => 'Smart Photo Helper';
+
+  @override
+  String get aiModeAutomaticHelper => 'Automatic Photo Helper (Recommended)';
+
+  @override
+  String get aiModeAutomaticHelperDesc =>
+      'Suggests a hazard type and note from your photo, online or offline.';
+
+  @override
+  String get aiModeOnlineHelper => 'Online Photo Helper';
+
+  @override
+  String get aiModeOnlineHelperDesc =>
+      'Use the connected online vision model; needs a network connection.';
+
+  @override
+  String get aiModeOfflineHelper => 'Offline Photo Helper';
+
+  @override
+  String get aiModeOfflineHelperDesc =>
+      'Use the downloaded Gemma model without a network connection.';
+
+  @override
+  String get aiModeManualOnly => 'Manual Only';
+
+  @override
+  String get aiModeManualOnlyDesc =>
+      'Turn off photo suggestions; I will choose the hazard myself.';
+
+  @override
+  String get offlinePhotoHelperPackTitle => 'Offline Photo Helper Pack';
+
+  @override
+  String get offlinePhotoHelperPackSubtitle =>
+      'Download once on Wi-Fi so the app can suggest hazards from your photos when there is no mobile signal.';
+
+  @override
+  String get downloadOnWifiButton => 'Download on Wi-Fi';
+
+  @override
+  String get stayOnPage => 'Stay on Page';
+
+  @override
+  String get cancelDownloadAndLeave => 'Cancel Download & Leave';
+
+  @override
+  String get cancelDownloadConfirmation =>
+      'Leaving this page will cancel the current model download. Are you sure you want to cancel and leave?';
+
+  @override
+  String get downloadPreferencesHeading => 'DOWNLOAD PREFERENCES';
+
+  @override
+  String get preventsCellularUsage => 'Prevents cellular data usage';
+
+  @override
+  String get modelStatusAndActionsHeading => 'MODEL STATUS & ACTIONS';
+
+  @override
+  String get onlineReadyStatus => 'Online Ready';
+
+  @override
+  String get networkRequiredStatus => 'Network Required';
+
+  @override
+  String get installedDateLabel => 'Installed Date';
+
+  @override
+  String get sourceLabel => 'Source';
+
+  @override
+  String get integrationLabel => 'Integration';
+
+  @override
+  String get aiInferenceError => 'AI Inference Error';
+
+  @override
+  String get aiAdvisoryMetadataHeading => 'AI ADVISORY METADATA';
+
+  @override
+  String get accountInactive => 'Account Inactive';
+
+  @override
+  String get permanentWayStaff => 'Permanent-Way Staff';
 }

@@ -192,6 +192,23 @@ class AppLocalizationsBn extends AppLocalizations {
       'নিকটবর্তী ডিএইচআর স্টেশন / ওয়েপয়েন্ট নির্বাচন করুন';
 
   @override
+  String stationName(String stationId) {
+    String _temp0 = intl.Intl.selectLogic(stationId, {
+      'kurseong': 'কার্শিয়াং স্টেশন',
+      'tung': 'টং স্টেশন',
+      'dilaram': 'দিলারাম পয়েন্ট',
+      'sonada': 'সোনাদা স্টেশন',
+      'rongbull': 'রংবুল লুপ',
+      'jorebungalow': 'জোরবাংলো',
+      'ghum': 'ঘুম স্টেশন',
+      'batasia': 'বাতাসিয়া লুপ',
+      'darjeeling': 'দার্জিলিং স্টেশন',
+      'other': 'stationId',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String get editKm => 'কিমি মার্কার পরিবর্তন করুন';
 
   @override
@@ -916,35 +933,370 @@ class AppLocalizationsBn extends AppLocalizations {
   String get offlineModelDownloadCancelled => 'মডেল ডাউনলোড বাতিল করা হয়েছে।';
 
   @override
-  String get locationAccuracyPromptTitle => 'Improve Location Accuracy';
+  String get locationAccuracyPromptTitle => 'অবস্থানের সঠিকতা উন্নত করুন';
 
   @override
   String get locationAccuracyPromptMessage =>
-      'TrackGuard works best when your device provides precise location information.';
+      'আপনার ডিভাইস সুনির্দিষ্ট অবস্থান তথ্য প্রদান করলে TrackGuard সবচেয়ে ভালো কাজ করে।';
 
   @override
   String get locationAccuracyPromptSettingsHeading =>
-      'Check your location settings:';
+      'আপনার অবস্থান সেটিংস পরীক্ষা করুন:';
 
   @override
   String get locationAccuracyPromptDeviceLocation =>
-      '1. Turn on Device Location.';
+      '১. ডিভাইস অবস্থান (Device Location) চালু করুন।';
 
   @override
   String get locationAccuracyPromptLocationAccuracy =>
-      '2. Enable Google Location Accuracy, if available.';
+      '২. উপলব্ধ থাকলে Google অবস্থান সঠিকতা (Google Location Accuracy) সক্ষম করুন।';
 
   @override
   String get locationAccuracyPromptExplanation =>
-      'This helps TrackGuard capture more accurate locations when reporting hazards.';
+      'এটি বিপদের রিপোর্ট করার সময় TrackGuard-কে আরও সঠিক অবস্থান শনাক্ত করতে সাহায্য করে।';
 
   @override
   String get locationAccuracyPromptManageSettingsOr =>
-      'You can manage these settings in your device\'s Location settings.';
+      'আপনি আপনার ডিভাইসের অবস্থান সেটিংসে এগুলি পরিচালনা করতে পারেন।';
 
   @override
-  String get locationAccuracyPromptNoThanks => 'Not now';
+  String get locationAccuracyPromptNoThanks => 'এখন নয়';
 
   @override
-  String get locationAccuracyPromptTurnOn => 'Continue';
+  String get locationAccuracyPromptTurnOn => 'চালিয়ে যান';
+
+  @override
+  String get reportTrackHazardDescription =>
+      'ধস, পাথর পড়া, বন্ধ ড্রেন বা ট্র্যাক সমস্যার একটি ছবি তুলুন';
+
+  @override
+  String get sendNow => 'এখনই পাঠান';
+
+  @override
+  String get viewMyReports => 'আমার রিপোর্ট দেখুন';
+
+  @override
+  String get willSendAtNextStation =>
+      'পরবর্তী স্টেশন সিগন্যালে স্বয়ংক্রিয়ভাবে পাঠানো হবে';
+
+  @override
+  String get allReportsSentToSupervisor =>
+      'আপনার সর্বশেষ রিপোর্টগুলি পরিদর্শকের কাছে পৌঁছে গেছে।';
+
+  @override
+  String get gpsLockedStatus => 'জিপিএস লক হয়েছে';
+
+  @override
+  String get setManually => 'ম্যানুয়ালি সেট করুন';
+
+  @override
+  String get startingCamera => 'ক্যামেরা চালু হচ্ছে…';
+
+  @override
+  String get retryCamera => 'ক্যামেরা পুনরায় চেষ্টা করুন';
+
+  @override
+  String get dhrAlignment => 'ডিএইচআর অ্যালাইনমেন্ট';
+
+  @override
+  String get savesSafelyOnPhoneFirst =>
+      'প্রথমে আপনার ফোনে নিরাপদে সংরক্ষিত হয়।';
+
+  @override
+  String get draftMissing => 'খসড়া অনুপস্থিত';
+
+  @override
+  String get inspectionDraftCouldNotBeLoaded =>
+      'পরিদর্শন খসড়া লোড করা যায়নি।';
+
+  @override
+  String hazardReportTitle(String hazard) {
+    return '$hazard রিপোর্ট';
+  }
+
+  @override
+  String get statusStepSent => 'পাঠানো হয়েছে';
+
+  @override
+  String get statusStepSeenBySupervisor => 'পরিদর্শক দেখেছেন';
+
+  @override
+  String get statusStepResolved => 'মীমাংসিত';
+
+  @override
+  String get technicalAndAiAuditDetails => 'প্রযুক্তিগত ও এআই অডিট বিবরণ';
+
+  @override
+  String get reportAuditInformation => 'রিপোর্ট অডিট তথ্য';
+
+  @override
+  String get noPhotoAttached => 'কোনো ছবি সংযুক্ত নেই';
+
+  @override
+  String get photoNotFoundOnDevice => 'ডিভাইসে ছবি পাওয়া যায়নি';
+
+  @override
+  String reportSource(String source, String accuracy) {
+    return 'উৎস: $source $accuracy';
+  }
+
+  @override
+  String reportIdLabel(String id) {
+    return 'রিপোর্ট আইডি: $id';
+  }
+
+  @override
+  String get nearestWaypointBadge => 'নিকটতম';
+
+  @override
+  String get allDhrAlignment => 'সমস্ত ডিএইচআর অ্যালাইনমেন্ট';
+
+  @override
+  String get profileIdentifier => 'প্রোফাইল শনাক্তকারী';
+
+  @override
+  String get appAlignmentTitle => 'TrackGuard ডিএইচআর অ্যালাইনমেন্ট';
+
+  @override
+  String get appEditionVersion => 'সংস্করণ ১.০.০ • ফিল্ড অপারেশন সংস্করণ';
+
+  @override
+  String get adminDashboardTitle => 'TrackGuard অ্যাডমিন';
+
+  @override
+  String get adminOverviewTab => 'সারসংক্ষেপ';
+
+  @override
+  String get adminReportsTab => 'রিপোর্টসমূহ';
+
+  @override
+  String get adminUsersTab => 'ব্যবহারকারী';
+
+  @override
+  String get adminReportOverview => 'রিপোর্ট সারসংক্ষেপ';
+
+  @override
+  String get adminSectionSummary => 'বিভাগ সারাংশ';
+
+  @override
+  String get adminLatestReports => 'সাম্প্রতিক রিপোর্ট';
+
+  @override
+  String get adminTotalReports => 'মোট রিপোর্ট';
+
+  @override
+  String get adminNoRemoteReportsFound =>
+      'কোনো দূরবর্তী রিপোর্ট পাওয়া যায়নি।';
+
+  @override
+  String get adminNoProfilesFound => 'কোনো প্রোফাইল পাওয়া যায়নি।';
+
+  @override
+  String get adminProfileUpdated => 'প্রোফাইল আপডেট হয়েছে';
+
+  @override
+  String adminUpdateFailed(String error) {
+    return 'আপডেট ব্যর্থ হয়েছে: $error';
+  }
+
+  @override
+  String get adminRoleLabel => 'ভূমিকা';
+
+  @override
+  String get adminAssignedSection => 'বরাদ্দকৃত বিভাগ';
+
+  @override
+  String get adminStatusUpdated =>
+      'অবস্থা আপডেট হয়েছে। নিচে অডিট ইতিহাস দেখুন।';
+
+  @override
+  String adminStatusUpdateFailed(String error) {
+    return 'অবস্থা আপডেট ব্যর্থ হয়েছে: $error';
+  }
+
+  @override
+  String get adminReportDetailTitle => 'অ্যাডমিন রিপোর্ট বিবরণ';
+
+  @override
+  String get adminReportNotFound =>
+      'রিপোর্ট পাওয়া যায়নি বা অ্যাক্সেস অস্বীকৃত।';
+
+  @override
+  String adminSeverityLabel(String severity) {
+    return 'তীব্রতা: $severity';
+  }
+
+  @override
+  String adminSectionLabel(String section) {
+    return 'বিভাগ: $section';
+  }
+
+  @override
+  String adminStationLabel(String station) {
+    return 'স্টেশন: $station';
+  }
+
+  @override
+  String adminKmMarkerLabel(String km) {
+    return 'কিমি মার্কার: $km';
+  }
+
+  @override
+  String adminCreatedLabel(String created) {
+    return 'তৈরি: $created';
+  }
+
+  @override
+  String adminGpsLabel(String lat, String lng) {
+    return 'জিপিএস: $lat, $lng';
+  }
+
+  @override
+  String get adminUpdateStatusHeading => 'অবস্থা আপডেট করুন';
+
+  @override
+  String get adminInspectionStatusLabel => 'পরিদর্শন অবস্থা';
+
+  @override
+  String get adminSaveStatusButton => 'অবস্থা সংরক্ষণ করুন';
+
+  @override
+  String get adminSavingStatus => 'সংরক্ষণ করা হচ্ছে…';
+
+  @override
+  String get adminAuditHistoryHeading => 'অডিট ইতিহাস';
+
+  @override
+  String adminCouldNotLoadHistory(String error) {
+    return 'ইতিহাস লোড করা যায়নি: $error';
+  }
+
+  @override
+  String get adminNoStatusChangesYet =>
+      'এখনও কোনো অবস্থা পরিবর্তন রেকর্ড করা হয়নি।';
+
+  @override
+  String get adminLoadingPhoto => 'পরিদর্শন ছবি লোড হচ্ছে...';
+
+  @override
+  String get adminNoPhotoAvailable =>
+      'এই রিপোর্টের জন্য কোনো পরিদর্শন ছবি উপলব্ধ নেই';
+
+  @override
+  String get adminFailedToLoadImage =>
+      'স্টোরেজ থেকে ছবি লোড করতে ব্যর্থ হয়েছে';
+
+  @override
+  String get adminTapToEnlarge => 'বড় করতে ট্যাপ করুন';
+
+  @override
+  String get adminInspectionPhotoBadge => 'পরিদর্শন ছবি';
+
+  @override
+  String get adminHazardPhotoTitle => 'বিপদ ছবি';
+
+  @override
+  String get adminFailedToLoadFullImage =>
+      'সম্পূর্ণ ছবি লোড করতে ব্যর্থ হয়েছে';
+
+  @override
+  String get adminNotSpecified => 'নির্দিষ্ট করা নেই';
+
+  @override
+  String get adminActiveStatus => 'সক্রিয়';
+
+  @override
+  String get adminInactiveStatus => 'নিষ্ক্রিয়';
+
+  @override
+  String adminChangedBy(String user) {
+    return '$user দ্বারা পরিবর্তিত';
+  }
+
+  @override
+  String get smartPhotoHelperTitle => 'স্মার্ট ফটো সহায়ক';
+
+  @override
+  String get aiModeAutomaticHelper => 'স্বয়ংক্রিয় ফটো সহায়ক (প্রস্তাবিত)';
+
+  @override
+  String get aiModeAutomaticHelperDesc =>
+      'অনলাইন বা অফলাইনে আপনার ছবি থেকে বিপদ প্রকার ও নোটের পরামর্শ দেয়।';
+
+  @override
+  String get aiModeOnlineHelper => 'অনলাইন ফটো সহায়ক';
+
+  @override
+  String get aiModeOnlineHelperDesc =>
+      'সংযুক্ত অনলাইন ভিশন মডেল ব্যবহার করুন; নেটওয়ার্ক সংযোগ প্রয়োজন।';
+
+  @override
+  String get aiModeOfflineHelper => 'অফলাইন ফটো সহায়ক';
+
+  @override
+  String get aiModeOfflineHelperDesc =>
+      'নেটওয়ার্ক সংযোগ ছাড়াই ডাউনলোড করা গেমা মডেল ব্যবহার করুন।';
+
+  @override
+  String get aiModeManualOnly => 'কেবল ম্যানুয়াল';
+
+  @override
+  String get aiModeManualOnlyDesc =>
+      'ছবির পরামর্শ বন্ধ করুন; আমি নিজেই বিপদ নির্বাচন করব।';
+
+  @override
+  String get offlinePhotoHelperPackTitle => 'অফলাইন ফটো সহায়ক প্যাক';
+
+  @override
+  String get offlinePhotoHelperPackSubtitle =>
+      'ওয়াই-ফাইতে একবার ডাউনলোড করুন যাতে মোবাইল সিগন্যাল না থাকলেও অ্যাপ বিপদের পরামর্শ দিতে পারে।';
+
+  @override
+  String get downloadOnWifiButton => 'ওয়াই-ফাইতে ডাউনলোড করুন';
+
+  @override
+  String get stayOnPage => 'পৃষ্ঠায় থাকুন';
+
+  @override
+  String get cancelDownloadAndLeave => 'ডাউনলোড বাতিল করুন এবং প্রস্থান করুন';
+
+  @override
+  String get cancelDownloadConfirmation =>
+      'এই পৃষ্ঠা ছেড়ে দিলে বর্তমান মডেল ডাউনলোড বাতিল হয়ে যাবে। আপনি কি নিশ্চিত যে আপনি বাতিল করে প্রস্থান করতে চান?';
+
+  @override
+  String get downloadPreferencesHeading => 'ডাউনলোড পছন্দসমূহ';
+
+  @override
+  String get preventsCellularUsage => 'সেলুলার ডেটা ব্যবহার রোধ করে';
+
+  @override
+  String get modelStatusAndActionsHeading => 'মডেল অবস্থা এবং কর্ম';
+
+  @override
+  String get onlineReadyStatus => 'অনলাইন প্রস্তুত';
+
+  @override
+  String get networkRequiredStatus => 'নেটওয়ার্ক প্রয়োজন';
+
+  @override
+  String get installedDateLabel => 'ইনস্টল করার তারিখ';
+
+  @override
+  String get sourceLabel => 'উৎস';
+
+  @override
+  String get integrationLabel => 'ইন্টিগ্রেশন';
+
+  @override
+  String get aiInferenceError => 'এআই অনুমান ত্রুটি';
+
+  @override
+  String get aiAdvisoryMetadataHeading => 'এআই পরামর্শমূলক মেটাডেটা';
+
+  @override
+  String get accountInactive => 'অ্যাকাউন্ট নিষ্ক্রিয়';
+
+  @override
+  String get permanentWayStaff => 'স্থায়ী-পথ কর্মী';
 }

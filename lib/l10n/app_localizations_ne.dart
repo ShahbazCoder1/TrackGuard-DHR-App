@@ -191,6 +191,23 @@ class AppLocalizationsNe extends AppLocalizations {
   String get selectWaypoint => 'नजिकको डीएचआर स्टेसन / वेपोइन्ट छान्नुहोस्';
 
   @override
+  String stationName(String stationId) {
+    String _temp0 = intl.Intl.selectLogic(stationId, {
+      'kurseong': 'कुर्सियाङ स्टेसन',
+      'tung': 'टुङ स्टेसन',
+      'dilaram': 'दिलाराम पोइन्ट',
+      'sonada': 'सोनादा स्टेसन',
+      'rongbull': 'रोङबुल लूप',
+      'jorebungalow': 'जोरेबङ्गलो',
+      'ghum': 'घुम स्टेसन',
+      'batasia': 'बतासिया लूप',
+      'darjeeling': 'दार्जिलिङ स्टेसन',
+      'other': 'stationId',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String get editKm => 'किमी मार्कर सम्पादन गर्नुहोस्';
 
   @override
@@ -941,4 +958,335 @@ class AppLocalizationsNe extends AppLocalizations {
 
   @override
   String get locationAccuracyPromptTurnOn => 'जारी राख्नुहोस्';
+
+  @override
+  String get reportTrackHazardDescription =>
+      'पहिरो, ढुङ्गा खसेको, बन्द नाली वा ट्र्याक समस्याको तस्बिर लिनुहोस्';
+
+  @override
+  String get sendNow => 'अहिले पठाउनुहोस्';
+
+  @override
+  String get viewMyReports => 'मेरा रिपोर्टहरू हेर्नुहोस्';
+
+  @override
+  String get willSendAtNextStation => 'अर्को स्टेशन सिग्नलमा स्वतः पठाइनेछ';
+
+  @override
+  String get allReportsSentToSupervisor =>
+      'तपाईंका नवीनतम रिपोर्टहरू पर्यवेक्षककहाँ पुगेका छन्।';
+
+  @override
+  String get gpsLockedStatus => 'जीपीएस लक भयो';
+
+  @override
+  String get setManually => 'म्यानुअल रूपमा सेट गर्नुहोस्';
+
+  @override
+  String get startingCamera => 'क्यामेरा सुरु हुँदैछ…';
+
+  @override
+  String get retryCamera => 'क्यामेरा पुनः प्रयास गर्नुहोस्';
+
+  @override
+  String get dhrAlignment => 'डीएचआर पङ्क्तिबद्धता';
+
+  @override
+  String get savesSafelyOnPhoneFirst =>
+      'पहिले तपाईंको फोनमा सुरक्षित रूपमा सुरक्षित हुन्छ।';
+
+  @override
+  String get draftMissing => 'ड्राफ्ट हराइरहेको छ';
+
+  @override
+  String get inspectionDraftCouldNotBeLoaded =>
+      'निरीक्षण ड्राफ्ट लोड गर्न सकिएन।';
+
+  @override
+  String hazardReportTitle(String hazard) {
+    return '$hazard रिपोर्ट';
+  }
+
+  @override
+  String get statusStepSent => 'पठाइयो';
+
+  @override
+  String get statusStepSeenBySupervisor => 'पर्यवेक्षकले हेरेको';
+
+  @override
+  String get statusStepResolved => 'समाधान भयो';
+
+  @override
+  String get technicalAndAiAuditDetails => 'प्राविधिक र एआई अडिट विवरण';
+
+  @override
+  String get reportAuditInformation => 'रिपोर्ट अडिट जानकारी';
+
+  @override
+  String get noPhotoAttached => 'कुनै तस्बिर संलग्न छैन';
+
+  @override
+  String get photoNotFoundOnDevice => 'यन्त्रमा तस्बिर फेला परेन';
+
+  @override
+  String reportSource(String source, String accuracy) {
+    return 'स्रोत: $source $accuracy';
+  }
+
+  @override
+  String reportIdLabel(String id) {
+    return 'रिपोर्ट आईडी: $id';
+  }
+
+  @override
+  String get nearestWaypointBadge => 'निकटतम';
+
+  @override
+  String get allDhrAlignment => 'सबै डीएचआर पङ्क्तिबद्धता';
+
+  @override
+  String get profileIdentifier => 'प्रोफाइल पहिचानकर्ता';
+
+  @override
+  String get appAlignmentTitle => 'TrackGuard डीएचआर पङ्क्तिबद्धता';
+
+  @override
+  String get appEditionVersion => 'संस्करण १.०.० • फिल्ड अपरेसन संस्करण';
+
+  @override
+  String get adminDashboardTitle => 'TrackGuard प्रशासक';
+
+  @override
+  String get adminOverviewTab => 'सिंहावलोकन';
+
+  @override
+  String get adminReportsTab => 'रिपोर्टहरू';
+
+  @override
+  String get adminUsersTab => 'प्रयोगकर्ताहरू';
+
+  @override
+  String get adminReportOverview => 'रिपोर्ट सिंहावलोकन';
+
+  @override
+  String get adminSectionSummary => 'खण्ड सारांश';
+
+  @override
+  String get adminLatestReports => 'पछिल्ला रिपोर्टहरू';
+
+  @override
+  String get adminTotalReports => 'कुल रिपोर्टहरू';
+
+  @override
+  String get adminNoRemoteReportsFound => 'कुनै दुर्गम रिपोर्ट फेला परेन।';
+
+  @override
+  String get adminNoProfilesFound => 'कुनै प्रोफाइल फेला परेन।';
+
+  @override
+  String get adminProfileUpdated => 'प्रोफाइल अपडेट भयो';
+
+  @override
+  String adminUpdateFailed(String error) {
+    return 'अपडेट असफल भयो: $error';
+  }
+
+  @override
+  String get adminRoleLabel => 'भूमिका';
+
+  @override
+  String get adminAssignedSection => 'तोकिएको खण्ड';
+
+  @override
+  String get adminStatusUpdated =>
+      'स्थिति अपडेट भयो। तल अडिट इतिहास हेर्नुहोस्।';
+
+  @override
+  String adminStatusUpdateFailed(String error) {
+    return 'स्थिति अपडेट असफल भयो: $error';
+  }
+
+  @override
+  String get adminReportDetailTitle => 'प्रशासक रिपोर्ट विवरण';
+
+  @override
+  String get adminReportNotFound =>
+      'रिपोर्ट फेला परेन वा पहुँच अस्वीकार गरियो।';
+
+  @override
+  String adminSeverityLabel(String severity) {
+    return 'गम्भीरता: $severity';
+  }
+
+  @override
+  String adminSectionLabel(String section) {
+    return 'खण्ड: $section';
+  }
+
+  @override
+  String adminStationLabel(String station) {
+    return 'स्टेशन: $station';
+  }
+
+  @override
+  String adminKmMarkerLabel(String km) {
+    return 'किमी मार्कर: $km';
+  }
+
+  @override
+  String adminCreatedLabel(String created) {
+    return 'सिर्जना गरिएको: $created';
+  }
+
+  @override
+  String adminGpsLabel(String lat, String lng) {
+    return 'जीपीएस: $lat, $lng';
+  }
+
+  @override
+  String get adminUpdateStatusHeading => 'स्थिति अपडेट गर्नुहोस्';
+
+  @override
+  String get adminInspectionStatusLabel => 'निरीक्षण स्थिति';
+
+  @override
+  String get adminSaveStatusButton => 'स्थिति सुरक्षित गर्नुहोस्';
+
+  @override
+  String get adminSavingStatus => 'सुरक्षित गर्दै…';
+
+  @override
+  String get adminAuditHistoryHeading => 'अडिट इतिहास';
+
+  @override
+  String adminCouldNotLoadHistory(String error) {
+    return 'इतिहास लोड गर्न सकिएन: $error';
+  }
+
+  @override
+  String get adminNoStatusChangesYet =>
+      'अहिलेसम्म कुनै स्थिति परिवर्तन रेकर्ड गरिएको छैन।';
+
+  @override
+  String get adminLoadingPhoto => 'निरीक्षण तस्बिर लोड हुँदैछ...';
+
+  @override
+  String get adminNoPhotoAvailable =>
+      'यस रिपोर्टको लागि कुनै निरीक्षण तस्बिर उपलब्ध छैन';
+
+  @override
+  String get adminFailedToLoadImage => 'भण्डारणबाट छवि लोड गर्न असफल भयो';
+
+  @override
+  String get adminTapToEnlarge => 'ठूलो बनाउन ट्याप गर्नुहोस्';
+
+  @override
+  String get adminInspectionPhotoBadge => 'निरीक्षण तस्बिर';
+
+  @override
+  String get adminHazardPhotoTitle => 'खतरा तस्बिर';
+
+  @override
+  String get adminFailedToLoadFullImage => 'पूर्ण छवि लोड गर्न असफल भयो';
+
+  @override
+  String get adminNotSpecified => 'तोकिएको छैन';
+
+  @override
+  String get adminActiveStatus => 'सक्रिय';
+
+  @override
+  String get adminInactiveStatus => 'निष्क्रिय';
+
+  @override
+  String adminChangedBy(String user) {
+    return '$user द्वारा परिवर्तन गरिएको';
+  }
+
+  @override
+  String get smartPhotoHelperTitle => 'स्मार्ट तस्बिर सहायक';
+
+  @override
+  String get aiModeAutomaticHelper => 'स्वचालित तस्बिर सहायक (सिफारिस गरिएको)';
+
+  @override
+  String get aiModeAutomaticHelperDesc =>
+      'तपाईंको तस्बिरबाट खतराको प्रकार र नोट सिफारिस गर्दछ, अनलाइन वा अफलाइन।';
+
+  @override
+  String get aiModeOnlineHelper => 'अनलाइन तस्बिर सहायक';
+
+  @override
+  String get aiModeOnlineHelperDesc =>
+      'जडित अनलाइन भिजन मोडल प्रयोग गर्नुहोस्; नेटवर्क जडान आवश्यक छ।';
+
+  @override
+  String get aiModeOfflineHelper => 'अफलाइन तस्बिर सहायक';
+
+  @override
+  String get aiModeOfflineHelperDesc =>
+      'नेटवर्क जडान बिना डाउनलोड गरिएको गेम्मा मोडल प्रयोग गर्नुहोस्।';
+
+  @override
+  String get aiModeManualOnly => 'म्यानुअल मात्र';
+
+  @override
+  String get aiModeManualOnlyDesc =>
+      'तस्बिर सिफारिसहरू बन्द गर्नुहोस्; म आफैं खतरा छनौट गर्नेछु।';
+
+  @override
+  String get offlinePhotoHelperPackTitle => 'अफलाइन तस्बिर सहायक प्याक';
+
+  @override
+  String get offlinePhotoHelperPackSubtitle =>
+      'वाइफाइमा एक पटक डाउनलोड गर्नुहोस् ताकि मोबाइल सिग्नल नहुँदा पनि एपले खतराहरू सिफारिस गर्न सकोस्।';
+
+  @override
+  String get downloadOnWifiButton => 'वाइफाइमा डाउनलोड गर्नुहोस्';
+
+  @override
+  String get stayOnPage => 'यसै पृष्ठमा रहनुहोस्';
+
+  @override
+  String get cancelDownloadAndLeave => 'डाउनलोड रद्द गर्नुहोस् र छोड्नुहोस्';
+
+  @override
+  String get cancelDownloadConfirmation =>
+      'यो पृष्ठ छोड्दा हालको मोडल डाउनलोड रद्द हुनेछ। के तपाईं साँच्चै रद्द गरेर छोड्न चाहनुहुन्छ?';
+
+  @override
+  String get downloadPreferencesHeading => 'डाउनलोड प्राथमिकताहरू';
+
+  @override
+  String get preventsCellularUsage => 'सेलुलर डाटा प्रयोग रोक्छ';
+
+  @override
+  String get modelStatusAndActionsHeading => 'मोडल स्थिति र कार्यहरू';
+
+  @override
+  String get onlineReadyStatus => 'अनलाइन तयार';
+
+  @override
+  String get networkRequiredStatus => 'नेटवर्क आवश्यक';
+
+  @override
+  String get installedDateLabel => 'स्थापना मिति';
+
+  @override
+  String get sourceLabel => 'स्रोत';
+
+  @override
+  String get integrationLabel => 'एकीकरण';
+
+  @override
+  String get aiInferenceError => 'एआई अनुमान त्रुटि';
+
+  @override
+  String get aiAdvisoryMetadataHeading => 'एआई सल्लाहकार मेटाडेटा';
+
+  @override
+  String get accountInactive => 'खाता निष्क्रिय';
+
+  @override
+  String get permanentWayStaff => 'स्थायी-मार्ग कर्मचारी';
 }

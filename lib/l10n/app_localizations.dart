@@ -414,6 +414,12 @@ abstract class AppLocalizations {
   /// **'Select Nearest DHR Station / Waypoint'**
   String get selectWaypoint;
 
+  /// No description provided for @stationName.
+  ///
+  /// In en, this message translates to:
+  /// **'{stationId, select, kurseong {Kurseong Station} tung {Tung Station} dilaram {Dilaram Point} sonada {Sonada Station} rongbull {Rongbull Loop} jorebungalow {Jorebungalow} ghum {Ghum Station} batasia {Batasia Loop} darjeeling {Darjeeling Station} other {stationId}}'**
+  String stationName(String stationId);
+
   /// No description provided for @editKm.
   ///
   /// In en, this message translates to:
@@ -1731,6 +1737,588 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue'**
   String get locationAccuracyPromptTurnOn;
+
+  /// No description provided for @reportTrackHazardDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo of a slip, rockfall, drain, or track issue'**
+  String get reportTrackHazardDescription;
+
+  /// No description provided for @sendNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Now'**
+  String get sendNow;
+
+  /// No description provided for @viewMyReports.
+  ///
+  /// In en, this message translates to:
+  /// **'View My Reports'**
+  String get viewMyReports;
+
+  /// No description provided for @willSendAtNextStation.
+  ///
+  /// In en, this message translates to:
+  /// **'Will send automatically at next station signal'**
+  String get willSendAtNextStation;
+
+  /// No description provided for @allReportsSentToSupervisor.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest reports have reached the supervisor.'**
+  String get allReportsSentToSupervisor;
+
+  /// No description provided for @gpsLockedStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS locked'**
+  String get gpsLockedStatus;
+
+  /// No description provided for @setManually.
+  ///
+  /// In en, this message translates to:
+  /// **'Set manually'**
+  String get setManually;
+
+  /// No description provided for @startingCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting camera…'**
+  String get startingCamera;
+
+  /// No description provided for @retryCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry camera'**
+  String get retryCamera;
+
+  /// No description provided for @dhrAlignment.
+  ///
+  /// In en, this message translates to:
+  /// **'DHR alignment'**
+  String get dhrAlignment;
+
+  /// No description provided for @savesSafelyOnPhoneFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Saves safely on your phone first.'**
+  String get savesSafelyOnPhoneFirst;
+
+  /// No description provided for @draftMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft Missing'**
+  String get draftMissing;
+
+  /// No description provided for @inspectionDraftCouldNotBeLoaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspection draft could not be loaded.'**
+  String get inspectionDraftCouldNotBeLoaded;
+
+  /// No description provided for @hazardReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{hazard} Report'**
+  String hazardReportTitle(String hazard);
+
+  /// No description provided for @statusStepSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent'**
+  String get statusStepSent;
+
+  /// No description provided for @statusStepSeenBySupervisor.
+  ///
+  /// In en, this message translates to:
+  /// **'Seen by Supervisor'**
+  String get statusStepSeenBySupervisor;
+
+  /// No description provided for @statusStepResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get statusStepResolved;
+
+  /// No description provided for @technicalAndAiAuditDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical & AI Audit Details'**
+  String get technicalAndAiAuditDetails;
+
+  /// No description provided for @reportAuditInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'REPORT AUDIT INFORMATION'**
+  String get reportAuditInformation;
+
+  /// No description provided for @noPhotoAttached.
+  ///
+  /// In en, this message translates to:
+  /// **'No photo attached'**
+  String get noPhotoAttached;
+
+  /// No description provided for @photoNotFoundOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo not found on device'**
+  String get photoNotFoundOnDevice;
+
+  /// No description provided for @reportSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source: {source} {accuracy}'**
+  String reportSource(String source, String accuracy);
+
+  /// No description provided for @reportIdLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Report ID: {id}'**
+  String reportIdLabel(String id);
+
+  /// No description provided for @nearestWaypointBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearest'**
+  String get nearestWaypointBadge;
+
+  /// No description provided for @allDhrAlignment.
+  ///
+  /// In en, this message translates to:
+  /// **'All DHR Alignment'**
+  String get allDhrAlignment;
+
+  /// No description provided for @profileIdentifier.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Identifier'**
+  String get profileIdentifier;
+
+  /// No description provided for @appAlignmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'TrackGuard DHR Alignment'**
+  String get appAlignmentTitle;
+
+  /// No description provided for @appEditionVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version 1.0.0 • Field Operations Edition'**
+  String get appEditionVersion;
+
+  /// No description provided for @adminDashboardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'TrackGuard Admin'**
+  String get adminDashboardTitle;
+
+  /// No description provided for @adminOverviewTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get adminOverviewTab;
+
+  /// No description provided for @adminReportsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get adminReportsTab;
+
+  /// No description provided for @adminUsersTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Users'**
+  String get adminUsersTab;
+
+  /// No description provided for @adminReportOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'REPORT OVERVIEW'**
+  String get adminReportOverview;
+
+  /// No description provided for @adminSectionSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'SECTION SUMMARY'**
+  String get adminSectionSummary;
+
+  /// No description provided for @adminLatestReports.
+  ///
+  /// In en, this message translates to:
+  /// **'LATEST REPORTS'**
+  String get adminLatestReports;
+
+  /// No description provided for @adminTotalReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Total reports'**
+  String get adminTotalReports;
+
+  /// No description provided for @adminNoRemoteReportsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No remote reports found.'**
+  String get adminNoRemoteReportsFound;
+
+  /// No description provided for @adminNoProfilesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No profiles found.'**
+  String get adminNoProfilesFound;
+
+  /// No description provided for @adminProfileUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated'**
+  String get adminProfileUpdated;
+
+  /// No description provided for @adminUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Update failed: {error}'**
+  String adminUpdateFailed(String error);
+
+  /// No description provided for @adminRoleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get adminRoleLabel;
+
+  /// No description provided for @adminAssignedSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned section'**
+  String get adminAssignedSection;
+
+  /// No description provided for @adminStatusUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Status updated. Check audit history below.'**
+  String get adminStatusUpdated;
+
+  /// No description provided for @adminStatusUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Status update failed: {error}'**
+  String adminStatusUpdateFailed(String error);
+
+  /// No description provided for @adminReportDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin report detail'**
+  String get adminReportDetailTitle;
+
+  /// No description provided for @adminReportNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Report not found or access denied.'**
+  String get adminReportNotFound;
+
+  /// No description provided for @adminSeverityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Severity: {severity}'**
+  String adminSeverityLabel(String severity);
+
+  /// No description provided for @adminSectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Section: {section}'**
+  String adminSectionLabel(String section);
+
+  /// No description provided for @adminStationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Station: {station}'**
+  String adminStationLabel(String station);
+
+  /// No description provided for @adminKmMarkerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Km marker: {km}'**
+  String adminKmMarkerLabel(String km);
+
+  /// No description provided for @adminCreatedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Created: {created}'**
+  String adminCreatedLabel(String created);
+
+  /// No description provided for @adminGpsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS: {lat}, {lng}'**
+  String adminGpsLabel(String lat, String lng);
+
+  /// No description provided for @adminUpdateStatusHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'UPDATE STATUS'**
+  String get adminUpdateStatusHeading;
+
+  /// No description provided for @adminInspectionStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspection status'**
+  String get adminInspectionStatusLabel;
+
+  /// No description provided for @adminSaveStatusButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save status'**
+  String get adminSaveStatusButton;
+
+  /// No description provided for @adminSavingStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get adminSavingStatus;
+
+  /// No description provided for @adminAuditHistoryHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'AUDIT HISTORY'**
+  String get adminAuditHistoryHeading;
+
+  /// No description provided for @adminCouldNotLoadHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load history: {error}'**
+  String adminCouldNotLoadHistory(String error);
+
+  /// No description provided for @adminNoStatusChangesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No status changes recorded yet.'**
+  String get adminNoStatusChangesYet;
+
+  /// No description provided for @adminLoadingPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading inspection photo...'**
+  String get adminLoadingPhoto;
+
+  /// No description provided for @adminNoPhotoAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No inspection photo available for this report'**
+  String get adminNoPhotoAvailable;
+
+  /// No description provided for @adminFailedToLoadImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load image from storage'**
+  String get adminFailedToLoadImage;
+
+  /// No description provided for @adminTapToEnlarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to enlarge'**
+  String get adminTapToEnlarge;
+
+  /// No description provided for @adminInspectionPhotoBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'INSPECTION PHOTO'**
+  String get adminInspectionPhotoBadge;
+
+  /// No description provided for @adminHazardPhotoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hazard Photo'**
+  String get adminHazardPhotoTitle;
+
+  /// No description provided for @adminFailedToLoadFullImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load full image'**
+  String get adminFailedToLoadFullImage;
+
+  /// No description provided for @adminNotSpecified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified'**
+  String get adminNotSpecified;
+
+  /// No description provided for @adminActiveStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'ACTIVE'**
+  String get adminActiveStatus;
+
+  /// No description provided for @adminInactiveStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'INACTIVE'**
+  String get adminInactiveStatus;
+
+  /// No description provided for @adminChangedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Changed by {user}'**
+  String adminChangedBy(String user);
+
+  /// No description provided for @smartPhotoHelperTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Photo Helper'**
+  String get smartPhotoHelperTitle;
+
+  /// No description provided for @aiModeAutomaticHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic Photo Helper (Recommended)'**
+  String get aiModeAutomaticHelper;
+
+  /// No description provided for @aiModeAutomaticHelperDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggests a hazard type and note from your photo, online or offline.'**
+  String get aiModeAutomaticHelperDesc;
+
+  /// No description provided for @aiModeOnlineHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Photo Helper'**
+  String get aiModeOnlineHelper;
+
+  /// No description provided for @aiModeOnlineHelperDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the connected online vision model; needs a network connection.'**
+  String get aiModeOnlineHelperDesc;
+
+  /// No description provided for @aiModeOfflineHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline Photo Helper'**
+  String get aiModeOfflineHelper;
+
+  /// No description provided for @aiModeOfflineHelperDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the downloaded Gemma model without a network connection.'**
+  String get aiModeOfflineHelperDesc;
+
+  /// No description provided for @aiModeManualOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Only'**
+  String get aiModeManualOnly;
+
+  /// No description provided for @aiModeManualOnlyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off photo suggestions; I will choose the hazard myself.'**
+  String get aiModeManualOnlyDesc;
+
+  /// No description provided for @offlinePhotoHelperPackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline Photo Helper Pack'**
+  String get offlinePhotoHelperPackTitle;
+
+  /// No description provided for @offlinePhotoHelperPackSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Download once on Wi-Fi so the app can suggest hazards from your photos when there is no mobile signal.'**
+  String get offlinePhotoHelperPackSubtitle;
+
+  /// No description provided for @downloadOnWifiButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Download on Wi-Fi'**
+  String get downloadOnWifiButton;
+
+  /// No description provided for @stayOnPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay on Page'**
+  String get stayOnPage;
+
+  /// No description provided for @cancelDownloadAndLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Download & Leave'**
+  String get cancelDownloadAndLeave;
+
+  /// No description provided for @cancelDownloadConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaving this page will cancel the current model download. Are you sure you want to cancel and leave?'**
+  String get cancelDownloadConfirmation;
+
+  /// No description provided for @downloadPreferencesHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'DOWNLOAD PREFERENCES'**
+  String get downloadPreferencesHeading;
+
+  /// No description provided for @preventsCellularUsage.
+  ///
+  /// In en, this message translates to:
+  /// **'Prevents cellular data usage'**
+  String get preventsCellularUsage;
+
+  /// No description provided for @modelStatusAndActionsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'MODEL STATUS & ACTIONS'**
+  String get modelStatusAndActionsHeading;
+
+  /// No description provided for @onlineReadyStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Ready'**
+  String get onlineReadyStatus;
+
+  /// No description provided for @networkRequiredStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Network Required'**
+  String get networkRequiredStatus;
+
+  /// No description provided for @installedDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed Date'**
+  String get installedDateLabel;
+
+  /// No description provided for @sourceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get sourceLabel;
+
+  /// No description provided for @integrationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Integration'**
+  String get integrationLabel;
+
+  /// No description provided for @aiInferenceError.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Inference Error'**
+  String get aiInferenceError;
+
+  /// No description provided for @aiAdvisoryMetadataHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'AI ADVISORY METADATA'**
+  String get aiAdvisoryMetadataHeading;
+
+  /// No description provided for @accountInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Inactive'**
+  String get accountInactive;
+
+  /// No description provided for @permanentWayStaff.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanent-Way Staff'**
+  String get permanentWayStaff;
 }
 
 class _AppLocalizationsDelegate
