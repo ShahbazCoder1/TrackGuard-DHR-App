@@ -37,10 +37,10 @@ class OnlineGeminiProvider implements OnlineAiProvider {
   final ConnectivityService _connectivityService;
   final AiResultValidator _validator;
   final AiPromptBuilder _promptBuilder;
-  final http.Client? _httpClient;
-  final String? _apiKey;
-  final String? _model;
-  final String? _apiUrl;
+  final http.Client? httpClient;
+  final String? apiKey;
+  final String? model;
+  final String? apiUrl;
 
   OnlineGeminiProvider({
     this.supabaseClient,
@@ -55,16 +55,16 @@ class OnlineGeminiProvider implements OnlineAiProvider {
             connectivityService ?? DefaultConnectivityService(),
         _validator = validator ?? AiResultValidator(),
         _promptBuilder = promptBuilder ?? AiPromptBuilder(),
-        _httpClient = httpClient,
-        _apiKey = apiKey,
-        _model = model,
-        _apiUrl = apiUrl;
+        httpClient = httpClient,
+        apiKey = apiKey,
+        model = model,
+        apiUrl = apiUrl;
 
   @override
   Future<bool> isAvailable() async {
     final isOnline = await _connectivityService.isOnline();
     if (!isOnline) return false;
-    final key = (_apiKey ?? AppEnv.openRouterApiKey).trim();
+    final key = (apiKey ?? AppEnv.openRouterApiKey).trim();
     return key.isNotEmpty;
   }
 
@@ -81,7 +81,7 @@ class OnlineGeminiProvider implements OnlineAiProvider {
       );
     }
 
-    final key = (_apiKey ?? AppEnv.openRouterApiKey).trim();
+    final key = (apiKey ?? AppEnv.openRouterApiKey).trim();
     if (key.isEmpty) {
       throw const GeminiUnauthorizedException(
         'OpenRouter API key is not configured. Please set OPENROUTER_API_KEY in .env.',
@@ -112,8 +112,8 @@ class OnlineGeminiProvider implements OnlineAiProvider {
       location: location,
     );
 
-    final modelName = (_model ?? AppEnv.openRouterModel).trim();
-    final endpointUrl = _apiUrl ?? AiProviderConfig.openRouterApiUrl;
+    final modelName = (model ?? AppEnv.openRouterModel).trim();
+    final endpointUrl = apiUrl ?? AiProviderConfig.openRouterApiUrl;
 
     final requestHeaders = {
       'Authorization': 'Bearer $key',
@@ -143,8 +143,8 @@ class OnlineGeminiProvider implements OnlineAiProvider {
       ],
     });
 
-    final client = _httpClient ?? http.Client();
-    final shouldCloseClient = _httpClient == null;
+    final client = httpClient ?? http.Client();
+    final shouldCloseClient = httpClient == null;
 
     try {
       final response = await client

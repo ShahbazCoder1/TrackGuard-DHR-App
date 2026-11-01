@@ -14,22 +14,48 @@ class LocationAccuracyPrompt extends StatefulWidget {
 
 class _LocationAccuracyPromptState extends State<LocationAccuracyPrompt> {
   final PermissionService _permissionService = DefaultPermissionService();
-  bool _hasShownPrompt = false;
+  static bool _hasPromptedThisSession = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_hasShownPrompt) return;
-    _hasShownPrompt = true;
+  void initState() {
+    super.initState();
+    if (_hasPromptedThisSession) return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _showPrompt();
+        _checkAndShowPrompt();
       }
     });
   }
 
+  Future<void> _checkAndShowPrompt() async {
+    if (_hasPromptedThisSession) return;
+
+    // First check if location service is already enabled and permission is granted
+    try {
+      final serviceEnabled =
+          await _permissionService.isLocationServiceEnabled();
+      final permissionGranted =
+          await _permissionService.checkLocationPermission();
+
+      // If location is already active and permission granted, never bother the user
+      if (serviceEnabled && permissionGranted) {
+        _hasPromptedThisSession = true;
+        return;
+      }
+    } catch (_) {
+      // Ignore checks if platform channel fails
+    }
+
+    _hasPromptedThisSession = true;
+    if (!mounted) return;
+
+    await _showPrompt();
+  }
+
   Future<void> _showPrompt() async {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) return;
+
     final shouldTurnOn = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
@@ -74,11 +100,12 @@ class _LocationAccuracyPromptState extends State<LocationAccuracyPrompt> {
 
     if (shouldTurnOn != true || !mounted) return;
 
-    final permissionGranted = await _permissionService
-        .requestLocationPermission();
+    final permissionGranted =
+        await _permissionService.requestLocationPermission();
     if (!mounted) return;
 
-    final serviceEnabled = await _permissionService.isLocationServiceEnabled();
+    final serviceEnabled =
+        await _permissionService.isLocationServiceEnabled();
     if (!permissionGranted || !serviceEnabled) {
       await _permissionService.openLocationSettings();
     }

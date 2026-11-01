@@ -86,11 +86,12 @@ class CameraService {
 
     final camera = _cameras[_selectedCameraIndex];
 
-    // Keep the initial resolution low for faster startup.
+    // Use a clear preview suitable for inspecting track hazards. Low resolution
+    // made the live view visibly soft on devices with large displays.
     // Do not force ImageFormatGroup.jpeg on Android.
     final controller = CameraController(
       camera,
-      ResolutionPreset.low,
+      ResolutionPreset.high,
       enableAudio: false,
     );
 
@@ -164,7 +165,7 @@ class CameraService {
 
       final controller = CameraController(
         _cameras[nextIndex],
-        ResolutionPreset.low,
+        ResolutionPreset.high,
         enableAudio: false,
       );
 

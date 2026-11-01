@@ -283,5 +283,14 @@
   "offlineModelCorrupted": "मोडल फाइलहरू क्षतिग्रस्त देखिन्छन्। कृपया मोडल पुनः डाउनलोड गर्नुहोस्।",
   "offlineModelVersion": "संस्करण: {version}",
   "offlineModelDownloadedAt": "डाउनलोड गरिएको: {date}",
-  "offlineModelDownloadCancelled": "मोडल डाउनलोड रद्द गरियो।"
+  "offlineModelDownloadCancelled": "मोडल डाउनलोड रद्द गरियो।",
+  "locationAccuracyPromptTitle": "स्थान शुद्धता सुधार गर्नुहोस्",
+  "locationAccuracyPromptMessage": "तपाईंको यन्त्रले सटीक स्थान जानकारी प्रदान गर्दा TrackGuard ले उत्तम काम गर्दछ।",
+  "locationAccuracyPromptSettingsHeading": "आफ्नो स्थान सेटिङहरू जाँच गर्नुहोस्:",
+  "locationAccuracyPromptDeviceLocation": "१. यन्त्रको स्थान (Device Location) अन गर्नुहोस्।",
+  "locationAccuracyPromptLocationAccuracy": "२. उपलब्ध भएमा Google स्थान शुद्धता (Google Location Accuracy) सक्षम गर्नुहोस्।",
+  "locationAccuracyPromptExplanation": "यसले खतराहरू रिपोर्ट गर्दा TrackGuard लाई अधिक सटीक स्थानहरू क्याप्चर गर्न मद्दत गर्दछ।",
+  "locationAccuracyPromptManageSettingsOr": "तपाईं आफ्नो यन्त्रको स्थान सेटिङहरूमा यी सेटिङहरू व्यवस्थापन गर्न सक्नुहुन्छ।",
+  "locationAccuracyPromptNoThanks": "अहिले होइन",
+  "locationAccuracyPromptTurnOn": "जारी राख्नुहोस्"
 }

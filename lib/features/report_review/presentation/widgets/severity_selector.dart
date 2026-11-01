@@ -43,50 +43,65 @@ class SeveritySelector extends StatelessWidget {
             final color = _severityColor(severity);
             return SizedBox(
               width: width,
-              height: 76,
+              height: 90,
               child: InkWell(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(10),
                 onTap: () => onSelected(severity),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 10,
+                    horizontal: 12,
+                    vertical: 8,
                   ),
                   decoration: BoxDecoration(
                     color: selected
-                        ? color.withValues(alpha: 0.10)
+                        ? color.withValues(alpha: 0.12)
                         : AppTheme.surfaceDark,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       color: selected ? color : AppTheme.borderDark,
-                      width: 1.5,
+                      width: selected ? 2.0 : 1.5,
                     ),
                   ),
-                  child: Row(
+                  child: Stack(
                     children: [
-                      Container(
-                        width: 14,
-                        height: 14,
-                        decoration: BoxDecoration(
-                          color: color,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          _severityLabel(context, severity),
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: selected
-                                ? FontWeight.w700
-                                : FontWeight.w500,
-                            color: AppTheme.textPrimary,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 14,
+                            height: 14,
+                            margin: const EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                              color: color,
+                              shape: BoxShape.circle,
+                            ),
                           ),
-                        ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 12),
+                              child: Text(
+                                _severityLabel(context, severity),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  height: 1.25,
+                                  fontWeight: selected
+                                      ? FontWeight.w700
+                                      : FontWeight.w600,
+                                  color: AppTheme.textPrimary,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       if (selected)
-                        Icon(Icons.check, size: 18, color: color),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Icon(Icons.check_circle, size: 16, color: color),
+                        ),
                     ],
                   ),
                 ),

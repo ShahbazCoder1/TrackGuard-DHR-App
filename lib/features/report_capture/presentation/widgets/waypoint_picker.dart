@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:trackguard_dhr/app/theme.dart';
 import 'package:trackguard_dhr/core/constants/dhr_waypoints.dart';
 import 'package:trackguard_dhr/l10n/app_localizations.dart';
 
@@ -7,16 +8,15 @@ import 'package:trackguard_dhr/l10n/app_localizations.dart';
 const _kNearest = 'Nearest';
 const _kKmUnit = 'km';
 
-/// Same palette as the capture screen so the sheet reads as part of it.
-/// If you'd rather have one source of truth, move this into a shared file.
+/// Daylight palette keeps location selection legible outdoors.
 abstract final class _C {
-  static const surface = Color(0xFF111A17);
-  static const surfaceHigh = Color(0xFF18241F);
-  static const brass = Color(0xFFD9A441);
-  static const text = Color(0xFFEAF1EE);
-  static const textDim = Color(0xFF9DB0A8);
-  static final hairline = Colors.white.withValues(alpha: 0.10);
-  static final rail = Colors.white.withValues(alpha: 0.14);
+  static const surface = AppTheme.surfaceDark;
+  static const surfaceHigh = AppTheme.surfaceDarkElevated;
+  static const brass = AppTheme.primaryBlue;
+  static const text = AppTheme.textPrimary;
+  static const textDim = AppTheme.textSecondary;
+  static const hairline = AppTheme.borderDark;
+  static const rail = AppTheme.borderDark;
 }
 
 class WaypointPickerSheet extends StatefulWidget {
@@ -100,7 +100,7 @@ class _WaypointPickerSheetState extends State<WaypointPickerSheet> {
                     width: 40,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.18),
+                      color: _C.hairline,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -122,7 +122,7 @@ class _WaypointPickerSheetState extends State<WaypointPickerSheet> {
                       ),
                     ),
                     Material(
-                      color: Colors.white.withValues(alpha: 0.07),
+                      color: _C.surfaceHigh,
                       clipBehavior: Clip.antiAlias,
                       shape: CircleBorder(side: BorderSide(color: _C.hairline)),
                       child: IconButton(
@@ -360,10 +360,7 @@ class _StationTile extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: _C.surface,
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.4),
-                  width: 2,
-                ),
+                border: Border.all(color: _C.textDim, width: 2),
               ),
             ),
     ),

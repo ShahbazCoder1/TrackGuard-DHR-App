@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -53,23 +55,39 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
     return Scaffold(
       drawer: const RoleNavigationDrawer(currentRoute: '/admin/dashboard'),
       appBar: AppBar(
-        title: const Text('TrackGuard Admin'),
+        titleSpacing: 0,
+        title: const Text(
+          'TrackGuard Admin',
+          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+        ),
         actions: [
           IconButton(
             tooltip: 'Refresh',
+            iconSize: 22,
+            padding: const EdgeInsets.all(8),
+            constraints: const BoxConstraints(),
             onPressed: () => _refresh().catchError((_) {}),
             icon: const Icon(Icons.refresh),
           ),
+          const SizedBox(width: 4),
           IconButton(
             tooltip: 'Profile',
+            iconSize: 22,
+            padding: const EdgeInsets.all(8),
+            constraints: const BoxConstraints(),
             onPressed: () => context.push('/profile'),
             icon: const Icon(Icons.person_outline),
           ),
+          const SizedBox(width: 4),
           IconButton(
             tooltip: 'Sign out',
+            iconSize: 22,
+            padding: const EdgeInsets.all(8),
+            constraints: const BoxConstraints(),
             onPressed: () => showLogoutConfirmationDialog(context, ref),
             icon: const Icon(Icons.logout),
           ),
+          const SizedBox(width: 8),
         ],
       ),
       body: Column(
@@ -89,6 +107,14 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: SegmentedButton<int>(
+              showSelectedIcon: false,
+              style: SegmentedButton.styleFrom(
+                visualDensity: VisualDensity.compact,
+                textStyle: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               segments: const [
                 ButtonSegment(
                   value: 0,
@@ -379,6 +405,7 @@ class _UserCardState extends State<_UserCard> {
               const SizedBox(width: 12),
               Expanded(
                 child: DropdownButtonFormField<String>(
+                  isExpanded: true,
                   initialValue: section.text.isEmpty ? null : section.text,
                   decoration: const InputDecoration(
                     labelText: 'Assigned section',
@@ -386,8 +413,14 @@ class _UserCardState extends State<_UserCard> {
                   ),
                   items: DhrWaypoints.sections
                       .map(
-                        (s) =>
-                            DropdownMenuItem(value: s.id, child: Text(s.name)),
+                        (s) => DropdownMenuItem(
+                          value: s.id,
+                          child: Text(
+                            s.name,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                       )
                       .toList(),
                   onChanged: saving
@@ -428,6 +461,7 @@ class _AdminReportDetailScreenState
     extends ConsumerState<AdminReportDetailScreen> {
   late Future<HazardReport?> reportFuture;
   late Future<List<Map<String, dynamic>>> historyFuture;
+  late Future<String?> mediaUrlFuture;
   InspectionStatus? selected;
   bool saving = false;
   AdminRepository get repo => ref.read(adminRepositoryProvider);
@@ -440,6 +474,7 @@ class _AdminReportDetailScreenState
   void _reload() {
     reportFuture = repo.fetchReport(widget.reportId);
     historyFuture = repo.fetchHistory(widget.reportId);
+    mediaUrlFuture = repo.fetchReportMediaUrl(widget.reportId);
   }
 
   Future<void> _save(HazardReport report) async {
@@ -492,6 +527,7 @@ class _AdminReportDetailScreenState
         return ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            _buildImageSection(r),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -552,6 +588,7 @@ class _AdminReportDetailScreenState
                     const _SectionHeading('UPDATE STATUS'),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<InspectionStatus>(
+                      isExpanded: true,
                       initialValue: current,
                       decoration: const InputDecoration(
                         labelText: 'Inspection status',
@@ -641,6 +678,231 @@ class _AdminReportDetailScreenState
       },
     ),
   );
+
+  Widget _buildImageSection(HazardReport r) {
+    return FutureBuilder<String?>(
+      future: mediaUrlFuture,
+      builder: (context, snapshot) {
+        final remoteUrl = snapshot.data;
+        final localPath = r.originalPhotoPath ?? r.thumbnailPhotoPath;
+        final hasLocal = localPath != null && File(localPath).existsSync();
+
+        if (snapshot.connectionState == ConnectionState.waiting && !hasLocal) {
+          return const Card(
+            child: SizedBox(
+              height: 200,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 8),
+                    Text('Loading inspection photo...'),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
+        final hasImage =
+            (remoteUrl != null && remoteUrl.isNotEmpty) || hasLocal;
+        if (!hasImage) {
+          return const Card(
+            child: Padding(
+              padding: EdgeInsets.all(24),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.image_not_supported_outlined,
+                      size: 44,
+                      color: AppTheme.textSecondary,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'No inspection photo available for this report',
+                      style: TextStyle(
+                        color: AppTheme.textSecondary,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
+        Widget imageWidget;
+        if (remoteUrl != null && remoteUrl.isNotEmpty) {
+          imageWidget = Image.network(
+            remoteUrl,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: 220,
+            loadingBuilder: (context, child, progress) {
+              if (progress == null) return child;
+              return Container(
+                height: 220,
+                color: Colors.black12,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    value: progress.expectedTotalBytes != null
+                        ? progress.cumulativeBytesLoaded /
+                            progress.expectedTotalBytes!
+                        : null,
+                  ),
+                ),
+              );
+            },
+            errorBuilder: (_, _, _) => hasLocal
+                ? Image.file(
+                    File(localPath),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 220,
+                  )
+                : Container(
+                    height: 180,
+                    color: Colors.black12,
+                    child: const Center(
+                      child: Text('Failed to load image from storage'),
+                    ),
+                  ),
+          );
+        } else if (localPath != null) {
+          imageWidget = Image.file(
+            File(localPath),
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: 220,
+          );
+        } else {
+          imageWidget = const SizedBox.shrink();
+        }
+
+        return Card(
+          clipBehavior: Clip.antiAlias,
+          margin: const EdgeInsets.only(bottom: 12),
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: InkWell(
+            onTap: () => _openFullScreenImage(
+              remoteUrl,
+              hasLocal ? localPath : null,
+            ),
+            child: Stack(
+              children: [
+                imageWidget,
+                Positioned(
+                  bottom: 8,
+                  right: 8,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.65),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.fullscreen, color: Colors.white, size: 16),
+                        SizedBox(width: 4),
+                        Text(
+                          'Tap to enlarge',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 8,
+                  left: 8,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppTheme.primaryAmber.withValues(alpha: 0.9),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Text(
+                      'INSPECTION PHOTO',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _openFullScreenImage(String? remoteUrl, String? localPath) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog.fullscreen(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            iconTheme: const IconThemeData(color: Colors.white),
+            title: const Text(
+              'Hazard Photo',
+              style: TextStyle(color: Colors.white),
+            ),
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+          body: Center(
+            child: InteractiveViewer(
+              panEnabled: true,
+              minScale: 0.8,
+              maxScale: 4.0,
+              child: remoteUrl != null && remoteUrl.isNotEmpty
+                  ? Image.network(
+                      remoteUrl,
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, _, _) => localPath != null
+                          ? Image.file(File(localPath), fit: BoxFit.contain)
+                          : const Center(
+                              child: Text(
+                                'Failed to load full image',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                    )
+                  : (localPath != null
+                      ? Image.file(File(localPath), fit: BoxFit.contain)
+                      : const SizedBox.shrink()),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _Metric extends StatelessWidget {
@@ -676,6 +938,8 @@ class _Metric extends StatelessWidget {
                 ),
                 Text(
                   label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 11,
                     color: AppTheme.textSecondary,

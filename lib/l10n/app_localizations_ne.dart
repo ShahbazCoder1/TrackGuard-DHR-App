@@ -910,35 +910,35 @@ class AppLocalizationsNe extends AppLocalizations {
   String get offlineModelDownloadCancelled => 'मोडल डाउनलोड रद्द गरियो।';
 
   @override
-  String get locationAccuracyPromptTitle => 'Improve Location Accuracy';
+  String get locationAccuracyPromptTitle => 'स्थान शुद्धता सुधार गर्नुहोस्';
 
   @override
   String get locationAccuracyPromptMessage =>
-      'TrackGuard works best when your device provides precise location information.';
+      'तपाईंको यन्त्रले सटीक स्थान जानकारी प्रदान गर्दा TrackGuard ले उत्तम काम गर्दछ।';
 
   @override
   String get locationAccuracyPromptSettingsHeading =>
-      'Check your location settings:';
+      'आफ्नो स्थान सेटिङहरू जाँच गर्नुहोस्:';
 
   @override
   String get locationAccuracyPromptDeviceLocation =>
-      '1. Turn on Device Location.';
+      '१. यन्त्रको स्थान (Device Location) अन गर्नुहोस्।';
 
   @override
   String get locationAccuracyPromptLocationAccuracy =>
-      '2. Enable Google Location Accuracy, if available.';
+      '२. उपलब्ध भएमा Google स्थान शुद्धता (Google Location Accuracy) सक्षम गर्नुहोस्।';
 
   @override
   String get locationAccuracyPromptExplanation =>
-      'This helps TrackGuard capture more accurate locations when reporting hazards.';
+      'यसले खतराहरू रिपोर्ट गर्दा TrackGuard लाई अधिक सटीक स्थानहरू क्याप्चर गर्न मद्दत गर्दछ।';
 
   @override
   String get locationAccuracyPromptManageSettingsOr =>
-      'You can manage these settings in your device\'s Location settings.';
+      'तपाईं आफ्नो यन्त्रको स्थान सेटिङहरूमा यी सेटिङहरू व्यवस्थापन गर्न सक्नुहुन्छ।';
 
   @override
-  String get locationAccuracyPromptNoThanks => 'Not now';
+  String get locationAccuracyPromptNoThanks => 'अहिले होइन';
 
   @override
-  String get locationAccuracyPromptTurnOn => 'Continue';
+  String get locationAccuracyPromptTurnOn => 'जारी राख्नुहोस्';
 }

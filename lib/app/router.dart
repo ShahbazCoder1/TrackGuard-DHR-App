@@ -188,7 +188,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/admin/dashboard',
         builder: (context, state) =>
-            const LocationAccuracyPrompt(child: AdminDashboardScreen()),
+            const AdminDashboardScreen(),
       ),
     ],
   );

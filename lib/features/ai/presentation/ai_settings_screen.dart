@@ -80,6 +80,26 @@ class AiSettingsScreen extends ConsumerWidget {
                   const Divider(height: 16),
                   _buildModeOption(
                     context,
+                    title: 'Online Photo Helper',
+                    subtitle:
+                        'Use the connected online vision model; needs a network connection.',
+                    mode: AiMode.onlineGemini,
+                    currentMode: settings.mode,
+                    onSelected: (mode) => settingsNotifier.setMode(mode),
+                  ),
+                  const Divider(height: 16),
+                  _buildModeOption(
+                    context,
+                    title: 'Offline Photo Helper',
+                    subtitle:
+                        'Use the downloaded Gemma model without a network connection.',
+                    mode: AiMode.offlineGemma,
+                    currentMode: settings.mode,
+                    onSelected: (mode) => settingsNotifier.setMode(mode),
+                  ),
+                  const Divider(height: 16),
+                  _buildModeOption(
+                    context,
                     title: 'Manual Only',
                     subtitle: 'Turn off photo suggestions; I will choose the hazard myself.',
                     mode: AiMode.manual,

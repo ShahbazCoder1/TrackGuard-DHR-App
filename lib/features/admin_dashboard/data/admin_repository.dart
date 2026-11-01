@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../shared/models/app_user.dart';
@@ -6,7 +7,7 @@ import '../../../shared/models/inspection_status.dart';
 import '../../../shared/models/user_role.dart';
 import '../../reports/data/supabase_report_mapper.dart';
 
-/// Simple remote data access for the Phase 3 admin MVP.
+/// Remote data access for the admin portal.
 /// Supabase RLS remains the real authorization boundary.
 class AdminRepository {
   AdminRepository(this._client);
@@ -35,6 +36,34 @@ class AdminRepository {
         .maybeSingle();
     if (row == null) return null;
     return SupabaseReportMapper.fromRemoteRow(Map<String, dynamic>.from(row));
+  }
+
+  /// Fetches the remote media URL from the report_media table and Supabase storage.
+  Future<String?> fetchReportMediaUrl(String reportId) async {
+    try {
+      final row = await _client
+          .from('report_media')
+          .select('original_path, thumbnail_path')
+          .eq('report_id', reportId)
+          .maybeSingle();
+
+      if (row == null) return null;
+      final path = (row['original_path'] ?? row['thumbnail_path']) as String?;
+      if (path == null || path.isEmpty) return null;
+
+      try {
+        final signedUrl = await _client.storage
+            .from('report-media')
+            .createSignedUrl(path, 60 * 60);
+        if (signedUrl.isNotEmpty) return signedUrl;
+      } catch (_) {
+        // Fall back to getPublicUrl if signed URL generation fails
+      }
+      return _client.storage.from('report-media').getPublicUrl(path);
+    } catch (e) {
+      debugPrint('Error fetching report media url: $e');
+      return null;
+    }
   }
 
   Future<List<Map<String, dynamic>>> fetchHistory(String reportId) async {
@@ -69,7 +98,6 @@ class AdminRepository {
           'updated_at': DateTime.now().toUtc().toIso8601String(),
         })
         .eq('id', reportId);
-    // The existing database trigger should create the audit-history row.
   }
 
   Future<void> updateProfile({

@@ -22,26 +22,70 @@ class HazardSelector extends StatelessWidget {
         runSpacing: 10,
         children: HazardType.values.map((type) {
           final isSelected = type == selectedHazard;
+          final isOther = type == HazardType.other;
           return SizedBox(
-            width: width,
+            width: isOther ? constraints.maxWidth : width,
             height: 72,
             child: Material(
-              color: isSelected ? AppTheme.primaryBlue : AppTheme.surfaceDarkElevated,
+              color: isSelected
+                  ? AppTheme.primaryBlue
+                  : AppTheme.surfaceDarkElevated,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
-                side: BorderSide(color: isSelected ? AppTheme.primaryBlue : AppTheme.borderDark, width: 1.5),
+                side: BorderSide(
+                  color: isSelected
+                      ? AppTheme.primaryBlue
+                      : AppTheme.borderDark,
+                  width: 1.5,
+                ),
               ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(10),
                 onTap: () => onSelected(type),
-                child: Stack(children: [
-                  Center(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    HazardIcon(hazardType: type, size: 23),
-                    const SizedBox(width: 8),
-                    Flexible(child: Text(HazardIcon.getLocalizedLabel(context, type), maxLines: 2, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: isSelected ? Colors.white : AppTheme.textPrimary))),
-                  ])),
-                  if (isSelected) const Positioned(right: 5, top: 5, child: Icon(Icons.check_circle, color: Colors.white, size: 16)),
-                ]),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            HazardIcon(hazardType: type, size: 24),
+                            const SizedBox(width: 8),
+                            Flexible(
+                              child: Text(
+                                HazardIcon.getLocalizedLabel(context, type),
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: isSelected
+                                      ? Colors.white
+                                      : AppTheme.textPrimary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    if (isSelected)
+                      const Positioned(
+                        right: 6,
+                        top: 6,
+                        child: Icon(
+                          Icons.check_circle,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
           );

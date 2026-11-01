@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/theme.dart';
 import '../../../core/constants/dhr_waypoints.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/location_source.dart';
@@ -27,11 +27,9 @@ abstract final class _C {
   static const ink = Color(0xFF080E0C); // screen background
   static const surface = Color(0xFF111A17); // raised panels
   static const brass = Color(0xFFD9A441); // primary accent (shutter, manual)
-  static const signal = Color(0xFF52E0A4); // GPS locked / confirm
   static const text = Color(0xFFEAF1EE);
   static const textDim = Color(0xFF9DB0A8);
   static final hairline = Colors.white.withValues(alpha: 0.10);
-  static final glass = const Color(0xFF05100C).withValues(alpha: 0.55);
 }
 
 const double _kFrameRadius = 28;
@@ -133,6 +131,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
           title: Text(
             l10n.captureTitle,
             style: const TextStyle(
+              color: Colors.white,
               fontWeight: FontWeight.w600,
               fontSize: 17,
               letterSpacing: -0.1,
@@ -227,9 +226,12 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
                     height: 56,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: _C.text,
-                        side: BorderSide(color: _C.hairline, width: 1.5),
-                        backgroundColor: Colors.white.withValues(alpha: 0.04),
+                        foregroundColor: AppTheme.textPrimary,
+                        side: const BorderSide(
+                          color: AppTheme.borderDark,
+                          width: 1.5,
+                        ),
+                        backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -251,8 +253,8 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
                     child: PrimaryButton(
                       text: l10n.confirmPhoto,
                       icon: Icons.check_rounded,
-                      backgroundColor: _C.signal,
-                      foregroundColor: _C.ink,
+                      backgroundColor: AppTheme.statusGreen,
+                      foregroundColor: Colors.white,
                       onPressed: () async {
                         final success =
                             await controller.confirmDraftAndProceed();
@@ -320,10 +322,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
                     top: 12,
                     left: 12,
                     right: 12,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: _locationPill(context, state, review: false),
-                    ),
+                    child: _locationPill(context, state, review: false),
                   ),
                 ],
               ),
@@ -369,7 +368,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
 
 enum _LocStatus { gps, manual, searching }
 
-/// Floating glass pill that lives on the viewfinder. Replaces the old card.
+/// High-contrast location bar over the live viewfinder.
 class _LocationPill extends StatelessWidget {
   const _LocationPill({
     required this.status,
@@ -387,29 +386,28 @@ class _LocationPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = status == _LocStatus.gps ? _C.signal : _C.brass;
+    final color = status == _LocStatus.gps
+        ? AppTheme.statusGreen
+        : AppTheme.primaryAmberDark;
 
     return Semantics(
       button: true,
       label: [title, ?subtitle].join(', '),
       hint: hint,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(32),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-          child: Material(
-            color: _C.glass,
-            clipBehavior: Clip.antiAlias,
-            shape: StadiumBorder(side: BorderSide(color: _C.hairline)),
-            child: InkWell(
-              onTap: onTap,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 320),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 9, 12, 9),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
+      child: Material(
+        color: Colors.white,
+        clipBehavior: Clip.antiAlias,
+        shape: const StadiumBorder(
+          side: BorderSide(color: AppTheme.borderDark, width: 1.5),
+        ),
+        child: InkWell(
+          onTap: onTap,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 520),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 9, 12, 9),
+              child: Row(
+                children: [
                       _StatusDot(
                         color: color,
                         pulse: status != _LocStatus.manual,
@@ -425,7 +423,7 @@ class _LocationPill extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                color: _C.text,
+                                color: AppTheme.textPrimary,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: -0.2,
@@ -439,8 +437,8 @@ class _LocationPill extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: status == _LocStatus.manual
-                                      ? _C.brass
-                                      : _C.textDim,
+                                      ? AppTheme.primaryAmberDark
+                                      : AppTheme.textSecondary,
                                   fontSize: 12.5,
                                   fontWeight: FontWeight.w500,
                                   height: 1.3,
@@ -456,11 +454,9 @@ class _LocationPill extends StatelessWidget {
                       const Icon(
                         Icons.expand_more_rounded,
                         size: 20,
-                        color: _C.textDim,
+                        color: AppTheme.textSecondary,
                       ),
-                    ],
-                  ),
-                ),
+                ],
               ),
             ),
           ),
