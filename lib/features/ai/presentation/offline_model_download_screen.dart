@@ -50,7 +50,7 @@ class _OfflineModelDownloadScreenState
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text('Offline Photo Helper Pack')),
+        appBar: AppBar(title: Text(l10n.offlinePhotoHelperPackTitle)),
         body: ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
@@ -125,9 +125,12 @@ class _OfflineModelDownloadScreenState
               child: Padding(
                 padding: const EdgeInsets.all(18),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  const Text('Offline Photo Helper Pack (~500 MB)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                  Text(
+                    '${l10n.offlinePhotoHelperPackTitle} (~500 MB)',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                  ),
                   const SizedBox(height: 8),
-                  const Text('Download once on Wi-Fi so the app can suggest hazards from your photos when there is no mobile signal.'),
+                  Text(l10n.offlinePhotoHelperPackSubtitle),
                   const SizedBox(height: 14),
                   if (state.isDownloading) LinearProgressIndicator(value: state.progressPercent / 100),
                 ]),
@@ -143,7 +146,7 @@ class _OfflineModelDownloadScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'DOWNLOAD PREFERENCES',
+                      l10n.downloadPreferencesHeading,
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w800,
@@ -161,9 +164,9 @@ class _OfflineModelDownloadScreenState
                           color: AppTheme.textPrimary,
                         ),
                       ),
-                      subtitle: const Text(
-                        'Prevents cellular data usage',
-                        style: TextStyle(fontSize: 12, color: AppTheme.textSecondary),
+                      subtitle: Text(
+                        l10n.preventsCellularUsage,
+                        style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary),
                       ),
                       value: downloadSettings.wifiOnly,
                       activeThumbColor: AppTheme.primaryAmber,
@@ -225,7 +228,7 @@ class _OfflineModelDownloadScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'MODEL STATUS & ACTIONS',
+                      l10n.modelStatusAndActionsHeading,
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w800,
@@ -509,7 +512,7 @@ class _OfflineModelDownloadScreenState
                                   }
                                 },
                           icon: const Icon(Icons.download_rounded, size: 20),
-                          label: const Text('Download on Wi-Fi'),
+                          label: Text(l10n.downloadOnWifiButton),
                         ),
                       ),
                     ],
@@ -593,14 +596,14 @@ class _OfflineModelDownloadScreenState
           builder: (ctx) => AlertDialog(
             backgroundColor: Colors.white,
             title: Text(l10n.offlineModelDownloadInProgress),
-            content: const Text(
-              'Leaving this page will cancel the current model download. Are you sure you want to cancel and leave?',
-              style: TextStyle(color: AppTheme.textSecondary),
+            content: Text(
+              l10n.cancelDownloadConfirmation,
+              style: const TextStyle(color: AppTheme.textSecondary),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('Stay on Page'),
+                child: Text(l10n.stayOnPage),
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -608,7 +611,7 @@ class _OfflineModelDownloadScreenState
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('Cancel Download & Leave'),
+                child: Text(l10n.cancelDownloadAndLeave),
               ),
             ],
           ),

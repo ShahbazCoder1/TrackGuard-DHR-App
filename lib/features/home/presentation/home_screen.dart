@@ -212,8 +212,8 @@ class HomeScreen extends ConsumerWidget {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              'Take a photo of a slip, rockfall, drain, or track issue',
-                              style: TextStyle(
+                              l10n.reportTrackHazardDescription,
+                              style: const TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
                                 height: 1.3,
@@ -258,8 +258,8 @@ class HomeScreen extends ConsumerWidget {
                         const SizedBox(height: 6),
                         Text(
                           syncSummary.pendingCount > 0
-                              ? 'Will send automatically at next station signal'
-                              : 'Your latest reports have reached the supervisor.',
+                              ? l10n.willSendAtNextStation
+                              : l10n.allReportsSentToSupervisor,
                           style: const TextStyle(color: AppTheme.textSecondary),
                         ),
                         const SizedBox(height: 10),
@@ -283,7 +283,7 @@ class HomeScreen extends ConsumerWidget {
                                       } catch (_) {}
                                     }
                                   },
-                                  child: const Text('Send Now'),
+                                  child: Text(l10n.sendNow),
                                 ),
                               ),
                             if (syncSummary.pendingCount > 0 &&
@@ -294,7 +294,7 @@ class HomeScreen extends ConsumerWidget {
                               child: TextButton(
                                 onPressed: () =>
                                     context.push('/gangman/reports'),
-                                child: const Text('View My Reports'),
+                                child: Text(l10n.viewMyReports),
                               ),
                             ),
                           ],

@@ -206,8 +206,8 @@ class _GangmanReportDetailScreenState
                                   const SizedBox(height: 8),
                                   Text(
                                     photoPath == null
-                                        ? 'No photo attached'
-                                        : 'Photo not found on device',
+                                        ? l10n.noPhotoAttached
+                                        : l10n.photoNotFoundOnDevice,
                                     style: const TextStyle(
                                       fontSize: 12,
                                       color: AppTheme.textSecondary,
@@ -257,13 +257,52 @@ class _GangmanReportDetailScreenState
                 ),
                 const SizedBox(height: 12),
 
-                Text('${HazardIcon.getLocalizedLabel(context, report.confirmedHazardType)} Report', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+                Text(
+                  l10n.hazardReportTitle(
+                    HazardIcon.getLocalizedLabel(
+                      context,
+                      report.confirmedHazardType,
+                    ),
+                  ),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 8),
-                Card(child: Padding(padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12), child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                  _statusStep('Sent', report.syncStatus == SyncStatus.synced), const Icon(Icons.chevron_right, color: AppTheme.textSecondary),
-                  _statusStep('Seen by Supervisor', report.inspectionStatus != InspectionStatus.open), const Icon(Icons.chevron_right, color: AppTheme.textSecondary),
-                  _statusStep('Resolved', report.inspectionStatus == InspectionStatus.resolved),
-                ]))),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 12,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _statusStep(
+                          l10n.statusStepSent,
+                          report.syncStatus == SyncStatus.synced,
+                        ),
+                        const Icon(
+                          Icons.chevron_right,
+                          color: AppTheme.textSecondary,
+                        ),
+                        _statusStep(
+                          l10n.statusStepSeenBySupervisor,
+                          report.inspectionStatus != InspectionStatus.open,
+                        ),
+                        const Icon(
+                          Icons.chevron_right,
+                          color: AppTheme.textSecondary,
+                        ),
+                        _statusStep(
+                          l10n.statusStepResolved,
+                          report.inspectionStatus == InspectionStatus.resolved,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 12),
                 // Full Sync Status Card
                 SyncStatusCard(
@@ -368,7 +407,12 @@ class _GangmanReportDetailScreenState
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Source: ${report.locationSource.name.toUpperCase()} ${report.gpsAccuracyMeters != null ? "(±${report.gpsAccuracyMeters!.toStringAsFixed(1)}m)" : ""}',
+                          l10n.reportSource(
+                            report.locationSource.name.toUpperCase(),
+                            report.gpsAccuracyMeters != null
+                                ? '(±${report.gpsAccuracyMeters!.toStringAsFixed(1)}m)'
+                                : '',
+                          ),
                           style: const TextStyle(
                             fontSize: 12,
                             color: AppTheme.textSecondary,
@@ -380,7 +424,18 @@ class _GangmanReportDetailScreenState
                 ),
                 const SizedBox(height: 16),
 
-                Card(child: ExpansionTile(title: const Text('Technical & AI Audit Details'), leading: const Icon(Icons.fact_check_outlined), children: [Padding(padding: const EdgeInsets.all(12), child: AiMetadataCard.fromReport(report))])),
+                Card(
+                  child: ExpansionTile(
+                    title: Text(l10n.technicalAndAiAuditDetails),
+                    leading: const Icon(Icons.fact_check_outlined),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: AiMetadataCard.fromReport(report),
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 16),
 
                 // Audit Timestamps Card
@@ -390,9 +445,9 @@ class _GangmanReportDetailScreenState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'REPORT AUDIT INFORMATION',
-                          style: TextStyle(
+                        Text(
+                          l10n.reportAuditInformation,
+                          style: const TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w800,
                             color: AppTheme.primaryAmber,
@@ -445,7 +500,7 @@ class _GangmanReportDetailScreenState
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              'Report ID: ${report.id}',
+                              l10n.reportIdLabel(report.id),
                               style: const TextStyle(
                                 fontSize: 11,
                                 color: AppTheme.textSecondary,

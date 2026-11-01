@@ -1,8 +1,9 @@
 {
   "@@locale": "en",
   "appTitle": "TrackGuard DHR",
-  "@appTitle": { "description": "The title of the application" },
-
+  "@appTitle": {
+    "description": "The title of the application"
+  },
   "tagline": "Darjeeling Himalayan Railway Alignment Inspection",
   "gangman": "Gangman",
   "admin": "Supervisor / Admin",
@@ -16,14 +17,15 @@
   "signedInAs": "Signed in as {name}",
   "@signedInAs": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "pendingAccessTitle": "Access Approval Pending",
   "pendingAccessMessage": "Your account has been registered. An authorized permanent-way supervisor must approve your profile before you can access field tools.",
   "inactiveAccountMessage": "Your account is marked inactive. Please contact your section engineer.",
   "checkStatus": "Check Status",
-
   "homeTitle": "Inspection Dashboard",
   "newReport": "New Report",
   "myReports": "My Reports",
@@ -31,13 +33,17 @@
   "pendingReportsCount": "{count, plural, =0{0 reports pending} =1{1 report pending} other{{count} reports pending}}",
   "@pendingReportsCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "assignedSection": "Assigned Section: {section}",
   "@assignedSection": {
     "placeholders": {
-      "section": { "type": "String" }
+      "section": {
+        "type": "String"
+      }
     }
   },
   "unassignedSection": "No section assigned",
@@ -47,7 +53,6 @@
   "aiStatusHeuristic": "AI Analysis: Heuristic Fallback",
   "aiStatusUnavailable": "AI Analysis: Manual Only",
   "offlineExplanation": "All inspection reports are saved to your device immediately. When you reach a station with connectivity, queued reports will sync automatically.",
-
   "captureTitle": "Capture Hazard Photo",
   "cameraPermissionTitle": "Camera Permission Required",
   "cameraPermissionMessage": "TrackGuard needs camera access to capture track hazards and retaining wall defects.",
@@ -61,13 +66,14 @@
   "galleryFallback": "Select from Gallery",
   "cameraUnavailable": "Camera unavailable. Please use gallery fallback.",
   "processingImage": "Processing image...",
-
   "locationTitle": "Location & Alignment",
   "gpsAcquiring": "Acquiring GPS fix...",
   "gpsLocked": "GPS Locked (±{accuracy}m)",
   "@gpsLocked": {
     "placeholders": {
-      "accuracy": { "type": "String" }
+      "accuracy": {
+        "type": "String"
+      }
     }
   },
   "gpsUnavailable": "GPS Signal Unavailable",
@@ -77,19 +83,23 @@
   "kmMarker": "Km {marker}",
   "@kmMarker": {
     "placeholders": {
-      "marker": { "type": "String" }
+      "marker": {
+        "type": "String"
+      }
     }
   },
   "nearestStation": "Nearest Station: {station}",
   "@nearestStation": {
     "placeholders": {
-      "station": { "type": "String" }
+      "station": {
+        "type": "String"
+      }
     }
   },
   "selectWaypoint": "Select Nearest DHR Station / Waypoint",
+  "stationName": "{stationId, select, kurseong {Kurseong Station} tung {Tung Station} dilaram {Dilaram Point} sonada {Sonada Station} rongbull {Rongbull Loop} jorebungalow {Jorebungalow} ghum {Ghum Station} batasia {Batasia Loop} darjeeling {Darjeeling Station} other {stationId}}",
   "editKm": "Edit Km Marker",
   "manualLocationNotice": "Warning: Fallback coordinates are estimated. Adjust km marker manually if needed.",
-
   "reviewTitle": "Review & Confirm Report",
   "aiSuggestionTitle": "AI Advisory Suggestion",
   "aiDisclaimer": "AI suggestions are advisory only. Permanent-way staff must inspect and confirm the actual hazard and severity before saving.",
@@ -97,19 +107,25 @@
   "aiSuggestedHazard": "Suggested Hazard: {hazard}",
   "@aiSuggestedHazard": {
     "placeholders": {
-      "hazard": { "type": "String" }
+      "hazard": {
+        "type": "String"
+      }
     }
   },
   "aiSuggestedSeverity": "Suggested Severity: {severity}",
   "@aiSuggestedSeverity": {
     "placeholders": {
-      "severity": { "type": "String" }
+      "severity": {
+        "type": "String"
+      }
     }
   },
   "aiNote": "AI Observation: {note}",
   "@aiNote": {
     "placeholders": {
-      "note": { "type": "String" }
+      "note": {
+        "type": "String"
+      }
     }
   },
   "humanConfirmationTitle": "Human Confirmation (Required)",
@@ -123,12 +139,13 @@
   "savedSuccessMessage": "Report saved with ID: {id}. It has been added to the local queue and will sync when station connectivity is reached.",
   "@savedSuccessMessage": {
     "placeholders": {
-      "id": { "type": "String" }
+      "id": {
+        "type": "String"
+      }
     }
   },
   "backToHome": "Back to Home",
   "viewQueue": "View Queue",
-
   "hazardSlip": "Landslip / Mudslide",
   "hazardRockfall": "Rockfall / Fallen Debris",
   "hazardBlockedDrain": "Blocked Catchwater Drain",
@@ -136,42 +153,41 @@
   "hazardTrackDefect": "Track Defect / Gauge Spread",
   "hazardVegetation": "Vegetation Overgrowth",
   "hazardOther": "Other Hazard",
-
   "severityLow": "Low - Monitor",
   "severityMedium": "Medium - Maintenance Needed",
   "severityHigh": "High - Speed Restriction Required",
   "severityCritical": "Critical - Track Obstruction / Danger",
-
   "statusOpen": "Open",
   "statusAcknowledged": "Acknowledged",
   "statusInspectionRequired": "Inspection Required",
   "statusResolved": "Resolved",
-
   "syncDraft": "Draft",
   "syncPending": "Pending Sync",
   "syncSyncing": "Syncing...",
   "syncSynced": "Synced to Server",
   "syncFailed": "Sync Failed",
   "syncConflict": "Conflict",
-
   "syncStatusDraft": "Draft",
   "syncStatusPending": "Pending Sync",
   "syncStatusSyncing": "Syncing...",
   "syncStatusSynced": "Synced",
   "syncStatusFailed": "Sync Failed",
   "syncStatusConflict": "Conflict",
-
   "syncSummaryTitle": "Sync Summary",
   "syncPendingReports": "{count, plural, =0{0 reports waiting} =1{1 report waiting to sync} other{{count} reports waiting to sync}}",
   "@syncPendingReports": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "syncFailedReports": "{count, plural, =0{0 reports failed} =1{1 report failed} other{{count} reports failed}}",
   "@syncFailedReports": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "syncReportsSyncing": "Syncing reports...",
@@ -179,7 +195,9 @@
   "syncLastSuccessful": "Last synced: {time}",
   "@syncLastSuccessful": {
     "placeholders": {
-      "time": { "type": "String" }
+      "time": {
+        "type": "String"
+      }
     }
   },
   "syncNoSuccessfulSync": "Not synced yet",
@@ -190,7 +208,6 @@
   "syncSavedAndSynced": "Saved and synced to server",
   "syncFailedButSafe": "Some reports could not sync. They remain safe locally.",
   "syncNeedsAttention": "This report needs attention",
-
   "syncErrorOffline": "No network connection. The report is safely stored on this device.",
   "syncErrorTimeout": "The station connection took too long. The report remains saved locally.",
   "syncErrorServerUnavailable": "The control service is temporarily unavailable. Please try again later.",
@@ -198,7 +215,6 @@
   "syncErrorMediaUpload": "The report details were prepared, but the photo could not be uploaded yet.",
   "syncErrorConflict": "This report was changed elsewhere and needs review.",
   "syncErrorUnknown": "The report could not be synchronized. It remains safely stored locally.",
-
   "aiProviderOfflineGemma": "Offline Gemma",
   "aiProviderHeuristic": "Heuristic Rules",
   "aiProviderManual": "Manual Classification",
@@ -208,14 +224,12 @@
   "aiLanguageLabel": "AI Language",
   "aiConfidenceLabel": "Confidence",
   "aiAdvisoryNotice": "AI suggestion is advisory only. Gangman inspection confirmed.",
-
   "syncNow": "Sync Now",
   "syncSuccessMessage": "Synchronization completed successfully",
   "retrySync": "Retry Sync",
   "viewSyncDetails": "View Details",
   "today": "Today",
   "yesterday": "Yesterday",
-
   "retry": "Retry",
   "cancel": "Cancel",
   "confirm": "Confirm",
@@ -224,7 +238,6 @@
   "selectLanguage": "Select Language",
   "allFilter": "All",
   "noReportsMatchFilter": "No reports match the selected filter.",
-
   "profileTitle": "User Profile",
   "profileName": "Full Name",
   "profileEmail": "Email Address",
@@ -235,10 +248,8 @@
   "profileActive": "Active",
   "profileInactive": "Inactive",
   "profileBackToHome": "Return to Dashboard",
-
   "roleGangman": "Gangman",
   "roleAdmin": "Supervisor / Admin",
-
   "navigationHome": "Home",
   "navigationMyReports": "My Reports",
   "navigationDashboard": "Dashboard",
@@ -248,7 +259,6 @@
   "navigationUsers": "Users",
   "navigationBack": "Back",
   "navigationRefresh": "Refresh",
-
   "logoutTitle": "Confirm Sign Out",
   "logoutConfirmation": "Are you sure you want to sign out of your account?",
   "logoutConfirm": "Sign Out",
@@ -259,28 +269,32 @@
   "logoutPendingReportsWarning": "You have {count, plural, =1{1 pending report} other{{count} pending reports}} waiting to synchronize.",
   "@logoutPendingReportsWarning": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "logoutReportsRemainOnDevice": "Unsynced reports remain safely stored on this device and will not be lost.",
-
   "routeAccessDenied": "Access denied for your role.",
   "routeSessionRequired": "Please sign in to continue.",
   "routeProfilePending": "Your profile is pending supervisor approval.",
   "routeInactiveAccount": "Your account is currently inactive.",
-
   "reportDetailTitle": "Inspection Detail",
   "reportDetailLocation": "Location & Track Alignment",
   "reportDetailCreated": "Created: {time}",
   "@reportDetailCreated": {
     "placeholders": {
-      "time": { "type": "String" }
+      "time": {
+        "type": "String"
+      }
     }
   },
   "reportDetailUpdated": "Updated: {time}",
   "@reportDetailUpdated": {
     "placeholders": {
-      "time": { "type": "String" }
+      "time": {
+        "type": "String"
+      }
     }
   },
   "reportDetailInspectionStatus": "Inspection Status",
@@ -290,7 +304,6 @@
   "reportDetailViewImage": "View Full Image",
   "reportDetailRetrySync": "Retry Synchronization",
   "reportDetailUnavailable": "Report not found or unavailable.",
-
   "aiSettingsTitle": "AI & Model Settings",
   "aiModeAutomatic": "Automatic (Offline-First)",
   "aiModeOfflineGemma": "Offline Gemma 4 E2B",
@@ -328,7 +341,6 @@
   "aiRetryAnalysis": "Retry AI Analysis",
   "aiUseManualClassification": "Switch to Manual",
   "aiActualProvider": "Active Provider",
-
   "offlineModelDownloadTitle": "Gemma 4 E2B Download",
   "offlineModelDownload": "Download Model",
   "offlineModelNotDownloaded": "Model is not downloaded",
@@ -341,27 +353,39 @@
   "offlineModelApproximateSize": "Approximate download size: {size}",
   "@offlineModelApproximateSize": {
     "placeholders": {
-      "size": { "type": "String" }
+      "size": {
+        "type": "String"
+      }
     }
   },
   "offlineModelStorageRequired": "Required free storage: {size}",
   "@offlineModelStorageRequired": {
     "placeholders": {
-      "size": { "type": "String" }
+      "size": {
+        "type": "String"
+      }
     }
   },
   "offlineModelStorageAvailable": "Available storage: {size}",
   "@offlineModelStorageAvailable": {
     "placeholders": {
-      "size": { "type": "String" }
+      "size": {
+        "type": "String"
+      }
     }
   },
   "offlineModelDownloadProgress": "{downloaded} of {total} ({percent}%)",
   "@offlineModelDownloadProgress": {
     "placeholders": {
-      "downloaded": { "type": "String" },
-      "total": { "type": "String" },
-      "percent": { "type": "int" }
+      "downloaded": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
     }
   },
   "offlineModelDownloadComplete": "Download completed successfully",
@@ -388,13 +412,17 @@
   "offlineModelVersion": "Version: {version}",
   "@offlineModelVersion": {
     "placeholders": {
-      "version": { "type": "String" }
+      "version": {
+        "type": "String"
+      }
     }
   },
   "offlineModelDownloadedAt": "Downloaded: {date}",
   "@offlineModelDownloadedAt": {
     "placeholders": {
-      "date": { "type": "String" }
+      "date": {
+        "type": "String"
+      }
     }
   },
   "offlineModelDownloadCancelled": "Model download was cancelled.",
@@ -406,5 +434,199 @@
   "locationAccuracyPromptExplanation": "This helps TrackGuard capture more accurate locations when reporting hazards.",
   "locationAccuracyPromptManageSettingsOr": "You can manage these settings in your device's Location settings.",
   "locationAccuracyPromptNoThanks": "Not now",
-  "locationAccuracyPromptTurnOn": "Continue"
+  "locationAccuracyPromptTurnOn": "Continue",
+  "reportTrackHazardDescription": "Take a photo of a slip, rockfall, drain, or track issue",
+  "sendNow": "Send Now",
+  "viewMyReports": "View My Reports",
+  "willSendAtNextStation": "Will send automatically at next station signal",
+  "allReportsSentToSupervisor": "Your latest reports have reached the supervisor.",
+  "gpsLockedStatus": "GPS locked",
+  "setManually": "Set manually",
+  "startingCamera": "Starting camera…",
+  "retryCamera": "Retry camera",
+  "dhrAlignment": "DHR alignment",
+  "savesSafelyOnPhoneFirst": "Saves safely on your phone first.",
+  "draftMissing": "Draft Missing",
+  "inspectionDraftCouldNotBeLoaded": "Inspection draft could not be loaded.",
+  "hazardReportTitle": "{hazard} Report",
+  "@hazardReportTitle": {
+    "placeholders": {
+      "hazard": {
+        "type": "String"
+      }
+    }
+  },
+  "statusStepSent": "Sent",
+  "statusStepSeenBySupervisor": "Seen by Supervisor",
+  "statusStepResolved": "Resolved",
+  "technicalAndAiAuditDetails": "Technical & AI Audit Details",
+  "reportAuditInformation": "REPORT AUDIT INFORMATION",
+  "noPhotoAttached": "No photo attached",
+  "photoNotFoundOnDevice": "Photo not found on device",
+  "reportSource": "Source: {source} {accuracy}",
+  "@reportSource": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      },
+      "accuracy": {
+        "type": "String"
+      }
+    }
+  },
+  "reportIdLabel": "Report ID: {id}",
+  "@reportIdLabel": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "nearestWaypointBadge": "Nearest",
+  "allDhrAlignment": "All DHR Alignment",
+  "profileIdentifier": "Profile Identifier",
+  "appAlignmentTitle": "TrackGuard DHR Alignment",
+  "appEditionVersion": "Version 1.0.0 • Field Operations Edition",
+  "adminDashboardTitle": "TrackGuard Admin",
+  "adminOverviewTab": "Overview",
+  "adminReportsTab": "Reports",
+  "adminUsersTab": "Users",
+  "adminReportOverview": "REPORT OVERVIEW",
+  "adminSectionSummary": "SECTION SUMMARY",
+  "adminLatestReports": "LATEST REPORTS",
+  "adminTotalReports": "Total reports",
+  "adminNoRemoteReportsFound": "No remote reports found.",
+  "adminNoProfilesFound": "No profiles found.",
+  "adminProfileUpdated": "Profile updated",
+  "adminUpdateFailed": "Update failed: {error}",
+  "@adminUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminRoleLabel": "Role",
+  "adminAssignedSection": "Assigned section",
+  "adminStatusUpdated": "Status updated. Check audit history below.",
+  "adminStatusUpdateFailed": "Status update failed: {error}",
+  "@adminStatusUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminReportDetailTitle": "Admin report detail",
+  "adminReportNotFound": "Report not found or access denied.",
+  "adminSeverityLabel": "Severity: {severity}",
+  "@adminSeverityLabel": {
+    "placeholders": {
+      "severity": {
+        "type": "String"
+      }
+    }
+  },
+  "adminSectionLabel": "Section: {section}",
+  "@adminSectionLabel": {
+    "placeholders": {
+      "section": {
+        "type": "String"
+      }
+    }
+  },
+  "adminStationLabel": "Station: {station}",
+  "@adminStationLabel": {
+    "placeholders": {
+      "station": {
+        "type": "String"
+      }
+    }
+  },
+  "adminKmMarkerLabel": "Km marker: {km}",
+  "@adminKmMarkerLabel": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "adminCreatedLabel": "Created: {created}",
+  "@adminCreatedLabel": {
+    "placeholders": {
+      "created": {
+        "type": "String"
+      }
+    }
+  },
+  "adminGpsLabel": "GPS: {lat}, {lng}",
+  "@adminGpsLabel": {
+    "placeholders": {
+      "lat": {
+        "type": "String"
+      },
+      "lng": {
+        "type": "String"
+      }
+    }
+  },
+  "adminUpdateStatusHeading": "UPDATE STATUS",
+  "adminInspectionStatusLabel": "Inspection status",
+  "adminSaveStatusButton": "Save status",
+  "adminSavingStatus": "Saving…",
+  "adminAuditHistoryHeading": "AUDIT HISTORY",
+  "adminCouldNotLoadHistory": "Could not load history: {error}",
+  "@adminCouldNotLoadHistory": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminNoStatusChangesYet": "No status changes recorded yet.",
+  "adminLoadingPhoto": "Loading inspection photo...",
+  "adminNoPhotoAvailable": "No inspection photo available for this report",
+  "adminFailedToLoadImage": "Failed to load image from storage",
+  "adminTapToEnlarge": "Tap to enlarge",
+  "adminInspectionPhotoBadge": "INSPECTION PHOTO",
+  "adminHazardPhotoTitle": "Hazard Photo",
+  "adminFailedToLoadFullImage": "Failed to load full image",
+  "adminNotSpecified": "Not specified",
+  "adminActiveStatus": "ACTIVE",
+  "adminInactiveStatus": "INACTIVE",
+  "adminChangedBy": "Changed by {user}",
+  "@adminChangedBy": {
+    "placeholders": {
+      "user": {
+        "type": "String"
+      }
+    }
+  },
+  "smartPhotoHelperTitle": "Smart Photo Helper",
+  "aiModeAutomaticHelper": "Automatic Photo Helper (Recommended)",
+  "aiModeAutomaticHelperDesc": "Suggests a hazard type and note from your photo, online or offline.",
+  "aiModeOnlineHelper": "Online Photo Helper",
+  "aiModeOnlineHelperDesc": "Use the connected online vision model; needs a network connection.",
+  "aiModeOfflineHelper": "Offline Photo Helper",
+  "aiModeOfflineHelperDesc": "Use the downloaded Gemma model without a network connection.",
+  "aiModeManualOnly": "Manual Only",
+  "aiModeManualOnlyDesc": "Turn off photo suggestions; I will choose the hazard myself.",
+  "offlinePhotoHelperPackTitle": "Offline Photo Helper Pack",
+  "offlinePhotoHelperPackSubtitle": "Download once on Wi-Fi so the app can suggest hazards from your photos when there is no mobile signal.",
+  "downloadOnWifiButton": "Download on Wi-Fi",
+  "stayOnPage": "Stay on Page",
+  "cancelDownloadAndLeave": "Cancel Download & Leave",
+  "cancelDownloadConfirmation": "Leaving this page will cancel the current model download. Are you sure you want to cancel and leave?",
+  "downloadPreferencesHeading": "DOWNLOAD PREFERENCES",
+  "preventsCellularUsage": "Prevents cellular data usage",
+  "modelStatusAndActionsHeading": "MODEL STATUS & ACTIONS",
+  "onlineReadyStatus": "Online Ready",
+  "networkRequiredStatus": "Network Required",
+  "installedDateLabel": "Installed Date",
+  "sourceLabel": "Source",
+  "integrationLabel": "Integration",
+  "aiInferenceError": "AI Inference Error",
+  "aiAdvisoryMetadataHeading": "AI ADVISORY METADATA",
+  "accountInactive": "Account Inactive",
+  "permanentWayStaff": "Permanent-Way Staff"
 }

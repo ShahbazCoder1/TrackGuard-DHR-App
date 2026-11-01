@@ -1,4 +1,3 @@
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,13 +12,6 @@ import '../../../shared/widgets/loading_view.dart';
 import '../../../shared/widgets/primary_button.dart';
 import 'report_capture_controller.dart';
 import 'widgets/waypoint_picker.dart';
-
-// Strings below are not localized yet; move them into the .arb files.
-const _kGpsLocked = 'GPS locked';
-const _kSetManually = 'Set manually';
-const _kStartingCamera = 'Starting camera…';
-const _kRetryCamera = 'Retry camera';
-const _kCapturePhoto = 'Capture photo';
 
 /// Palette drawn from the DHR itself: tea-garden night greens, locomotive
 /// brass, and a signal-lamp green for "locked".
@@ -171,15 +163,27 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
     final km = 'Km ${(loc.kmMarker ?? 51.0).toStringAsFixed(1)}';
     final detail = review
         ? DhrWaypoints.getSectionName(loc.sectionId)
-        : (isGps ? _kGpsLocked : _kSetManually);
+        : (isGps ? l10n.gpsLockedStatus : l10n.setManually);
+    final stationName = loc.nearestStationName == null
+        ? null
+        : _localizedStationName(l10n, loc.nearestStationName!);
 
     return _LocationPill(
       status: isGps ? _LocStatus.gps : _LocStatus.manual,
-      title: loc.nearestStationName ?? 'DHR alignment',
+      title: stationName ?? l10n.dhrAlignment,
       subtitle: '$km  ·  $detail',
       hint: isGps ? null : l10n.manualLocationNotice,
       onTap: open,
     );
+  }
+
+  String? _localizedStationName(AppLocalizations l10n, String stationName) {
+    for (final waypoint in DhrWaypoints.waypoints) {
+      if (waypoint.name == stationName) {
+        return l10n.stationName(waypoint.id);
+      }
+    }
+    return stationName;
   }
 
   // ───────────────────────── Photo review ─────────────────────────
@@ -256,8 +260,8 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
                       backgroundColor: AppTheme.statusGreen,
                       foregroundColor: Colors.white,
                       onPressed: () async {
-                        final success =
-                            await controller.confirmDraftAndProceed();
+                        final success = await controller
+                            .confirmDraftAndProceed();
                         if (success && context.mounted) {
                           context.push('/gangman/report/review').then((_) {
                             if (mounted) _controller?.resumeCameraIfNeeded();
@@ -286,7 +290,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
     final controller = ref.read(reportCaptureControllerProvider.notifier);
 
     if (state.isCameraInitializing) {
-      return const LoadingView(message: _kStartingCamera);
+      return LoadingView(message: l10n.startingCamera);
     }
 
     if (!state.isCameraReady ||
@@ -295,6 +299,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
       return _CameraErrorView(
         message: state.errorMessage ?? l10n.cameraUnavailable,
         galleryLabel: l10n.galleryFallback,
+        retryLabel: l10n.retryCamera,
         onRetry: controller.initializeCamera,
         onGallery: controller.pickFromGallery,
       );
@@ -343,6 +348,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
                 ),
                 _ShutterButton(
                   busy: state.isCapturing,
+                  semanticLabel: l10n.takePhoto,
                   onTap: () {
                     HapticFeedback.mediumImpact();
                     controller.capturePhoto();
@@ -408,54 +414,51 @@ class _LocationPill extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 9, 12, 9),
               child: Row(
                 children: [
-                      _StatusDot(
-                        color: color,
-                        pulse: status != _LocStatus.manual,
-                      ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: AppTheme.textPrimary,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: -0.2,
-                                height: 1.2,
-                              ),
-                            ),
-                            if (subtitle != null)
-                              Text(
-                                subtitle!,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: status == _LocStatus.manual
-                                      ? AppTheme.primaryAmberDark
-                                      : AppTheme.textSecondary,
-                                  fontSize: 12.5,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.3,
-                                  fontFeatures: const [
-                                    FontFeature.tabularFigures(),
-                                  ],
-                                ),
-                              ),
-                          ],
+                  _StatusDot(color: color, pulse: status != _LocStatus.manual),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: AppTheme.textPrimary,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: -0.2,
+                            height: 1.2,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      const Icon(
-                        Icons.expand_more_rounded,
-                        size: 20,
-                        color: AppTheme.textSecondary,
-                      ),
+                        if (subtitle != null)
+                          Text(
+                            subtitle!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: status == _LocStatus.manual
+                                  ? AppTheme.primaryAmberDark
+                                  : AppTheme.textSecondary,
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w500,
+                              height: 1.3,
+                              fontFeatures: const [
+                                FontFeature.tabularFigures(),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  const Icon(
+                    Icons.expand_more_rounded,
+                    size: 20,
+                    color: AppTheme.textSecondary,
+                  ),
                 ],
               ),
             ),
@@ -641,10 +644,15 @@ class _CornersPainter extends CustomPainter {
 }
 
 class _ShutterButton extends StatefulWidget {
-  const _ShutterButton({required this.busy, required this.onTap});
+  const _ShutterButton({
+    required this.busy,
+    required this.onTap,
+    this.semanticLabel,
+  });
 
   final bool busy;
   final VoidCallback onTap;
+  final String? semanticLabel;
 
   @override
   State<_ShutterButton> createState() => _ShutterButtonState();
@@ -664,7 +672,7 @@ class _ShutterButtonState extends State<_ShutterButton> {
     return Semantics(
       button: true,
       enabled: !busy,
-      label: _kCapturePhoto,
+      label: widget.semanticLabel ?? 'Capture photo',
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTapDown: busy ? null : (_) => _setPressed(true),
@@ -751,12 +759,14 @@ class _CameraErrorView extends StatelessWidget {
   const _CameraErrorView({
     required this.message,
     required this.galleryLabel,
+    required this.retryLabel,
     required this.onRetry,
     required this.onGallery,
   });
 
   final String message;
   final String galleryLabel;
+  final String retryLabel;
   final VoidCallback onRetry;
   final VoidCallback onGallery;
 
@@ -797,7 +807,7 @@ class _CameraErrorView extends StatelessWidget {
               width: double.infinity,
               height: 54,
               child: PrimaryButton(
-                text: _kRetryCamera,
+                text: retryLabel,
                 icon: Icons.refresh_rounded,
                 backgroundColor: _C.brass,
                 foregroundColor: _C.ink,

@@ -26,7 +26,7 @@ class ProfileScreen extends ConsumerWidget {
 
     final sectionName = user?.assignedSection != null
         ? DhrWaypoints.getSectionName(user!.assignedSection!)
-        : (isAdmin ? 'All DHR Alignment' : l10n.unassignedSection);
+        : (isAdmin ? l10n.allDhrAlignment : l10n.unassignedSection);
 
     final dashboardRoute = isAdmin ? '/admin/dashboard' : '/gangman/home';
 
@@ -126,7 +126,7 @@ class ProfileScreen extends ConsumerWidget {
                       _buildInfoRow(
                         context,
                         icon: Icons.fingerprint,
-                        label: 'Profile Identifier',
+                        label: l10n.profileIdentifier,
                         value: user?.id ?? '—',
                         isMonospace: true,
                       ),
@@ -215,7 +215,7 @@ class ProfileScreen extends ConsumerWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'Smart Photo Helper • ${ref.watch(aiSettingsProvider).mode.name == 'manual' ? 'Manual' : 'Automatic'}',
+                    '${l10n.smartPhotoHelperTitle} • ${ref.watch(aiSettingsProvider).mode == AiMode.manual ? l10n.aiModeManualOnly : l10n.aiModeAutomaticHelper}',
                     style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary),
                   ),
                   trailing: const Icon(
@@ -239,22 +239,22 @@ class ProfileScreen extends ConsumerWidget {
                         color: AppTheme.textSecondary,
                       ),
                       const SizedBox(width: 12),
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'TrackGuard DHR Alignment',
-                              style: TextStyle(
+                              l10n.appAlignmentTitle,
+                              style: const TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
                                 color: AppTheme.textPrimary,
                               ),
                             ),
-                            SizedBox(height: 2),
+                            const SizedBox(height: 2),
                             Text(
-                              'Version 1.0.0 • Field Operations Edition',
-                              style: TextStyle(
+                              l10n.appEditionVersion,
+                              style: const TextStyle(
                                 fontSize: 11,
                                 color: AppTheme.textSecondary,
                               ),

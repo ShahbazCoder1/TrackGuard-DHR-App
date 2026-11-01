@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/constants/dhr_waypoints.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/app_user.dart';
 import '../../../shared/models/hazard_report.dart';
 import '../../../shared/models/inspection_status.dart';
@@ -51,18 +52,19 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final user = ref.watch(authControllerProvider).user;
     return Scaffold(
       drawer: const RoleNavigationDrawer(currentRoute: '/admin/dashboard'),
       appBar: AppBar(
         titleSpacing: 0,
-        title: const Text(
-          'TrackGuard Admin',
-          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+        title: Text(
+          l10n.adminDashboardTitle,
+          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
         ),
         actions: [
           IconButton(
-            tooltip: 'Refresh',
+            tooltip: l10n.navigationRefresh,
             iconSize: 22,
             padding: const EdgeInsets.all(8),
             constraints: const BoxConstraints(),
@@ -71,7 +73,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
           ),
           const SizedBox(width: 4),
           IconButton(
-            tooltip: 'Profile',
+            tooltip: l10n.navigationProfile,
             iconSize: 22,
             padding: const EdgeInsets.all(8),
             constraints: const BoxConstraints(),
@@ -80,7 +82,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
           ),
           const SizedBox(width: 4),
           IconButton(
-            tooltip: 'Sign out',
+            tooltip: l10n.signOut,
             iconSize: 22,
             padding: const EdgeInsets.all(8),
             constraints: const BoxConstraints(),
@@ -96,8 +98,8 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
             leading: const CircleAvatar(
               child: Icon(Icons.admin_panel_settings),
             ),
-            title: Text(user?.fullName ?? 'Supervisor'),
-            subtitle: Text(user?.assignedSection ?? 'All assigned sections'),
+            title: Text(user?.fullName ?? l10n.roleAdmin),
+            subtitle: Text(user?.assignedSection != null ? DhrWaypoints.getSectionName(user!.assignedSection!) : l10n.allDhrAlignment),
             trailing: const Icon(
               Icons.chevron_right,
               color: AppTheme.textSecondary,
@@ -115,21 +117,21 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: 0,
-                  label: Text('Overview'),
-                  icon: Icon(Icons.dashboard_outlined),
+                  label: Text(l10n.adminOverviewTab),
+                  icon: const Icon(Icons.dashboard_outlined),
                 ),
                 ButtonSegment(
                   value: 1,
-                  label: Text('Reports'),
-                  icon: Icon(Icons.assignment_outlined),
+                  label: Text(l10n.adminReportsTab),
+                  icon: const Icon(Icons.assignment_outlined),
                 ),
                 ButtonSegment(
                   value: 2,
-                  label: Text('Users'),
-                  icon: Icon(Icons.people_outline),
+                  label: Text(l10n.adminUsersTab),
+                  icon: const Icon(Icons.people_outline),
                 ),
               ],
               selected: {_tab},
@@ -138,14 +140,15 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: _tab == 2 ? _usersView() : _reportsView(overview: _tab == 0),
+            child: _tab == 2 ? _usersView(l10n) : _reportsView(l10n, overview: _tab == 0),
           ),
         ],
       ),
     );
   }
 
-  Widget _reportsView({
+  Widget _reportsView(
+    AppLocalizations l10n, {
     required bool overview,
   }) => FutureBuilder<List<HazardReport>>(
     future: _reports,
@@ -155,13 +158,13 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
       }
       if (snapshot.hasError) {
         return _error(
-          'Could not load reports: ${snapshot.error}',
+          l10n.adminUpdateFailed('${snapshot.error}'),
           () => setState(_reload),
         );
       }
       final reports = snapshot.data ?? [];
       if (reports.isEmpty) {
-        return const Center(child: Text('No remote reports found.'));
+        return Center(child: Text(l10n.adminNoRemoteReportsFound));
       }
       final counts = {
         for (final s in InspectionStatus.values)
@@ -177,7 +180,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
           padding: const EdgeInsets.all(16),
           children: [
             if (overview) ...[
-              const _SectionHeading('REPORT OVERVIEW'),
+              _SectionHeading(l10n.adminReportOverview),
               const SizedBox(height: 10),
               GridView.count(
                 crossAxisCount: 2,
@@ -187,27 +190,27 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
                 mainAxisSpacing: 10,
                 childAspectRatio: 1.8,
                 children: [
-                  _Metric('Total reports', reports.length, Icons.assignment),
+                  _Metric(l10n.adminTotalReports, reports.length, Icons.assignment),
                   _Metric(
-                    'Open',
+                    l10n.statusOpen,
                     counts[InspectionStatus.open] ?? 0,
                     Icons.fiber_new,
                     color: AppTheme.statusRed,
                   ),
                   _Metric(
-                    'Acknowledged',
+                    l10n.statusAcknowledged,
                     counts[InspectionStatus.acknowledged] ?? 0,
                     Icons.check_circle_outline,
                     color: AppTheme.statusAmber,
                   ),
                   _Metric(
-                    'Inspection required',
+                    l10n.statusInspectionRequired,
                     counts[InspectionStatus.inspectionRequired] ?? 0,
                     Icons.build_circle_outlined,
                     color: AppTheme.statusOrange,
                   ),
                   _Metric(
-                    'Resolved',
+                    l10n.statusResolved,
                     counts[InspectionStatus.resolved] ?? 0,
                     Icons.task_alt,
                     color: AppTheme.statusGreen,
@@ -215,7 +218,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
                 ],
               ),
               const SizedBox(height: 18),
-              const _SectionHeading('SECTION SUMMARY'),
+              _SectionHeading(l10n.adminSectionSummary),
               ...sections.entries.map(
                 (e) => Card(
                   child: ListTile(
@@ -229,7 +232,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              const _SectionHeading('LATEST REPORTS'),
+              _SectionHeading(l10n.adminLatestReports),
             ],
             ...reports.map(
               (report) => Card(
@@ -263,7 +266,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
     },
   );
 
-  Widget _usersView() => FutureBuilder<List<AppUser>>(
+  Widget _usersView(AppLocalizations l10n) => FutureBuilder<List<AppUser>>(
     future: _profiles,
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -271,12 +274,12 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
       }
       if (snapshot.hasError) {
         return _error(
-          'Could not load profiles: ${snapshot.error}',
+          l10n.adminUpdateFailed('${snapshot.error}'),
           () => setState(_reload),
         );
       }
       final users = snapshot.data ?? [];
-      if (users.isEmpty) return const Center(child: Text('No profiles found.'));
+      if (users.isEmpty) return Center(child: Text(l10n.adminNoProfilesFound));
       return RefreshIndicator(
         onRefresh: _refresh,
         child: ListView.builder(

@@ -160,10 +160,10 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
       return Scaffold(
         appBar: AppBar(title: Text(l10n.reviewTitle)),
         body: ErrorView(
-          title: 'Draft Missing',
+          title: l10n.draftMissing,
           message:
               reviewState.errorMessage ??
-              'Inspection draft could not be loaded.',
+              l10n.inspectionDraftCouldNotBeLoaded,
           onRetry: () => controller.loadDraftAndAnalyze(),
         ),
       );
@@ -186,9 +186,9 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Saves safely on your phone first.',
-                style: TextStyle(color: AppTheme.textSecondary),
+              Text(
+                l10n.savesSafelyOnPhoneFirst,
+                style: const TextStyle(color: AppTheme.textSecondary),
               ),
               const SizedBox(height: 6),
               PrimaryButton(

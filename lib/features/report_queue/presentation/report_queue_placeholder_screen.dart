@@ -40,7 +40,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Reports'),
+        title: Text(l10n.myReports),
         actions: [
           IconButton(
             icon: const Icon(Icons.sync_rounded),
