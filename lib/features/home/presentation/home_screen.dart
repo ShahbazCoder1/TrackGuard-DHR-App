@@ -117,7 +117,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final subtitle = l10n.homeReportProblemDescription;
 
     return Container(
-      height: 98,
+      constraints: const BoxConstraints(minHeight: 98),
       decoration: BoxDecoration(
         color: const Color(0xFF074E95),
         borderRadius: BorderRadius.circular(20),
@@ -157,7 +157,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                 // Content row
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Row(
                     children: [
                       // Camera with sparkles icon

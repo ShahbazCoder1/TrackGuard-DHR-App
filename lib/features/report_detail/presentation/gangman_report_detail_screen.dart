@@ -476,12 +476,16 @@ class _GangmanReportDetailScreenState
                     color: Color(0xFF64748B),
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                    createdDateText,
-                    style: const TextStyle(
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF475569),
+                  Expanded(
+                    child: Text(
+                      createdDateText,
+                      style: const TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF475569),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],

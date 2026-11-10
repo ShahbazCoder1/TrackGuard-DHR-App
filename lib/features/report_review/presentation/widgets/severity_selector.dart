@@ -90,32 +90,41 @@ class SeveritySelector extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // Tier Code + Dot
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 7,
-                                  height: 7,
-                                  decoration: BoxDecoration(
-                                    color: dotColor,
-                                    shape: BoxShape.circle,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 7,
+                                    height: 7,
+                                    decoration: BoxDecoration(
+                                      color: dotColor,
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  _tierCode(severity, l10n),
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: isSelected
-                                        ? FontWeight.w800
-                                        : FontWeight.w700,
-                                    color: isSelected
-                                        ? const Color(0xFF074E95)
-                                        : const Color(0xFF0F172A),
-                                    letterSpacing: 0.3,
+                                  const SizedBox(width: 4),
+                                  Flexible(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        _tierCode(severity, l10n),
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: isSelected
+                                              ? FontWeight.w800
+                                              : FontWeight.w700,
+                                          color: isSelected
+                                              ? const Color(0xFF074E95)
+                                              : const Color(0xFF0F172A),
+                                          letterSpacing: 0.3,
+                                        ),
+                                        maxLines: 1,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 2),
 

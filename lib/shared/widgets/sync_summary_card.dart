@@ -151,15 +151,19 @@ class SyncSummaryCard extends StatelessWidget {
                             color: Color(0xFFD97706),
                           ),
                           const SizedBox(width: 5),
-                          Text(
-                            l10n.syncPendingShort,
-                            style: const TextStyle(
-                              fontSize: 12.5,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF92400E),
+                          Expanded(
+                            child: Text(
+                              l10n.syncPendingShort,
+                              style: const TextStyle(
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF92400E),
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const Spacer(),
+                          const SizedBox(width: 4),
                           Container(
                             width: 7,
                             height: 7,
@@ -213,15 +217,19 @@ class SyncSummaryCard extends StatelessWidget {
                             color: Color(0xFFDC2626),
                           ),
                           const SizedBox(width: 5),
-                          Text(
-                            l10n.syncFailedShort,
-                            style: const TextStyle(
-                              fontSize: 12.5,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF991B1B),
+                          Expanded(
+                            child: Text(
+                              l10n.syncFailedShort,
+                              style: const TextStyle(
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF991B1B),
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const Spacer(),
+                          const SizedBox(width: 4),
                           const Icon(
                             Symbols.cancel_rounded,
                             size: 15,
@@ -277,12 +285,16 @@ class SyncSummaryCard extends StatelessWidget {
                             color: Color(0xFF16A34A),
                           ),
                           const SizedBox(width: 5),
-                          Text(
-                            l10n.syncSyncedShort,
-                            style: const TextStyle(
-                              fontSize: 12.5,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF166534),
+                          Expanded(
+                            child: Text(
+                              l10n.syncSyncedShort,
+                              style: const TextStyle(
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF166534),
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],

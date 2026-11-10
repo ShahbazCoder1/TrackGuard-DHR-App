@@ -626,16 +626,20 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                         // 3. KILOMETER MARKER
                         Row(
                           children: [
-                            Text(
-                              AppLocalizations.of(context)!.reportKmMarkerStep,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF475569),
-                                letterSpacing: 0.4,
+                            Expanded(
+                              child: Text(
+                                AppLocalizations.of(context)!.reportKmMarkerStep,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF475569),
+                                  letterSpacing: 0.4,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            const Spacer(),
+                            const SizedBox(width: 8),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 7,

@@ -7,11 +7,13 @@ import '../models/severity.dart';
 class SeverityBadge extends StatelessWidget {
   final Severity severity;
   final bool isLarge;
+  final bool useShortLabel;
 
   const SeverityBadge({
     super.key,
     required this.severity,
     this.isLarge = false,
+    this.useShortLabel = true,
   });
 
   Color get _color {
@@ -45,12 +47,19 @@ class SeverityBadge extends StatelessWidget {
     final color = _color;
 
     final l10n = AppLocalizations.of(context)!;
-    final text = switch (severity) {
-      Severity.low => l10n.severityLow,
-      Severity.medium => l10n.severityMedium,
-      Severity.high => l10n.severityHigh,
-      Severity.critical => l10n.severityCritical,
-    };
+    final text = useShortLabel
+        ? switch (severity) {
+            Severity.low => l10n.severityLowShort,
+            Severity.medium => l10n.severityMediumShort,
+            Severity.high => l10n.severityHighShort,
+            Severity.critical => l10n.severityCriticalShort,
+          }
+        : switch (severity) {
+            Severity.low => l10n.severityLow,
+            Severity.medium => l10n.severityMedium,
+            Severity.high => l10n.severityHigh,
+            Severity.critical => l10n.severityCritical,
+          };
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -75,6 +84,8 @@ class SeverityBadge extends StatelessWidget {
           fontWeight: FontWeight.w700,
           letterSpacing: 0.3,
         ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
