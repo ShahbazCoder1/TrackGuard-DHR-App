@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
-import '../../../core/constants/dhr_waypoints.dart';
+import '../../../core/localization/railway_display_names.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../features/auth/presentation/auth_controller.dart';
 import '../../ai/domain/ai_settings.dart';
@@ -25,7 +25,7 @@ class ProfileScreen extends ConsumerWidget {
     final isAdmin = user?.role == UserRole.admin;
 
     final sectionName = user?.assignedSection != null
-        ? DhrWaypoints.getSectionName(user!.assignedSection!)
+        ? localizedSectionName(l10n, user!.assignedSection!)
         : (isAdmin ? l10n.allDhrAlignment : l10n.unassignedSection);
 
     final dashboardRoute = isAdmin ? '/admin/dashboard' : '/gangman/home';

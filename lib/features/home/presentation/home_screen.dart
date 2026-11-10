@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../core/connectivity/connectivity_provider.dart';
-import '../../../core/constants/dhr_waypoints.dart';
+import '../../../core/localization/railway_display_names.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/app_language.dart';
@@ -924,9 +924,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final kmStr = report.kmMarker != null
         ? _formatKm(report.kmMarker!, l10n)
         : '${l10n.kmUnit} --';
-    final station =
-        report.nearestStationName ??
-        DhrWaypoints.getSectionName(report.sectionId);
+    final station = report.nearestStationName != null
+        ? localizedStationName(l10n, report.nearestStationName!)
+        : localizedSectionName(l10n, report.sectionId);
     return '$kmStr, $station';
   }
 

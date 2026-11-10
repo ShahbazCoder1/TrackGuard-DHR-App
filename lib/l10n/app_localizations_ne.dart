@@ -1879,4 +1879,22 @@ class AppLocalizationsNe extends AppLocalizations {
   String syncReferenceCode(String code) {
     return 'सन्दर्भ: $code';
   }
+
+  @override
+  String get sectionKurseongGhum => 'कुर्सियाङ → घुम';
+
+  @override
+  String get sectionGhumDarjeeling => 'घुम → दार्जिलिङ';
+
+  @override
+  String get languageNameEnglish => 'अङ्ग्रेजी';
+
+  @override
+  String get languageNameHindi => 'हिन्दी';
+
+  @override
+  String get languageNameBengali => 'बङ्गाली';
+
+  @override
+  String get languageNameNepali => 'नेपाली';
 }

@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/constants/dhr_waypoints.dart';
+import '../../../core/localization/railway_display_names.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/app_user.dart';
 import '../../../shared/models/hazard_report.dart';
@@ -230,7 +231,10 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
           title: l10n.adminSectionSummary,
           rows: [
             for (final e in sections.entries)
-              _SectionRow(name: _sectionName(e.key), count: e.value),
+              _SectionRow(
+                name: localizedSectionName(l10n, e.key),
+                count: e.value,
+              ),
           ],
         ),
         const SizedBox(height: 16),
@@ -833,7 +837,7 @@ class _UserCardState extends State<_UserCard> {
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
-                                        s.name,
+                                        localizedSectionName(l10n, s.id),
                                         style: const TextStyle(
                                           fontSize: 13.5,
                                           fontWeight: FontWeight.w700,
@@ -1293,7 +1297,7 @@ class _AdminReportDetailScreenState
             icon: Symbols.alt_route_rounded,
             label: l10n.adminSection,
             valueWidget: Text(
-              _sectionName(r.sectionId),
+              localizedSectionName(l10n, r.sectionId),
               textAlign: TextAlign.end,
               style: const TextStyle(
                 fontSize: 13.5,
@@ -1309,7 +1313,7 @@ class _AdminReportDetailScreenState
             icon: Symbols.location_on_rounded,
             label: l10n.adminStation,
             valueWidget: Text(
-              r.nearestStationName ?? 'Kurseong ${l10n.stationLabel}',
+              localizedStationName(l10n, r.nearestStationName ?? 'kurseong'),
               textAlign: TextAlign.end,
               style: const TextStyle(
                 fontSize: 13.5,
@@ -2063,7 +2067,7 @@ class _AdminFullScreenImageViewerState
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final kmText =
-        '${l10n.kmUnit} ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${widget.report.nearestStationName ?? "Kurseong ${l10n.stationLabel}"}';
+        '${l10n.kmUnit} ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${localizedStationName(l10n, widget.report.nearestStationName ?? "kurseong")}';
 
     final isNetwork =
         widget.photoUrl.startsWith('http://') ||
@@ -3243,28 +3247,21 @@ String _localizedHazardTitle(AppLocalizations l10n, HazardType type) {
   };
 }
 
-String _sectionName(String id) {
-  switch (id) {
-    case 'kurseong-ghum':
-      return 'Kurseong → Ghum';
-    case 'ghum-darjeeling':
-      return 'Ghum → Darjeeling';
-    default:
-      return id;
-  }
-}
-
 String _trimKm(num km) =>
     km == km.roundToDouble() ? '${km.toInt()}' : km.toStringAsFixed(1);
 
 /// "KM 51, Kurseong", falling back to the section name.
 String _locationLabel(HazardReport r, AppLocalizations l10n) {
-  final station = r.nearestStationName;
+  final station = r.nearestStationName == null
+      ? null
+      : localizedStationName(l10n, r.nearestStationName!);
   final parts = [
     if (r.kmMarker != null) '${l10n.kmUnit} ${_trimKm(r.kmMarker!)}',
     if (station != null && station.isNotEmpty) station,
   ];
-  return parts.isEmpty ? _sectionName(r.sectionId) : parts.join(', ');
+  return parts.isEmpty
+      ? localizedSectionName(l10n, r.sectionId)
+      : parts.join(', ');
 }
 
 String _formatDate(DateTime date) {

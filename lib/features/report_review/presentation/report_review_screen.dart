@@ -8,6 +8,7 @@ import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../core/connectivity/connectivity_provider.dart';
 import '../../../core/constants/dhr_waypoints.dart';
+import '../../../core/localization/railway_display_names.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/hazard_type.dart';
 import '../../../shared/models/location_source.dart';
@@ -480,8 +481,10 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                loc.nearestStationName ??
-                                    'Kurseong ${AppLocalizations.of(context)!.stationLabel}',
+                                localizedStationName(
+                                  AppLocalizations.of(context)!,
+                                  loc.nearestStationName ?? 'kurseong',
+                                ),
                                 style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
@@ -490,7 +493,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                '${AppLocalizations.of(context)!.kmUnit} ${reviewState.kmMarker.toStringAsFixed(1)} • ${DhrWaypoints.getSectionName(DhrWaypoints.estimateSection(reviewState.kmMarker))}',
+                                '${AppLocalizations.of(context)!.kmUnit} ${reviewState.kmMarker.toStringAsFixed(1)} • ${localizedSectionName(AppLocalizations.of(context)!, DhrWaypoints.estimateSection(reviewState.kmMarker))}',
                                 style: const TextStyle(
                                   fontSize: 12.5,
                                   color: Color(0xFF64748B),

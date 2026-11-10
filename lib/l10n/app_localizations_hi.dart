@@ -1876,4 +1876,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String syncReferenceCode(String code) {
     return 'संदर्भ: $code';
   }
+
+  @override
+  String get sectionKurseongGhum => 'कुर्सियांग → घूम';
+
+  @override
+  String get sectionGhumDarjeeling => 'घूम → दार्जिलिंग';
+
+  @override
+  String get languageNameEnglish => 'अंग्रेज़ी';
+
+  @override
+  String get languageNameHindi => 'हिंदी';
+
+  @override
+  String get languageNameBengali => 'बंगाली';
+
+  @override
+  String get languageNameNepali => 'नेपाली';
 }

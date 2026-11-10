@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
-import '../../../core/constants/dhr_waypoints.dart';
+import '../../../core/localization/railway_display_names.dart';
 import '../../../core/utils/date_format_utils.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/ai_provider.dart';
@@ -423,7 +423,7 @@ class _GangmanReportDetailScreenState
   Widget _buildHeaderSection(HazardReport report) {
     final l10n = AppLocalizations.of(context)!;
     final kmText =
-        '${l10n.kmUnit} ${(report.kmMarker ?? 51.0).toStringAsFixed(1)}, ${report.nearestStationName ?? "Kurseong ${l10n.stationLabel}"}';
+        '${l10n.kmUnit} ${(report.kmMarker ?? 51.0).toStringAsFixed(1)}, ${localizedStationName(l10n, report.nearestStationName ?? "kurseong")}';
     final createdDateText = DateFormatUtils.formatReportDate(report.createdAt);
 
     return Row(
@@ -970,10 +970,12 @@ class _GangmanReportDetailScreenState
 
   // 6. Location & Track Alignment Card
   Widget _buildLocationCard(HazardReport report, AppLocalizations l10n) {
-    final stationName =
-        report.nearestStationName ?? 'Kurseong ${l10n.stationLabel}';
+    final stationName = localizedStationName(
+      l10n,
+      report.nearestStationName ?? 'kurseong',
+    );
     final kmNumber = (report.kmMarker ?? 51.0).toStringAsFixed(1);
-    final sectionName = DhrWaypoints.getSectionName(report.sectionId);
+    final sectionName = localizedSectionName(l10n, report.sectionId);
     final sourceAccuracy = report.gpsAccuracyMeters != null
         ? '(\u00B1${report.gpsAccuracyMeters!.toStringAsFixed(1)}m)'
         : '';
@@ -1099,7 +1101,9 @@ class _GangmanReportDetailScreenState
   Widget _buildAiAuditCard(HazardReport report, AppLocalizations l10n) {
     final providerTitle = _providerDisplayName(report.aiProvider, l10n);
     final displayModel = report.aiModel ?? 'nvidia/nemotron-3.5-super-vl:free';
-    final languageName = report.aiLanguage?.displayName ?? 'English';
+    final languageName = report.aiLanguage == null
+        ? l10n.languageNameEnglish
+        : localizedLanguageName(l10n, report.aiLanguage!);
     final confidencePct =
         '${((report.aiConfidence ?? 0.75) * 100).toStringAsFixed(0)}%';
 
@@ -1627,7 +1631,7 @@ class _FullScreenImageViewerState extends State<_FullScreenImageViewer> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final kmText =
-        '${l10n.kmUnit} ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${widget.report.nearestStationName ?? "Kurseong ${l10n.stationLabel}"}';
+        '${l10n.kmUnit} ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${localizedStationName(l10n, widget.report.nearestStationName ?? "kurseong")}';
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(

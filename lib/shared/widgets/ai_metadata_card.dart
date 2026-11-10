@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../app/theme.dart';
+import '../../core/localization/railway_display_names.dart';
 import '../../l10n/app_localizations.dart';
 import '../models/ai_analysis_result.dart';
 import '../models/ai_provider.dart';
@@ -133,7 +134,7 @@ class AiMetadataCard extends StatelessWidget {
                     border: Border.all(color: AppTheme.borderDark),
                   ),
                   child: Text(
-                    provider.name.toUpperCase(),
+                    providerTitle.toUpperCase(),
                     style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -159,7 +160,7 @@ class AiMetadataCard extends StatelessWidget {
                 if (language != null)
                   _buildMetaItem(
                     label: l10n.aiLanguageLabel,
-                    value: language!.displayName,
+                    value: localizedLanguageName(l10n, language!),
                   ),
                 if (confidence != null)
                   _buildMetaItem(
@@ -192,7 +193,7 @@ class AiMetadataCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        fallbackReason!,
+                        '${l10n.aiFallbackReason}: $fallbackReason',
                         style: const TextStyle(
                           fontSize: 11,
                           color: AppTheme.statusOrange,

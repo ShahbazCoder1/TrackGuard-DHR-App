@@ -904,5 +904,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "sectionKurseongGhum": "Kurseong → Ghum",
+  "sectionGhumDarjeeling": "Ghum → Darjeeling",
+  "languageNameEnglish": "English",
+  "languageNameHindi": "Hindi",
+  "languageNameBengali": "Bengali",
+  "languageNameNepali": "Nepali"
 }

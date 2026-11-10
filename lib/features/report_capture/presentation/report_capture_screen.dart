@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../core/constants/dhr_waypoints.dart';
+import '../../../core/localization/railway_display_names.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/location_source.dart';
 import '../../../shared/widgets/loading_view.dart';
@@ -236,7 +237,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
 
     final isGps = loc?.source == LocationSource.gps;
     final stationName = loc?.nearestStationName != null
-        ? _localizedStationName(l10n, loc!.nearestStationName!)
+        ? localizedStationName(l10n, loc!.nearestStationName!)
         : (loc != null ? l10n.dhrAlignment : l10n.gpsAcquiring);
     final km = '${l10n.kmUnit} ${(loc?.kmMarker ?? 51.0).toStringAsFixed(1)}';
     final statusText = isGps
@@ -338,15 +339,6 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
         ),
       ),
     );
-  }
-
-  String _localizedStationName(AppLocalizations l10n, String stationName) {
-    for (final waypoint in DhrWaypoints.waypoints) {
-      if (waypoint.name == stationName) {
-        return l10n.stationName(waypoint.id);
-      }
-    }
-    return stationName;
   }
 
   // ───────────────────────── Photo review ─────────────────────────

@@ -485,7 +485,7 @@ void main() {
 
         // Confirmed details
         expect(find.text('Rockfall / Fallen Debris'), findsWidgets);
-        expect(find.text('Tung • Km 51.2'), findsOneWidget);
+        expect(find.text('Tung Station • Km 51.2'), findsOneWidget);
         expect(
           find.text('Rocks fallen on the outer rail after heavy rainfall.'),
           findsOneWidget,
