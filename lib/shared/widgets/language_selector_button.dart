@@ -11,12 +11,10 @@ import '../../../shared/models/app_language.dart';
 class LanguageSelectorButton extends ConsumerWidget {
   final Color? iconColor;
 
-  const LanguageSelectorButton({
-    super.key,
-    this.iconColor,
-  });
+  const LanguageSelectorButton({super.key, this.iconColor});
 
   void _openPopup(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final renderBox = context.findRenderObject() as RenderBox?;
     if (renderBox == null) return;
     final offset = renderBox.localToGlobal(Offset.zero);
@@ -25,14 +23,11 @@ class LanguageSelectorButton extends ConsumerWidget {
     showGeneralDialog<void>(
       context: context,
       barrierDismissible: true,
-      barrierLabel: 'Select Language',
+      barrierLabel: l10n.selectLanguage,
       barrierColor: Colors.black.withValues(alpha: 0.12),
       transitionDuration: const Duration(milliseconds: 150),
       pageBuilder: (dialogContext, animation, secondaryAnimation) {
-        return _LanguageDropdownPopup(
-          anchorOffset: offset,
-          anchorSize: size,
-        );
+        return _LanguageDropdownPopup(anchorOffset: offset, anchorSize: size);
       },
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         final curved = CurvedAnimation(
@@ -55,16 +50,12 @@ class LanguageSelectorButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final color = iconColor ?? const Color(0xFF0F172A);
 
     return IconButton(
-      icon: Icon(
-        Symbols.translate_indic_rounded,
-        size: 24,
-        color: color,
-      ),
-      tooltip: l10n?.selectLanguage ?? 'Select Language',
+      icon: Icon(Symbols.translate_indic_rounded, size: 24, color: color),
+      tooltip: l10n.selectLanguage,
       onPressed: () => _openPopup(context, ref),
     );
   }
@@ -81,7 +72,7 @@ class _LanguageDropdownPopup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final screenSize = MediaQuery.sizeOf(context);
     final currentLang = ref.watch(appLanguageProvider);
     const popupWidth = 220.0;
@@ -96,8 +87,10 @@ class _LanguageDropdownPopup extends ConsumerWidget {
     double? right;
 
     if (isRight) {
-      right = (screenSize.width - (anchorOffset.dx + anchorSize.width))
-          .clamp(6.0, 24.0);
+      right = (screenSize.width - (anchorOffset.dx + anchorSize.width)).clamp(
+        6.0,
+        24.0,
+      );
     } else {
       left = anchorOffset.dx.clamp(6.0, 24.0);
     }
@@ -154,7 +147,7 @@ class _LanguageDropdownPopup extends ConsumerWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            l10n?.selectLanguage ?? 'Select Language',
+                            l10n.selectLanguage,
                             style: const TextStyle(
                               fontSize: 13.5,
                               fontWeight: FontWeight.w700,

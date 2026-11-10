@@ -96,10 +96,10 @@ class AiMetadataCard extends StatelessWidget {
     final displayModel =
         modelName ??
         (provider == AiProvider.offlineGemma
-            ? 'Gemma 4 E2B'
+            ? l10n.aiGemmaModelName
             : provider == AiProvider.heuristic
-            ? 'Rule-based Heuristics'
-            : 'Manual Classification');
+            ? l10n.heuristicModelName
+            : l10n.aiProviderManual);
 
     return Card(
       child: Padding(
@@ -112,8 +112,8 @@ class AiMetadataCard extends StatelessWidget {
               children: [
                 Icon(_providerIcon, size: 18, color: AppTheme.primaryAmber),
                 const SizedBox(width: 8),
-                const Text(
-                  'AI ADVISORY METADATA',
+                Text(
+                  l10n.aiAdvisoryMetadataHeading,
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w800,

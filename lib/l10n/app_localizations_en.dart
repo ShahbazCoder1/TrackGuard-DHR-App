@@ -1021,11 +1021,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Inspection draft could not be loaded.';
 
   @override
-  String hazardReportTitle(String hazard) {
-    return '$hazard Report';
-  }
-
-  @override
   String get statusStepSent => 'Sent';
 
   @override
@@ -1041,7 +1036,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportAuditInformation => 'REPORT AUDIT INFORMATION';
 
   @override
-  String get noPhotoAttached => 'No photo attached';
+  String get noPhotoAttached => 'No Photo Attached';
 
   @override
   String get photoNotFoundOnDevice => 'Photo not found on device';
@@ -1546,4 +1541,341 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeEmergencyBadge => 'Emergency';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get filterPending => 'Pending';
+
+  @override
+  String get filterFailed => 'Failed';
+
+  @override
+  String get filterSynced => 'Synced';
+
+  @override
+  String get hazardTitleTrackDefectRailGap => 'Track Defect / Rail Gap';
+
+  @override
+  String get hazardTitleDamagedWall => 'Damaged Retaining Wall';
+
+  @override
+  String get hazardTitleRockfall => 'Rockfall / Fallen Debris';
+
+  @override
+  String get hazardTitleLandslip => 'Landslip / Mudslide';
+
+  @override
+  String get hazardTitleBlockedDrain => 'Blocked Catchwater Drain';
+
+  @override
+  String get hazardTitleVegetation => 'Vegetation';
+
+  @override
+  String get hazardTitleOther => 'Track Issue / Other Hazard';
+
+  @override
+  String get kmUnit => 'Km';
+
+  @override
+  String get stationLabel => 'Station';
+
+  @override
+  String get modelNameLabel => 'Model Name';
+
+  @override
+  String get modelNotReady => 'Not Ready';
+
+  @override
+  String get modelReady => 'Ready';
+
+  @override
+  String get modelChecking => 'Checking';
+
+  @override
+  String get modelActivating => 'Activating';
+
+  @override
+  String get modelCorruptedLabel => 'Corrupted';
+
+  @override
+  String get modelFailedLabel => 'Failed';
+
+  @override
+  String get reportStatusTitle => 'Report Status';
+
+  @override
+  String get locationTrackAlignmentTitle => 'Location & Track Alignment';
+
+  @override
+  String get assignedSectionLabel => 'Assigned Section';
+
+  @override
+  String get sourceGpsLabel => 'Source: GPS';
+
+  @override
+  String get technicalAiAuditDetails => 'Technical & AI Audit Details';
+
+  @override
+  String get aiProviderValue => 'AI Provider';
+
+  @override
+  String get aiModelValue => 'AI Model';
+
+  @override
+  String get aiLanguageValue => 'AI Language';
+
+  @override
+  String get confidenceLabel => 'Confidence';
+
+  @override
+  String get auditOriginalSubmission =>
+      'Audit: Original submission (Unmodified)';
+
+  @override
+  String reportIdValue(String id) {
+    return 'Report ID: $id';
+  }
+
+  @override
+  String sourceGangmanMobile(String source) {
+    return 'Source: Gangman Mobile Unit ($source)';
+  }
+
+  @override
+  String get selectNearestWaypoint => 'Select Nearest DHR Station / Waypoint';
+
+  @override
+  String get nearest => 'Nearest';
+
+  @override
+  String get homeTrackObstruction => 'Track Obstruction';
+
+  @override
+  String get homeTrackDamage => 'Track Damage';
+
+  @override
+  String get homeLandslideRockfall => 'Landslide / Rockfall';
+
+  @override
+  String get homeBlockedDrain => 'Blocked Drain';
+
+  @override
+  String get homeDamagedWall => 'Damaged Wall';
+
+  @override
+  String get homeAlignmentHazard => 'Alignment Hazard';
+
+  @override
+  String get emergencyHelpline => 'Helpline';
+
+  @override
+  String get activeStatus => 'Active';
+
+  @override
+  String get inactiveStatus => 'Inactive';
+
+  @override
+  String hazardPhotoTitle(String hazard) {
+    return '$hazard Photo';
+  }
+
+  @override
+  String get syncQueuedAtStation =>
+      'Queued locally for automatic sync at next station.';
+
+  @override
+  String get syncVerifiedCurrent =>
+      'Cloud sync verified • Up to date with server';
+
+  @override
+  String get syncFailedRetry => 'Sync failed. Tap to retry.';
+
+  @override
+  String syncErrorValue(String error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get syncPendingCloudAtStation => 'Pending cloud sync at next station';
+
+  @override
+  String get offlineModelReadyDescription =>
+      'On-device AI is active. You can inspect tracks and get hazard suggestions without an internet connection.';
+
+  @override
+  String get offlineModelDownloadedDescription =>
+      'Model files are downloaded on this phone. Tap below to activate offline photo analysis.';
+
+  @override
+  String get offlineModelDownloadingDescription =>
+      'Downloading offline AI files. Please keep the app open until download completes.';
+
+  @override
+  String get offlineModelActivatingDescription =>
+      'Activating offline model... this will take a moment.';
+
+  @override
+  String get offlineModelFailedDescription =>
+      'Download failed. Please check your connection and tap retry below.';
+
+  @override
+  String get offlineModelCorruptedDescription =>
+      'Model files appear corrupted. Please delete and re-download.';
+
+  @override
+  String get offlineModelCheckingDescription => 'Checking model status...';
+
+  @override
+  String get offlineModelNotDownloadedDescription =>
+      'Download the offline model (~1.2 GB) once to enable track defect suggestions without network coverage.';
+
+  @override
+  String get statusOpenShort => 'Open';
+
+  @override
+  String get statusInspectShort => 'Inspect';
+
+  @override
+  String get severityLowShort => 'Low';
+
+  @override
+  String get severityMediumShort => 'Medium';
+
+  @override
+  String get severityHighShort => 'High';
+
+  @override
+  String get severityCriticalShort => 'Critical';
+
+  @override
+  String get networkErrorLabel => 'Network error';
+
+  @override
+  String get selectorHazardSlip => 'Landslide /\nSlip';
+
+  @override
+  String get selectorHazardRockfall => 'Boulder /\nRockfall';
+
+  @override
+  String get selectorHazardDrain => 'Blocked\nDrain';
+
+  @override
+  String get selectorHazardWall => 'Retaining\nWall';
+
+  @override
+  String get selectorHazardTrack => 'Track Defect /\nJoint';
+
+  @override
+  String get selectorHazardVegetation => 'Vegetation\nOvergrowth';
+
+  @override
+  String get selectorHazardOther => 'Other Defect / Hazard';
+
+  @override
+  String get severityMonitor => 'Monitor';
+
+  @override
+  String get severityMaintain => 'Maintain';
+
+  @override
+  String get severityUrgent => 'Urgent';
+
+  @override
+  String get severityTierCritical => 'Critical';
+
+  @override
+  String lastModifiedValue(Object date) {
+    return 'Last Modified: $date';
+  }
+
+  @override
+  String get homeReportProblem => 'Report a Problem';
+
+  @override
+  String get homeReportProblemDescription =>
+      'Take a photo and tell us\nwhat is wrong on the track.';
+
+  @override
+  String syncStatusSemantic(Object status) {
+    return 'Sync Status: $status';
+  }
+
+  @override
+  String adminLoadReportsFailed(String error) {
+    return 'Could not load reports: $error';
+  }
+
+  @override
+  String adminLoadUsersFailed(String error) {
+    return 'Could not load users: $error';
+  }
+
+  @override
+  String adminLoadReportFailed(String error) {
+    return 'Could not load report: $error';
+  }
+
+  @override
+  String get statusInitial => 'Initial';
+
+  @override
+  String get offlineShortStatus => 'Offline';
+
+  @override
+  String get profileAccountDetails => 'Account Details';
+
+  @override
+  String adminProfileUpdateFailed(String error) {
+    return 'Update failed: $error';
+  }
+
+  @override
+  String adminStatusUpdateFailedToast(String error) {
+    return 'Status update failed: $error';
+  }
+
+  @override
+  String get offlineModelTitle => 'Offline Model';
+
+  @override
+  String get aiProviderHeuristicShort => 'Heuristic';
+
+  @override
+  String get aiRetryAnalysisLabel => 'Retry AI Analysis';
+
+  @override
+  String get heuristicModelName => 'Rule-based Heuristics';
+
+  @override
+  String get aiProviderHeuristicDisplay => 'Heuristic Fallback';
+
+  @override
+  String get aiProviderManualDisplay => 'Manual Inspection';
+
+  @override
+  String get supervisorName => 'Supervisor';
+
+  @override
+  String get syncPendingShort => 'Pending';
+
+  @override
+  String get syncFailedShort => 'Failed';
+
+  @override
+  String get syncSyncedShort => 'Synced';
+
+  @override
+  String get syncDraftShort => 'Draft';
+
+  @override
+  String syncRetryAttempts(int count) {
+    return 'Retry attempts: $count';
+  }
+
+  @override
+  String syncReferenceCode(String code) {
+    return 'Ref: $code';
+  }
 }

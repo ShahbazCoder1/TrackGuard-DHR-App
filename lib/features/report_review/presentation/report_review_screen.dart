@@ -62,7 +62,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
     if (reviewState.draft == null) return true;
     if (reviewState.isSaving) return false;
 
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final action = await showDialog<_ReviewExitAction>(
       context: context,
       barrierDismissible: false,
@@ -70,14 +70,14 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
         icon: Icons.edit_note_rounded,
         iconBgColor: TrackGuardDialog.brandBlueSoft,
         iconColor: TrackGuardDialog.brandBlue,
-        title: l10n?.reportLeaveTitle ?? 'Leave report?',
-        message: l10n?.reportLeaveMessage ?? 'You have an unfinished report. Would you like to discard it?',
-        primaryLabel: l10n?.reportDiscardAction ?? 'Discard Report',
+        title: l10n.reportLeaveTitle,
+        message: l10n.reportLeaveMessage,
+        primaryLabel: l10n.reportDiscardAction,
         primaryIcon: Icons.delete_outline_rounded,
         primaryColor: TrackGuardDialog.red,
         onPrimaryPressed: () =>
             Navigator.of(dialogContext).pop(_ReviewExitAction.discard),
-        cancelLabel: l10n?.reportKeepEditing ?? 'Keep Editing',
+        cancelLabel: l10n.reportKeepEditing,
         onCancelPressed: () => Navigator.of(dialogContext).pop(),
       ),
     );
@@ -89,14 +89,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
     final discarded = await controller.discardDraft();
     if (!mounted) return false;
     if (!discarded) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            l10n?.reportDiscardFailed ??
-                'Could not discard report. Please try again.',
-          ),
-        ),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(l10n.reportDiscardFailed)));
       return false;
     }
 
@@ -266,8 +260,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                 }
               },
             ),
-          title: Text(
-            AppLocalizations.of(context)!.reportReviewTitle,
+            title: Text(
+              AppLocalizations.of(context)!.reportReviewTitle,
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
@@ -316,7 +310,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                         ),
                         SizedBox(width: 8),
                         Text(
-                          AppLocalizations.of(context)!.reportSaveLocalReassurance,
+                          AppLocalizations.of(context)!
+                              .reportSaveLocalReassurance,
                           style: TextStyle(
                             fontSize: 12.5,
                             fontStyle: FontStyle.italic,
@@ -376,7 +371,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                                 ),
                                 SizedBox(width: 8),
                                 Text(
-                                  AppLocalizations.of(context)!.reportConfirmSaveLocal,
+                                  AppLocalizations.of(context)!
+                                      .reportConfirmSaveLocal,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
@@ -436,8 +432,10 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                                 const SizedBox(width: 4),
                                 Text(
                                   loc.source == LocationSource.gps
-                                      ? 'Source: Real GPS'
-                                      : 'Source: Fallback Location',
+                                      ? AppLocalizations.of(context)!
+                                            .locationSourceGps
+                                      : AppLocalizations.of(context)!
+                                            .locationSourceFallback,
                                   style: const TextStyle(
                                     fontSize: 11,
                                     fontWeight: FontWeight.w600,
@@ -482,7 +480,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                loc.nearestStationName ?? 'Kurseong Station',
+                                loc.nearestStationName ??
+                                    'Kurseong ${AppLocalizations.of(context)!.stationLabel}',
                                 style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
@@ -491,7 +490,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                'Km ${reviewState.kmMarker.toStringAsFixed(1)} • ${DhrWaypoints.getSectionName(DhrWaypoints.estimateSection(reviewState.kmMarker))}',
+                                '${AppLocalizations.of(context)!.kmUnit} ${reviewState.kmMarker.toStringAsFixed(1)} • ${DhrWaypoints.getSectionName(DhrWaypoints.estimateSection(reviewState.kmMarker))}',
                                 style: const TextStyle(
                                   fontSize: 12.5,
                                   color: Color(0xFF64748B),
@@ -582,7 +581,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
 
                         // 1. HAZARD CLASSIFICATION
                         Text(
-                          AppLocalizations.of(context)!.reportHazardClassification,
+                          AppLocalizations.of(context)!
+                              .reportHazardClassification,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
@@ -646,7 +646,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                                 ),
                               ),
                               child: Text(
-                                AppLocalizations.of(context)!.reportGpsAutoMatched,
+                                AppLocalizations.of(context)!
+                                    .reportGpsAutoMatched,
                                 style: TextStyle(
                                   fontSize: 9.5,
                                   fontWeight: FontWeight.w700,
@@ -745,7 +746,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFF8FAFC),
-                            hintText: AppLocalizations.of(context)!.reportNoteExample,
+                            hintText: AppLocalizations.of(context)!
+                                .reportNoteExample,
                             hintStyle: const TextStyle(
                               fontSize: 12.5,
                               color: Color(0xFF94A3B8),

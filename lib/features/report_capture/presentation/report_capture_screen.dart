@@ -109,7 +109,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
 
     _isExitDialogOpen = true;
 
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final action = await showDialog<_CaptureExitAction>(
       context: context,
       barrierDismissible: false,
@@ -117,19 +117,18 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
         icon: Icons.edit_note_rounded,
         iconBgColor: TrackGuardDialog.brandBlueSoft,
         iconColor: TrackGuardDialog.brandBlue,
-        title: l10n?.reportLeaveTitle ?? 'Leave report?',
-        message: l10n?.reportLeaveWithDraftMessage ??
-            'You have a captured photo that has not been saved yet. Would you like to save it as a draft or discard it?',
-        primaryLabel: l10n?.reportSaveDraft ?? 'Save as Draft',
+        title: l10n.reportLeaveTitle,
+        message: l10n.reportLeaveWithDraftMessage,
+        primaryLabel: l10n.reportSaveDraft,
         primaryIcon: Icons.bookmark_added_rounded,
         primaryColor: TrackGuardDialog.brandBlue,
         onPrimaryPressed: () =>
             Navigator.pop(dialogContext, _CaptureExitAction.saveDraft),
-        secondaryLabel: l10n?.reportDiscardAction ?? 'Discard Report',
+        secondaryLabel: l10n.reportDiscardAction,
         secondaryIcon: Icons.delete_outline_rounded,
         onSecondaryPressed: () =>
             Navigator.pop(dialogContext, _CaptureExitAction.discard),
-        cancelLabel: l10n?.reportKeepEditing ?? 'Keep Editing',
+        cancelLabel: l10n.reportKeepEditing,
         onCancelPressed: () => Navigator.pop(dialogContext),
       ),
     );
@@ -157,7 +156,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
         SnackBar(
           content: Text(
             ref.read(reportCaptureControllerProvider).errorMessage ??
-                'Could not complete the action.',
+                AppLocalizations.of(context)!.reportDiscardFailed,
           ),
         ),
       );
@@ -239,10 +238,10 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
     final stationName = loc?.nearestStationName != null
         ? _localizedStationName(l10n, loc!.nearestStationName!)
         : (loc != null ? l10n.dhrAlignment : l10n.gpsAcquiring);
-    final km = 'Km ${(loc?.kmMarker ?? 51.0).toStringAsFixed(1)}';
+    final km = '${l10n.kmUnit} ${(loc?.kmMarker ?? 51.0).toStringAsFixed(1)}';
     final statusText = isGps
-        ? 'GPS Locked'
-        : (loc != null ? l10n.setManually : 'Searching...');
+        ? l10n.gpsLockedStatus
+        : (loc != null ? l10n.setManually : l10n.gpsAcquiring);
 
     return Container(
       decoration: BoxDecoration(
@@ -752,7 +751,6 @@ class _CameraErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
@@ -789,7 +787,7 @@ class _CameraErrorView extends StatelessWidget {
 
             // Title
             Text(
-              l10n?.cameraUnavailableTitle ?? 'Camera Unavailable',
+              AppLocalizations.of(context)!.cameraUnavailableTitle,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color(0xFF0F172A),
@@ -802,8 +800,7 @@ class _CameraErrorView extends StatelessWidget {
 
             // Subtitle
             Text(
-              l10n?.cameraUnavailableSubtitle ??
-                  'Please use the gallery fallback or retry the\ncamera.',
+              AppLocalizations.of(context)!.cameraUnavailableSubtitle,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color(0xFF64748B),

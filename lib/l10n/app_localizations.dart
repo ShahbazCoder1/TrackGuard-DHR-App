@@ -1840,12 +1840,6 @@ abstract class AppLocalizations {
   /// **'Inspection draft could not be loaded.'**
   String get inspectionDraftCouldNotBeLoaded;
 
-  /// No description provided for @hazardReportTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'{hazard} Report'**
-  String hazardReportTitle(String hazard);
-
   /// No description provided for @statusStepSent.
   ///
   /// In en, this message translates to:
@@ -1879,7 +1873,7 @@ abstract class AppLocalizations {
   /// No description provided for @noPhotoAttached.
   ///
   /// In en, this message translates to:
-  /// **'No photo attached'**
+  /// **'No Photo Attached'**
   String get noPhotoAttached;
 
   /// No description provided for @photoNotFoundOnDevice.
@@ -2793,6 +2787,606 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Emergency'**
   String get homeEmergencyBadge;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// No description provided for @filterPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get filterPending;
+
+  /// No description provided for @filterFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get filterFailed;
+
+  /// No description provided for @filterSynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Synced'**
+  String get filterSynced;
+
+  /// No description provided for @hazardTitleTrackDefectRailGap.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Defect / Rail Gap'**
+  String get hazardTitleTrackDefectRailGap;
+
+  /// No description provided for @hazardTitleDamagedWall.
+  ///
+  /// In en, this message translates to:
+  /// **'Damaged Retaining Wall'**
+  String get hazardTitleDamagedWall;
+
+  /// No description provided for @hazardTitleRockfall.
+  ///
+  /// In en, this message translates to:
+  /// **'Rockfall / Fallen Debris'**
+  String get hazardTitleRockfall;
+
+  /// No description provided for @hazardTitleLandslip.
+  ///
+  /// In en, this message translates to:
+  /// **'Landslip / Mudslide'**
+  String get hazardTitleLandslip;
+
+  /// No description provided for @hazardTitleBlockedDrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Catchwater Drain'**
+  String get hazardTitleBlockedDrain;
+
+  /// No description provided for @hazardTitleVegetation.
+  ///
+  /// In en, this message translates to:
+  /// **'Vegetation'**
+  String get hazardTitleVegetation;
+
+  /// No description provided for @hazardTitleOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Issue / Other Hazard'**
+  String get hazardTitleOther;
+
+  /// No description provided for @kmUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Km'**
+  String get kmUnit;
+
+  /// No description provided for @stationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Station'**
+  String get stationLabel;
+
+  /// No description provided for @modelNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Model Name'**
+  String get modelNameLabel;
+
+  /// No description provided for @modelNotReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Ready'**
+  String get modelNotReady;
+
+  /// No description provided for @modelReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get modelReady;
+
+  /// No description provided for @modelChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking'**
+  String get modelChecking;
+
+  /// No description provided for @modelActivating.
+  ///
+  /// In en, this message translates to:
+  /// **'Activating'**
+  String get modelActivating;
+
+  /// No description provided for @modelCorruptedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrupted'**
+  String get modelCorruptedLabel;
+
+  /// No description provided for @modelFailedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get modelFailedLabel;
+
+  /// No description provided for @reportStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Status'**
+  String get reportStatusTitle;
+
+  /// No description provided for @locationTrackAlignmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location & Track Alignment'**
+  String get locationTrackAlignmentTitle;
+
+  /// No description provided for @assignedSectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned Section'**
+  String get assignedSectionLabel;
+
+  /// No description provided for @sourceGpsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Source: GPS'**
+  String get sourceGpsLabel;
+
+  /// No description provided for @technicalAiAuditDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical & AI Audit Details'**
+  String get technicalAiAuditDetails;
+
+  /// No description provided for @aiProviderValue.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Provider'**
+  String get aiProviderValue;
+
+  /// No description provided for @aiModelValue.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Model'**
+  String get aiModelValue;
+
+  /// No description provided for @aiLanguageValue.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Language'**
+  String get aiLanguageValue;
+
+  /// No description provided for @confidenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get confidenceLabel;
+
+  /// No description provided for @auditOriginalSubmission.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit: Original submission (Unmodified)'**
+  String get auditOriginalSubmission;
+
+  /// No description provided for @reportIdValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Report ID: {id}'**
+  String reportIdValue(String id);
+
+  /// No description provided for @sourceGangmanMobile.
+  ///
+  /// In en, this message translates to:
+  /// **'Source: Gangman Mobile Unit ({source})'**
+  String sourceGangmanMobile(String source);
+
+  /// No description provided for @selectNearestWaypoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Nearest DHR Station / Waypoint'**
+  String get selectNearestWaypoint;
+
+  /// No description provided for @nearest.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearest'**
+  String get nearest;
+
+  /// No description provided for @homeTrackObstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Obstruction'**
+  String get homeTrackObstruction;
+
+  /// No description provided for @homeTrackDamage.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Damage'**
+  String get homeTrackDamage;
+
+  /// No description provided for @homeLandslideRockfall.
+  ///
+  /// In en, this message translates to:
+  /// **'Landslide / Rockfall'**
+  String get homeLandslideRockfall;
+
+  /// No description provided for @homeBlockedDrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Drain'**
+  String get homeBlockedDrain;
+
+  /// No description provided for @homeDamagedWall.
+  ///
+  /// In en, this message translates to:
+  /// **'Damaged Wall'**
+  String get homeDamagedWall;
+
+  /// No description provided for @homeAlignmentHazard.
+  ///
+  /// In en, this message translates to:
+  /// **'Alignment Hazard'**
+  String get homeAlignmentHazard;
+
+  /// No description provided for @emergencyHelpline.
+  ///
+  /// In en, this message translates to:
+  /// **'Helpline'**
+  String get emergencyHelpline;
+
+  /// No description provided for @activeStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get activeStatus;
+
+  /// No description provided for @inactiveStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get inactiveStatus;
+
+  /// No description provided for @hazardPhotoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{hazard} Photo'**
+  String hazardPhotoTitle(String hazard);
+
+  /// No description provided for @syncQueuedAtStation.
+  ///
+  /// In en, this message translates to:
+  /// **'Queued locally for automatic sync at next station.'**
+  String get syncQueuedAtStation;
+
+  /// No description provided for @syncVerifiedCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud sync verified • Up to date with server'**
+  String get syncVerifiedCurrent;
+
+  /// No description provided for @syncFailedRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync failed. Tap to retry.'**
+  String get syncFailedRetry;
+
+  /// No description provided for @syncErrorValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String syncErrorValue(String error);
+
+  /// No description provided for @syncPendingCloudAtStation.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending cloud sync at next station'**
+  String get syncPendingCloudAtStation;
+
+  /// No description provided for @offlineModelReadyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'On-device AI is active. You can inspect tracks and get hazard suggestions without an internet connection.'**
+  String get offlineModelReadyDescription;
+
+  /// No description provided for @offlineModelDownloadedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Model files are downloaded on this phone. Tap below to activate offline photo analysis.'**
+  String get offlineModelDownloadedDescription;
+
+  /// No description provided for @offlineModelDownloadingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading offline AI files. Please keep the app open until download completes.'**
+  String get offlineModelDownloadingDescription;
+
+  /// No description provided for @offlineModelActivatingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Activating offline model... this will take a moment.'**
+  String get offlineModelActivatingDescription;
+
+  /// No description provided for @offlineModelFailedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed. Please check your connection and tap retry below.'**
+  String get offlineModelFailedDescription;
+
+  /// No description provided for @offlineModelCorruptedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Model files appear corrupted. Please delete and re-download.'**
+  String get offlineModelCorruptedDescription;
+
+  /// No description provided for @offlineModelCheckingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking model status...'**
+  String get offlineModelCheckingDescription;
+
+  /// No description provided for @offlineModelNotDownloadedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Download the offline model (~1.2 GB) once to enable track defect suggestions without network coverage.'**
+  String get offlineModelNotDownloadedDescription;
+
+  /// No description provided for @statusOpenShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get statusOpenShort;
+
+  /// No description provided for @statusInspectShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspect'**
+  String get statusInspectShort;
+
+  /// No description provided for @severityLowShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get severityLowShort;
+
+  /// No description provided for @severityMediumShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get severityMediumShort;
+
+  /// No description provided for @severityHighShort.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get severityHighShort;
+
+  /// No description provided for @severityCriticalShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Critical'**
+  String get severityCriticalShort;
+
+  /// No description provided for @networkErrorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error'**
+  String get networkErrorLabel;
+
+  /// No description provided for @selectorHazardSlip.
+  ///
+  /// In en, this message translates to:
+  /// **'Landslide /\nSlip'**
+  String get selectorHazardSlip;
+
+  /// No description provided for @selectorHazardRockfall.
+  ///
+  /// In en, this message translates to:
+  /// **'Boulder /\nRockfall'**
+  String get selectorHazardRockfall;
+
+  /// No description provided for @selectorHazardDrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked\nDrain'**
+  String get selectorHazardDrain;
+
+  /// No description provided for @selectorHazardWall.
+  ///
+  /// In en, this message translates to:
+  /// **'Retaining\nWall'**
+  String get selectorHazardWall;
+
+  /// No description provided for @selectorHazardTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Defect /\nJoint'**
+  String get selectorHazardTrack;
+
+  /// No description provided for @selectorHazardVegetation.
+  ///
+  /// In en, this message translates to:
+  /// **'Vegetation\nOvergrowth'**
+  String get selectorHazardVegetation;
+
+  /// No description provided for @selectorHazardOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Defect / Hazard'**
+  String get selectorHazardOther;
+
+  /// No description provided for @severityMonitor.
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor'**
+  String get severityMonitor;
+
+  /// No description provided for @severityMaintain.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintain'**
+  String get severityMaintain;
+
+  /// No description provided for @severityUrgent.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent'**
+  String get severityUrgent;
+
+  /// No description provided for @severityTierCritical.
+  ///
+  /// In en, this message translates to:
+  /// **'Critical'**
+  String get severityTierCritical;
+
+  /// No description provided for @lastModifiedValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Modified: {date}'**
+  String lastModifiedValue(Object date);
+
+  /// No description provided for @homeReportProblem.
+  ///
+  /// In en, this message translates to:
+  /// **'Report a Problem'**
+  String get homeReportProblem;
+
+  /// No description provided for @homeReportProblemDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo and tell us\nwhat is wrong on the track.'**
+  String get homeReportProblemDescription;
+
+  /// No description provided for @syncStatusSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Status: {status}'**
+  String syncStatusSemantic(Object status);
+
+  /// No description provided for @adminLoadReportsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load reports: {error}'**
+  String adminLoadReportsFailed(String error);
+
+  /// No description provided for @adminLoadUsersFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load users: {error}'**
+  String adminLoadUsersFailed(String error);
+
+  /// No description provided for @adminLoadReportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load report: {error}'**
+  String adminLoadReportFailed(String error);
+
+  /// No description provided for @statusInitial.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial'**
+  String get statusInitial;
+
+  /// No description provided for @offlineShortStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get offlineShortStatus;
+
+  /// No description provided for @profileAccountDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Details'**
+  String get profileAccountDetails;
+
+  /// No description provided for @adminProfileUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Update failed: {error}'**
+  String adminProfileUpdateFailed(String error);
+
+  /// No description provided for @adminStatusUpdateFailedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Status update failed: {error}'**
+  String adminStatusUpdateFailedToast(String error);
+
+  /// No description provided for @offlineModelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline Model'**
+  String get offlineModelTitle;
+
+  /// No description provided for @aiProviderHeuristicShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Heuristic'**
+  String get aiProviderHeuristicShort;
+
+  /// No description provided for @aiRetryAnalysisLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry AI Analysis'**
+  String get aiRetryAnalysisLabel;
+
+  /// No description provided for @heuristicModelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule-based Heuristics'**
+  String get heuristicModelName;
+
+  /// No description provided for @aiProviderHeuristicDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Heuristic Fallback'**
+  String get aiProviderHeuristicDisplay;
+
+  /// No description provided for @aiProviderManualDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Inspection'**
+  String get aiProviderManualDisplay;
+
+  /// No description provided for @supervisorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervisor'**
+  String get supervisorName;
+
+  /// No description provided for @syncPendingShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get syncPendingShort;
+
+  /// No description provided for @syncFailedShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get syncFailedShort;
+
+  /// No description provided for @syncSyncedShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Synced'**
+  String get syncSyncedShort;
+
+  /// No description provided for @syncDraftShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get syncDraftShort;
+
+  /// No description provided for @syncRetryAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry attempts: {count}'**
+  String syncRetryAttempts(int count);
+
+  /// No description provided for @syncReferenceCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Ref: {code}'**
+  String syncReferenceCode(String code);
 }
 
 class _AppLocalizationsDelegate

@@ -21,7 +21,7 @@ class SyncSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final isOnline = summary.isOnline;
     final currentlySyncing = isSyncing || summary.isSyncing;
 
@@ -60,7 +60,7 @@ class SyncSummaryCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 7),
                   Text(
-                    l10n?.syncSummaryTitle ?? 'Sync Summary',
+                    l10n.syncSummaryTitle,
                     style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w700,
@@ -71,7 +71,10 @@ class SyncSummaryCard extends StatelessWidget {
                 ],
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4.5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4.5,
+                ),
                 decoration: BoxDecoration(
                   color: isOnline
                       ? const Color(0xFFDCFCE7)
@@ -99,8 +102,8 @@ class SyncSummaryCard extends StatelessWidget {
                     const SizedBox(width: 6),
                     Text(
                       isOnline
-                          ? (l10n?.syncStationSignalAvailable ?? 'Station signal available')
-                          : 'Offline',
+                          ? l10n.syncStationSignalAvailable
+                          : l10n.offlineShortStatus,
                       style: TextStyle(
                         fontSize: 12.0,
                         fontWeight: FontWeight.w700,
@@ -124,11 +127,17 @@ class SyncSummaryCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 76,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFFBEB),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFFFEF3C7), width: 1.2),
+                    border: Border.all(
+                      color: const Color(0xFFFEF3C7),
+                      width: 1.2,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +152,7 @@ class SyncSummaryCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            l10n?.syncStatusPending ?? 'Pending',
+                            l10n.syncPendingShort,
                             style: const TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
@@ -180,11 +189,17 @@ class SyncSummaryCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 76,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFEF2F2),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFFFEE2E2), width: 1.2),
+                    border: Border.all(
+                      color: const Color(0xFFFEE2E2),
+                      width: 1.2,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,7 +214,7 @@ class SyncSummaryCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            l10n?.syncStatusFailed ?? 'Failed',
+                            l10n.syncFailedShort,
                             style: const TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
@@ -238,11 +253,17 @@ class SyncSummaryCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 76,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFF0FDF4),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFFDCFCE7), width: 1.2),
+                    border: Border.all(
+                      color: const Color(0xFFDCFCE7),
+                      width: 1.2,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,7 +278,7 @@ class SyncSummaryCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            l10n?.syncStatusSynced ?? 'Synced',
+                            l10n.syncSyncedShort,
                             style: const TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
@@ -285,11 +306,17 @@ class SyncSummaryCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 76,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFF0FDF4),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFFDCFCE7), width: 1.2),
+                    border: Border.all(
+                      color: const Color(0xFFDCFCE7),
+                      width: 1.2,
+                    ),
                   ),
                   child: currentlySyncing
                       ? Column(
@@ -308,7 +335,7 @@ class SyncSummaryCard extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 6),
                                 Text(
-                                  l10n?.syncStatusSyncing ?? 'Syncing...',
+                                  l10n.syncStatusSyncing,
                                   style: const TextStyle(
                                     fontSize: 12.5,
                                     fontWeight: FontWeight.w700,
@@ -319,7 +346,7 @@ class SyncSummaryCard extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              l10n?.syncReportsSyncing ?? 'Syncing reports...',
+                              l10n.syncReportsSyncing,
                               style: const TextStyle(
                                 fontSize: 10.5,
                                 color: Color(0xFF64748B),
@@ -327,85 +354,84 @@ class SyncSummaryCard extends StatelessWidget {
                             ),
                           ],
                         )
-                      : (summary.hasPendingOrFailed && onSyncNow != null && isOnline)
-                          ? InkWell(
-                              onTap: onSyncNow,
-                              borderRadius: BorderRadius.circular(8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      : (summary.hasPendingOrFailed &&
+                            onSyncNow != null &&
+                            isOnline)
+                      ? InkWell(
+                          onTap: onSyncNow,
+                          borderRadius: BorderRadius.circular(8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Symbols.sync_rounded,
-                                        size: 16,
-                                        color: Color(0xFF074E95),
-                                      ),
-                                      const SizedBox(width: 6),
-                                      Text(
-                                        l10n?.syncNow ?? 'Sync Now',
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w700,
-                                          color: Color(0xFF074E95),
-                                        ),
-                                      ),
-                                    ],
+                                  const Icon(
+                                    Symbols.sync_rounded,
+                                    size: 16,
+                                    color: Color(0xFF074E95),
                                   ),
-                                  const SizedBox(height: 4),
+                                  const SizedBox(width: 6),
                                   Text(
-                                    l10n?.syncPendingReports(summary.pendingCount) ??
-                                        '${summary.pendingCount} pending upload',
+                                    l10n.syncNow,
                                     style: const TextStyle(
-                                      fontSize: 10.5,
-                                      color: Color(0xFF64748B),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFF074E95),
                                     ),
                                   ),
                                 ],
                               ),
-                            )
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Symbols.cloud_done_rounded,
-                                      size: 18,
-                                      color: Color(0xFF16A34A),
-                                    ),
-                                    const SizedBox(width: 6),
-                                    Expanded(
-                                      child: Text(
-                                        l10n?.syncAllReportsSynced ??
-                                            'All reports synced',
-                                        style: const TextStyle(
-                                          fontSize: 13.0,
-                                          fontWeight: FontWeight.w700,
-                                          color: Color(0xFF15803D),
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
+                              const SizedBox(height: 4),
+                              Text(
+                                l10n.syncPendingReports(summary.pendingCount),
+                                style: const TextStyle(
+                                  fontSize: 10.5,
+                                  color: Color(0xFF64748B),
                                 ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  l10n?.syncLastSuccessful(syncDateFormatted) ??
-                                      'Last synced: $syncDateFormatted',
-                                  style: const TextStyle(
-                                    fontSize: 11.0,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF475569),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Symbols.cloud_done_rounded,
+                                  size: 18,
+                                  color: Color(0xFF16A34A),
+                                ),
+                                const SizedBox(width: 6),
+                                Expanded(
+                                  child: Text(
+                                    l10n.syncAllReportsSynced,
+                                    style: const TextStyle(
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFF15803D),
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 5),
+                            Text(
+                              l10n.syncLastSuccessful(syncDateFormatted),
+                              style: const TextStyle(
+                                fontSize: 11.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF475569),
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                 ),
               ),
             ],
@@ -417,7 +443,7 @@ class SyncSummaryCard extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: onViewQueue,
-                child: Text(l10n?.viewQueue ?? 'View Queue'),
+                child: Text(l10n.viewQueue),
               ),
             ),
           ],

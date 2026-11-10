@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../app/theme.dart';
+import '../../l10n/app_localizations.dart';
 import '../models/severity.dart';
-
-// import '../../l10n/app_localizations.dart';
 
 class SeverityBadge extends StatelessWidget {
   final Severity severity;
@@ -41,28 +40,16 @@ class SeverityBadge extends StatelessWidget {
     }
   }
 
-  // String _label(AppLocalizations l10n) {
-  //   switch (severity) {
-  //     case Severity.low:
-  //       return l10n.severityLow;
-  //     case Severity.medium:
-  //       return l10n.severityMedium;
-  //     case Severity.high:
-  //       return l10n.severityHigh;
-  //     case Severity.critical:
-  //       return l10n.severityCritical;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     final color = _color;
 
+    final l10n = AppLocalizations.of(context)!;
     final text = switch (severity) {
-      Severity.low => 'Low',
-      Severity.medium => 'Medium',
-      Severity.high => 'High',
-      Severity.critical => 'Critical',
+      Severity.low => l10n.severityLow,
+      Severity.medium => l10n.severityMedium,
+      Severity.high => l10n.severityHigh,
+      Severity.critical => l10n.severityCritical,
     };
 
     return Container(

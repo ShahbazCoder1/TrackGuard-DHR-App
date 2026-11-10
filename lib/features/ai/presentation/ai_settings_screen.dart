@@ -59,10 +59,7 @@ class AiSettingsScreen extends ConsumerWidget {
             ),
           ),
           leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Color(0xFF0A1E3F),
-            ),
+            icon: const Icon(Icons.arrow_back, color: Color(0xFF0A1E3F)),
             tooltip: l10n.navigationBack,
             onPressed: () {
               if (context.canPop()) {
@@ -120,10 +117,7 @@ class AiSettingsScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.2,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF0F172A).withValues(alpha: 0.05),
@@ -161,8 +155,10 @@ class AiSettingsScreen extends ConsumerWidget {
 
           // Option 1: Automatic Photo Helper
           _buildSelectableOption(
-            title: l10n.aiModeAutomaticHelper
-                .replaceFirst(' (Recommended)', '\n(Recommended)'),
+            title: l10n.aiModeAutomaticHelper.replaceFirst(
+              ' (Recommended)',
+              '\n(Recommended)',
+            ),
             subtitle: l10n.aiModeAutomaticHelperDesc,
             icon: Symbols.auto_awesome_rounded,
             mode: AiMode.automatic,
@@ -179,7 +175,7 @@ class AiSettingsScreen extends ConsumerWidget {
             mode: AiMode.onlineGemini,
             currentMode: settings.mode,
             onSelected: (mode) => settingsNotifier.setMode(mode),
-            badge: _buildOnlineStatusBadge(isOnline: isOnline),
+            badge: _buildOnlineStatusBadge(isOnline: isOnline, l10n: l10n),
           ),
           const SizedBox(height: 10),
 
@@ -224,9 +220,7 @@ class AiSettingsScreen extends ConsumerWidget {
         color: isSelected ? const Color(0xFFF0F7FF) : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isSelected
-              ? const Color(0xFF074E95)
-              : const Color(0xFFE2E8F0),
+          color: isSelected ? const Color(0xFF074E95) : const Color(0xFFE2E8F0),
           width: isSelected ? 1.5 : 1.2,
         ),
       ),
@@ -280,11 +274,7 @@ class AiSettingsScreen extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: Icon(
-                      icon,
-                      color: const Color(0xFF074E95),
-                      size: 19,
-                    ),
+                    child: Icon(icon, color: const Color(0xFF074E95), size: 19),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -338,12 +328,17 @@ class AiSettingsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildOnlineStatusBadge({required bool isOnline}) {
+  Widget _buildOnlineStatusBadge({
+    required bool isOnline,
+    required AppLocalizations l10n,
+  }) {
     final color = isOnline ? const Color(0xFF16A34A) : const Color(0xFFDC2626);
-    final bgColor =
-        isOnline ? const Color(0xFFDCFCE7) : const Color(0xFFFEE2E2);
-    final borderColor =
-        isOnline ? const Color(0xFF86EFAC) : const Color(0xFFFCA5A5);
+    final bgColor = isOnline
+        ? const Color(0xFFDCFCE7)
+        : const Color(0xFFFEE2E2);
+    final borderColor = isOnline
+        ? const Color(0xFF86EFAC)
+        : const Color(0xFFFCA5A5);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2.0),
@@ -356,15 +351,13 @@ class AiSettingsScreen extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            isOnline
-                ? Symbols.check_circle_rounded
-                : Symbols.cancel_rounded,
+            isOnline ? Symbols.check_circle_rounded : Symbols.cancel_rounded,
             size: 12,
             color: color,
           ),
           const SizedBox(width: 3),
           Text(
-            isOnline ? 'Ready' : 'Not Ready',
+            isOnline ? l10n.modelReady : l10n.modelNotReady,
             style: TextStyle(
               fontSize: 10.5,
               fontWeight: FontWeight.w700,
@@ -394,42 +387,43 @@ class AiSettingsScreen extends ConsumerWidget {
         badgeColor = const Color(0xFF16A34A);
         badgeBgColor = const Color(0xFFDCFCE7);
         badgeBorderColor = const Color(0xFF86EFAC);
-        badgeLabel = 'Gemma 4 E2B ready';
+        badgeLabel = l10n.modelReady;
         badgeIcon = Symbols.check_circle_rounded;
         break;
       case OfflineModelStatus.downloaded:
         badgeColor = const Color(0xFF16A34A);
         badgeBgColor = const Color(0xFFDCFCE7);
         badgeBorderColor = const Color(0xFF86EFAC);
-        badgeLabel = 'Gemma 4 E2B downloaded';
+        badgeLabel = l10n.offlineModelDownloaded;
         badgeIcon = Symbols.check_circle_rounded;
         break;
       case OfflineModelStatus.downloading:
         badgeColor = AppTheme.primaryAmber;
         badgeBgColor = const Color(0xFFFEF3C7);
         badgeBorderColor = const Color(0xFFFCD34D);
-        badgeLabel = 'Downloading (${modelState.progressPercent}%)';
+        badgeLabel =
+            '${l10n.offlineModelDownloading} (${modelState.progressPercent}%)';
         badgeIcon = Symbols.sync_rounded;
         break;
       case OfflineModelStatus.initializing:
         badgeColor = AppTheme.primaryAmber;
         badgeBgColor = const Color(0xFFFEF3C7);
         badgeBorderColor = const Color(0xFFFCD34D);
-        badgeLabel = 'Activating...';
+        badgeLabel = l10n.modelActivating;
         badgeIcon = Symbols.sync_rounded;
         break;
       case OfflineModelStatus.failed:
         badgeColor = const Color(0xFFDC2626);
         badgeBgColor = const Color(0xFFFEE2E2);
         badgeBorderColor = const Color(0xFFFCA5A5);
-        badgeLabel = 'Failed';
+        badgeLabel = l10n.modelFailedLabel;
         badgeIcon = Symbols.error_rounded;
         break;
       case OfflineModelStatus.checking:
         badgeColor = const Color(0xFF64748B);
         badgeBgColor = const Color(0xFFF1F5F9);
         badgeBorderColor = const Color(0xFFE2E8F0);
-        badgeLabel = 'Checking...';
+        badgeLabel = l10n.modelChecking;
         badgeIcon = Symbols.sync_rounded;
         break;
       case OfflineModelStatus.unsupported:
@@ -437,14 +431,14 @@ class AiSettingsScreen extends ConsumerWidget {
         badgeColor = const Color(0xFFDC2626);
         badgeBgColor = const Color(0xFFFEE2E2);
         badgeBorderColor = const Color(0xFFFCA5A5);
-        badgeLabel = 'Corrupted';
+        badgeLabel = l10n.modelCorruptedLabel;
         badgeIcon = Symbols.error_rounded;
         break;
       case OfflineModelStatus.notDownloaded:
         badgeColor = const Color(0xFFDC2626);
         badgeBgColor = const Color(0xFFFEE2E2);
         badgeBorderColor = const Color(0xFFFCA5A5);
-        badgeLabel = 'Not downloaded';
+        badgeLabel = l10n.offlineModelNotDownloaded;
         badgeIcon = Symbols.info_rounded;
         break;
     }
@@ -453,10 +447,7 @@ class AiSettingsScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.2,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF0F172A).withValues(alpha: 0.05),
@@ -479,9 +470,9 @@ class AiSettingsScreen extends ConsumerWidget {
                 size: 22,
               ),
               const SizedBox(width: 8),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Offline Model',
+                  l10n.offlineModelTitle,
                   style: TextStyle(
                     color: Color(0xFF0A1E3F),
                     fontSize: 17.0,
@@ -506,11 +497,7 @@ class AiSettingsScreen extends ConsumerWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        badgeIcon,
-                        size: 12,
-                        color: badgeColor,
-                      ),
+                      Icon(badgeIcon, size: 12, color: badgeColor),
                       const SizedBox(width: 4),
                       Flexible(
                         child: Text(
@@ -537,8 +524,8 @@ class AiSettingsScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Model Name',
+              Text(
+                l10n.modelNameLabel,
                 style: TextStyle(
                   fontSize: 14.5,
                   fontWeight: FontWeight.w700,
@@ -583,7 +570,9 @@ class AiSettingsScreen extends ConsumerWidget {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(l10n.offlineModelInitFailed(e.toString())),
+                        content: Text(
+                          l10n.offlineModelInitFailed(e.toString()),
+                        ),
                         backgroundColor: AppTheme.statusRed,
                       ),
                     );
@@ -597,16 +586,14 @@ class AiSettingsScreen extends ConsumerWidget {
             _buildLightRedButton(
               icon: Symbols.delete_outline_rounded,
               label: l10n.offlineModelDelete,
-              onPressed: () =>
-                  _confirmAndDeleteModel(context, manager, l10n),
+              onPressed: () => _confirmAndDeleteModel(context, manager, l10n),
             ),
           ] else if (modelState.status == OfflineModelStatus.ready) ...[
             // Delete button
             _buildLightRedButton(
               icon: Symbols.delete_outline_rounded,
               label: l10n.offlineModelDelete,
-              onPressed: () =>
-                  _confirmAndDeleteModel(context, manager, l10n),
+              onPressed: () => _confirmAndDeleteModel(context, manager, l10n),
             ),
           ] else if (modelState.status == OfflineModelStatus.downloading) ...[
             LinearProgressIndicator(
@@ -670,22 +657,22 @@ class AiSettingsScreen extends ConsumerWidget {
   ) {
     switch (status) {
       case OfflineModelStatus.ready:
-        return 'On-device AI is active. You can inspect tracks and get hazard suggestions without an internet connection.';
+        return l10n.offlineModelReadyDescription;
       case OfflineModelStatus.downloaded:
-        return 'Model files are downloaded on this phone. Tap below to activate offline photo analysis.';
+        return l10n.offlineModelDownloadedDescription;
       case OfflineModelStatus.downloading:
-        return 'Downloading offline AI files. Please keep the app open until download completes.';
+        return l10n.offlineModelDownloadingDescription;
       case OfflineModelStatus.initializing:
-        return 'Activating offline model... this will take a moment.';
+        return l10n.offlineModelActivatingDescription;
       case OfflineModelStatus.failed:
-        return 'Download failed. Please check your connection and tap retry below.';
+        return l10n.offlineModelFailedDescription;
       case OfflineModelStatus.corrupted:
       case OfflineModelStatus.unsupported:
-        return 'Model files appear corrupted. Please delete and re-download.';
+        return l10n.offlineModelCorruptedDescription;
       case OfflineModelStatus.checking:
-        return 'Checking model status...';
+        return l10n.offlineModelCheckingDescription;
       case OfflineModelStatus.notDownloaded:
-        return 'Download the offline model (~1.2 GB) once to enable track defect suggestions without network coverage.';
+        return l10n.offlineModelNotDownloadedDescription;
     }
   }
 
@@ -744,10 +731,7 @@ class AiSettingsScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFFEF2F2),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFFEF4444),
-          width: 1.2,
-        ),
+        border: Border.all(color: const Color(0xFFEF4444), width: 1.2),
       ),
       child: Material(
         color: Colors.transparent,

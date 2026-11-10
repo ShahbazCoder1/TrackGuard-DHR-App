@@ -19,7 +19,7 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Center(
       child: Padding(
@@ -52,7 +52,10 @@ class ErrorView extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               message,
-              style: const TextStyle(fontSize: 14, color: AppTheme.textSecondary),
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppTheme.textSecondary,
+              ),
               textAlign: TextAlign.center,
             ),
             if (onRetry != null) ...[
@@ -60,7 +63,7 @@ class ErrorView extends StatelessWidget {
               OutlinedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: Text(retryText ?? l10n?.retry ?? 'Retry'),
+                label: Text(retryText ?? l10n.retry),
               ),
             ],
           ],

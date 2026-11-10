@@ -139,7 +139,8 @@ class ProfileScreen extends ConsumerWidget {
   }) {
     final roleBadgeText = (isAdmin ? l10n.roleAdmin : l10n.roleGangman)
         .toUpperCase();
-    final displayName = user?.fullName ?? (isAdmin ? 'Supervisor' : 'Gangman');
+    final displayName =
+        user?.fullName ?? (isAdmin ? l10n.supervisorName : l10n.roleGangman);
 
     return Container(
       decoration: BoxDecoration(
@@ -325,7 +326,7 @@ class ProfileScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Header Row: Icon + "Account Details"
-          const Row(
+          Row(
             children: [
               Icon(
                 Symbols.person_outline_rounded,
@@ -334,7 +335,7 @@ class ProfileScreen extends ConsumerWidget {
               ),
               SizedBox(width: 8),
               Text(
-                'Account Details',
+                l10n.profileAccountDetails,
                 style: TextStyle(
                   color: Color(0xFF0A1E3F),
                   fontSize: 17.0,
@@ -350,7 +351,9 @@ class ProfileScreen extends ConsumerWidget {
           _buildDetailItem(
             icon: Symbols.person_outline_rounded,
             label: l10n.profileName,
-            value: user?.fullName ?? (isAdmin ? 'Supervisor' : 'Gangman'),
+            value:
+                user?.fullName ??
+                (isAdmin ? l10n.supervisorName : l10n.roleGangman),
           ),
           const Divider(color: Color(0xFFF1F5F9), height: 20, thickness: 1.0),
 

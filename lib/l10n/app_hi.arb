@@ -289,7 +289,6 @@
   "savesSafelyOnPhoneFirst": "पहले आपके फ़ोन पर सुरक्षित रूप से सहेजा जाता है।",
   "draftMissing": "ड्राफ्ट नहीं मिला",
   "inspectionDraftCouldNotBeLoaded": "निरीक्षण ड्राफ्ट लोड नहीं किया जा सका।",
-  "hazardReportTitle": "{hazard} रिपोर्ट",
   "statusStepSent": "भेजा गया",
   "statusStepSeenBySupervisor": "पर्यवेक्षक द्वारा देखा गया",
   "statusStepResolved": "हल किया गया",
@@ -447,5 +446,463 @@
   "mainNavigationHeading": "मुख्य नेविगेशन",
   "homePrimaryControlBadge": "प्राथमिक नियंत्रण",
   "homeTollFreeBadge": "टोल-फ्री",
-  "homeEmergencyBadge": "आपातकालीन"
+  "homeEmergencyBadge": "आपातकालीन",
+  "filterAll": "सभी",
+  "filterPending": "लंबित",
+  "filterFailed": "विफल",
+  "filterSynced": "सिंक किया गया",
+  "hazardTitleTrackDefectRailGap": "ट्रैक दोष / रेल के बीच दूरी",
+  "hazardTitleDamagedWall": "क्षतिग्रस्त रिटेनिंग वॉल",
+  "hazardTitleRockfall": "चट्टान गिरना / मलबा गिरना",
+  "hazardTitleLandslip": "भूस्खलन / मलबे का बहाव",
+  "hazardTitleBlockedDrain": "अवरुद्ध कैचवॉटर नाली",
+  "hazardTitleVegetation": "वनस्पति",
+  "hazardTitleOther": "ट्रैक समस्या / अन्य खतरा",
+  "kmUnit": "कि.मी.",
+  "stationLabel": "स्टेशन",
+  "modelNameLabel": "मॉडल का नाम",
+  "modelNotReady": "तैयार नहीं",
+  "modelReady": "तैयार",
+  "modelChecking": "जाँच हो रही है",
+  "modelActivating": "सक्रिय किया जा रहा है",
+  "modelCorruptedLabel": "क्षतिग्रस्त",
+  "modelFailedLabel": "विफल",
+  "reportStatusTitle": "रिपोर्ट की स्थिति",
+  "locationTrackAlignmentTitle": "स्थान और ट्रैक संरेखण",
+  "assignedSectionLabel": "आवंटित खंड",
+  "sourceGpsLabel": "स्रोत: GPS",
+  "technicalAiAuditDetails": "तकनीकी और AI ऑडिट विवरण",
+  "aiProviderValue": "AI प्रदाता",
+  "aiModelValue": "AI मॉडल",
+  "aiLanguageValue": "AI भाषा",
+  "confidenceLabel": "विश्वास स्तर",
+  "auditOriginalSubmission": "ऑडिट: मूल सबमिशन (अपरिवर्तित)",
+  "reportIdValue": "रिपोर्ट ID: {id}",
+  "@reportIdValue": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "sourceGangmanMobile": "स्रोत: गैंगमैन मोबाइल यूनिट ({source})",
+  "@sourceGangmanMobile": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "selectNearestWaypoint": "निकटतम DHR स्टेशन / वेपॉइंट चुनें",
+  "nearest": "निकटतम",
+  "homeTrackObstruction": "ट्रैक अवरोध",
+  "homeTrackDamage": "ट्रैक क्षति",
+  "homeLandslideRockfall": "भूस्खलन / चट्टान गिरना",
+  "homeBlockedDrain": "अवरुद्ध नाली",
+  "homeDamagedWall": "क्षतिग्रस्त दीवार",
+  "homeAlignmentHazard": "रेल मार्ग का खतरा",
+  "emergencyHelpline": "हेल्पलाइन",
+  "activeStatus": "सक्रिय",
+  "inactiveStatus": "निष्क्रिय",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "@signedInAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@pendingReportsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@assignedSection": {
+    "placeholders": {
+      "section": {
+        "type": "String"
+      }
+    }
+  },
+  "@gpsLocked": {
+    "placeholders": {
+      "accuracy": {
+        "type": "String"
+      }
+    }
+  },
+  "@kmMarker": {
+    "placeholders": {
+      "marker": {
+        "type": "String"
+      }
+    }
+  },
+  "@nearestStation": {
+    "placeholders": {
+      "station": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiSuggestedHazard": {
+    "placeholders": {
+      "hazard": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiSuggestedSeverity": {
+    "placeholders": {
+      "severity": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "@savedSuccessMessage": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@syncPendingReports": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@syncFailedReports": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@syncLastSuccessful": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@logoutPendingReportsWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@reportDetailCreated": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@reportDetailUpdated": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@offlineModelApproximateSize": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "@offlineModelStorageRequired": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "@offlineModelStorageAvailable": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "@offlineModelDownloadProgress": {
+    "placeholders": {
+      "downloaded": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "@offlineModelVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "@offlineModelDownloadedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "@reportSource": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      },
+      "accuracy": {
+        "type": "String"
+      }
+    }
+  },
+  "@reportIdLabel": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminStatusUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminSeverityLabel": {
+    "placeholders": {
+      "severity": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminSectionLabel": {
+    "placeholders": {
+      "section": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminStationLabel": {
+    "placeholders": {
+      "station": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminKmMarkerLabel": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminCreatedLabel": {
+    "placeholders": {
+      "created": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminGpsLabel": {
+    "placeholders": {
+      "lat": {
+        "type": "String"
+      },
+      "lng": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminCouldNotLoadHistory": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminChangedBy": {
+    "placeholders": {
+      "user": {
+        "type": "String"
+      }
+    }
+  },
+  "@adminNoMatchingUsers": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "@offlineModelInitFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@offlineModelDownloadError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@offlineModelDeleteFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "hazardPhotoTitle": "{hazard} फ़ोटो",
+  "@hazardPhotoTitle": {
+    "placeholders": {
+      "hazard": {
+        "type": "String"
+      }
+    }
+  },
+  "syncQueuedAtStation": "अगले स्टेशन पर अपने-आप सिंक करने के लिए स्थानीय रूप से कतारबद्ध।",
+  "syncVerifiedCurrent": "क्लाउड सिंक सत्यापित • सर्वर के साथ अपडेट",
+  "syncFailedRetry": "सिंक विफल। फिर से कोशिश करने के लिए टैप करें।",
+  "syncErrorValue": "त्रुटि: {error}",
+  "@syncErrorValue": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "syncPendingCloudAtStation": "अगले स्टेशन पर क्लाउड सिंक लंबित",
+  "offlineModelReadyDescription": "डिवाइस पर AI सक्रिय है। आप इंटरनेट के बिना ट्रैक का निरीक्षण और खतरे के सुझाव पा सकते हैं।",
+  "offlineModelDownloadedDescription": "मॉडल फ़ाइलें इस फ़ोन पर डाउनलोड हैं। ऑफ़लाइन फ़ोटो विश्लेषण चालू करने के लिए नीचे टैप करें।",
+  "offlineModelDownloadingDescription": "ऑफ़लाइन AI फ़ाइलें डाउनलोड हो रही हैं। डाउनलोड पूरा होने तक ऐप खुला रखें।",
+  "offlineModelActivatingDescription": "ऑफ़लाइन मॉडल सक्रिय हो रहा है... इसमें थोड़ा समय लगेगा।",
+  "offlineModelFailedDescription": "डाउनलोड विफल। कनेक्शन जाँचें और नीचे फिर से कोशिश करें।",
+  "offlineModelCorruptedDescription": "मॉडल फ़ाइलें खराब लगती हैं। कृपया हटाकर फिर से डाउनलोड करें।",
+  "offlineModelCheckingDescription": "मॉडल की स्थिति जाँची जा रही है...",
+  "offlineModelNotDownloadedDescription": "नेटवर्क न होने पर ट्रैक दोष के सुझाव पाने के लिए ऑफ़लाइन मॉडल (~1.2 GB) एक बार डाउनलोड करें।",
+  "statusOpenShort": "खुला",
+  "statusInspectShort": "निरीक्षण",
+  "severityLowShort": "कम",
+  "severityMediumShort": "मध्यम",
+  "severityHighShort": "उच्च",
+  "severityCriticalShort": "गंभीर",
+  "networkErrorLabel": "नेटवर्क त्रुटि",
+  "selectorHazardSlip": "भूस्खलन /\nफिसलन",
+  "selectorHazardRockfall": "बोल्डर /\nचट्टान गिरना",
+  "selectorHazardDrain": "अवरुद्ध\nनाली",
+  "selectorHazardWall": "रिटेनिंग\nदीवार",
+  "selectorHazardTrack": "ट्रैक दोष /\nजॉइंट",
+  "selectorHazardVegetation": "बढ़ी हुई\nवनस्पति",
+  "selectorHazardOther": "अन्य दोष / खतरा",
+  "severityMonitor": "निगरानी",
+  "severityMaintain": "रखरखाव",
+  "severityUrgent": "तत्काल",
+  "severityTierCritical": "गंभीर",
+  "lastModifiedValue": "अंतिम संशोधन: {date}",
+  "homeReportProblem": "समस्या की रिपोर्ट करें",
+  "homeReportProblemDescription": "फ़ोटो लें और बताएं कि ट्रैक पर क्या समस्या है।",
+  "syncStatusSemantic": "सिंक स्थिति: {status}",
+  "adminLoadReportsFailed": "रिपोर्ट लोड नहीं हो सकीं: {error}",
+  "@adminLoadReportsFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminLoadUsersFailed": "उपयोगकर्ता लोड नहीं हो सके: {error}",
+  "@adminLoadUsersFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminLoadReportFailed": "रिपोर्ट लोड नहीं हो सकी: {error}",
+  "@adminLoadReportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "statusInitial": "प्रारंभिक",
+  "offlineShortStatus": "ऑफ़लाइन",
+  "profileAccountDetails": "खाते का विवरण",
+  "adminProfileUpdateFailed": "अपडेट विफल: {error}",
+  "@adminProfileUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminStatusUpdateFailedToast": "स्थिति अपडेट विफल: {error}",
+  "@adminStatusUpdateFailedToast": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineModelTitle": "ऑफ़लाइन मॉडल",
+  "aiProviderHeuristicShort": "अनुमान आधारित",
+  "aiRetryAnalysisLabel": "AI विश्लेषण फिर से करें",
+  "heuristicModelName": "नियम आधारित अनुमान",
+  "aiProviderHeuristicDisplay": "अनुमान आधारित विकल्प",
+  "aiProviderManualDisplay": "मैनुअल निरीक्षण",
+  "supervisorName": "पर्यवेक्षक",
+  "syncPendingShort": "लंबित",
+  "syncFailedShort": "विफल",
+  "syncSyncedShort": "सिंक किया गया",
+  "syncDraftShort": "मसौदा",
+  "syncRetryAttempts": "पुनः प्रयास: {count}",
+  "@syncRetryAttempts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "syncReferenceCode": "संदर्भ: {code}",
+  "@syncReferenceCode": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  }
 }

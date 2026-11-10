@@ -27,17 +27,17 @@ class AiSuggestionCard extends StatelessWidget {
     this.onDownloadModel,
   });
 
-  String _getProviderPillText(AiAnalysisResult? result) {
-    if (result == null) return 'Gemini Cloud';
+  String _getProviderPillText(AiAnalysisResult? result, AppLocalizations l10n) {
+    if (result == null) return l10n.aiProviderOnlineGemini;
     switch (result.provider) {
       case AiProvider.onlineGemini:
-        return 'Gemini Cloud';
+        return l10n.aiProviderOnlineGemini;
       case AiProvider.offlineGemma:
-        return 'Offline Gemma';
+        return l10n.aiProviderOfflineGemma;
       case AiProvider.heuristic:
-        return 'Heuristic';
+        return l10n.aiProviderHeuristicShort;
       case AiProvider.manual:
-        return 'Manual';
+        return l10n.aiProviderManual;
     }
   }
 
@@ -63,7 +63,7 @@ class AiSuggestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final providerText = _getProviderPillText(aiResult);
+    final providerText = _getProviderPillText(aiResult, l10n);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -91,9 +91,9 @@ class AiSuggestionCard extends StatelessWidget {
                 size: 20,
               ),
               const SizedBox(width: 8),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'AI Advisory Suggestion',
+                  l10n.aiSuggestionTitle,
                   style: TextStyle(
                     fontSize: 14.5,
                     fontWeight: FontWeight.w700,
@@ -225,7 +225,7 @@ class AiSuggestionCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: const Color(0xFFBFDBFE)),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -236,7 +236,7 @@ class AiSuggestionCard extends StatelessWidget {
                             SizedBox(width: 5),
                             Flexible(
                               child: Text(
-                                'Retry AI Analysis',
+                                l10n.aiRetryAnalysisLabel,
                                 style: TextStyle(
                                   fontSize: 11.5,
                                   fontWeight: FontWeight.w700,
@@ -266,7 +266,7 @@ class AiSuggestionCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: const Color(0xFFE2E8F0)),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -277,7 +277,7 @@ class AiSuggestionCard extends StatelessWidget {
                             SizedBox(width: 5),
                             Flexible(
                               child: Text(
-                                'Switch to Manual',
+                                l10n.aiSwitchToManual,
                                 style: TextStyle(
                                   fontSize: 11.5,
                                   fontWeight: FontWeight.w700,
@@ -316,8 +316,8 @@ class AiSuggestionCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'AI Inference Unavailable',
+                        Text(
+                          l10n.aiInferenceUnavailable,
                           style: TextStyle(
                             color: Color(0xFFDC2626),
                             fontWeight: FontWeight.w700,

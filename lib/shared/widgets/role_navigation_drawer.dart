@@ -118,10 +118,7 @@ class RoleNavigationDrawer extends ConsumerWidget {
               decoration: const BoxDecoration(
                 color: Colors.white,
                 border: Border(
-                  top: BorderSide(
-                    color: Color(0xFFE2E8F0),
-                    width: 1.0,
-                  ),
+                  top: BorderSide(color: Color(0xFFE2E8F0), width: 1.0),
                 ),
               ),
               child: _buildSignOutButton(context, ref: ref, l10n: l10n),
@@ -141,9 +138,10 @@ class RoleNavigationDrawer extends ConsumerWidget {
     required String sectionName,
     required AppLocalizations l10n,
   }) {
-    final roleBadgeText = (isAdmin ? l10n.roleAdmin : l10n.roleGangman)
-        .toUpperCase();
-    final displayName = user?.fullName ?? (isAdmin ? 'Supervisor' : 'Gangman');
+    final roleBadgeText =
+        (isAdmin ? l10n.adminRoleOptionAdmin : l10n.roleGangman).toUpperCase();
+    final displayName =
+        user?.fullName ?? (isAdmin ? l10n.supervisorName : l10n.roleGangman);
 
     return Container(
       decoration: BoxDecoration(
@@ -367,8 +365,9 @@ class RoleNavigationDrawer extends ConsumerWidget {
                     child: Icon(
                       icon,
                       size: 20,
-                      color:
-                          isSelected ? Colors.white : const Color(0xFF475569),
+                      color: isSelected
+                          ? Colors.white
+                          : const Color(0xFF475569),
                     ),
                   ),
                 ),
@@ -380,8 +379,9 @@ class RoleNavigationDrawer extends ConsumerWidget {
                     label,
                     style: TextStyle(
                       fontSize: 14.5,
-                      fontWeight:
-                          isSelected ? FontWeight.w700 : FontWeight.w600,
+                      fontWeight: isSelected
+                          ? FontWeight.w700
+                          : FontWeight.w600,
                       color: isSelected
                           ? const Color(0xFF074E95)
                           : const Color(0xFF1E293B),

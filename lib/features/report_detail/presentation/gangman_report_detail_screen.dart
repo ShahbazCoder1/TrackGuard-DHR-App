@@ -14,6 +14,7 @@ import '../../../shared/models/ai_provider.dart';
 import '../../../shared/models/hazard_report.dart';
 import '../../../shared/models/hazard_type.dart';
 import '../../../shared/models/inspection_status.dart';
+import '../../../shared/models/location_source.dart';
 import '../../../shared/models/sync_status.dart';
 import '../../../shared/widgets/severity_badge.dart';
 import '../../reports/domain/report_repository_provider.dart';
@@ -110,10 +111,7 @@ class _GangmanReportDetailScreenState
         opaque: true,
         fullscreenDialog: true,
         pageBuilder: (context, animation, secondaryAnimation) {
-          return _FullScreenImageViewer(
-            photoPath: photoPath,
-            report: report,
-          );
+          return _FullScreenImageViewer(photoPath: photoPath, report: report);
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(opacity: animation, child: child);
@@ -122,35 +120,29 @@ class _GangmanReportDetailScreenState
     );
   }
 
-  String _getHazardReportTitle(HazardReport report) {
-    switch (report.confirmedHazardType) {
-      case HazardType.damagedWall:
-        return 'Damaged Retaining Wall Report';
-      case HazardType.rockfall:
-        return 'Rockfall / Fallen Debris Report';
-      case HazardType.slip:
-        return 'Landslip / Mudslide Report';
-      case HazardType.blockedDrain:
-        return 'Blocked Catchwater Drain Report';
-      case HazardType.trackDefect:
-        return 'Track Defect / Rail Gap Report';
-      case HazardType.vegetation:
-        return 'Track Obstruction / Vegetation Report';
-      case HazardType.other:
-        return 'Track Issue / Other Hazard Report';
-    }
+  String _getHazardReportTitle(HazardReport report, AppLocalizations l10n) {
+    final hazard = switch (report.confirmedHazardType) {
+      HazardType.damagedWall => l10n.hazardTitleDamagedWall,
+      HazardType.rockfall => l10n.hazardTitleRockfall,
+      HazardType.slip => l10n.hazardTitleLandslip,
+      HazardType.blockedDrain => l10n.hazardTitleBlockedDrain,
+      HazardType.trackDefect => l10n.hazardTitleTrackDefectRailGap,
+      HazardType.vegetation => l10n.hazardTitleVegetation,
+      HazardType.other => l10n.hazardTitleOther,
+    };
+    return hazard;
   }
 
-  String _providerDisplayName(AiProvider provider) {
+  String _providerDisplayName(AiProvider provider, AppLocalizations l10n) {
     switch (provider) {
       case AiProvider.onlineGemini:
-        return 'Online Gemini';
+        return l10n.aiProviderOnlineGemini;
       case AiProvider.offlineGemma:
-        return 'Offline Gemma';
+        return l10n.aiProviderOfflineGemma;
       case AiProvider.heuristic:
-        return 'Heuristic Fallback';
+        return l10n.aiProviderHeuristicDisplay;
       case AiProvider.manual:
-        return 'Manual Inspection';
+        return l10n.aiProviderManualDisplay;
     }
   }
 
@@ -256,7 +248,8 @@ class _GangmanReportDetailScreenState
                   const SizedBox(height: 14),
 
                   // 5. AI Advisory Suggestion (AI-generated observation note)
-                  if (report.aiNote != null && report.aiNote!.trim().isNotEmpty) ...[
+                  if (report.aiNote != null &&
+                      report.aiNote!.trim().isNotEmpty) ...[
                     _buildAiSuggestionCard(report, l10n),
                     const SizedBox(height: 14),
                   ],
@@ -337,7 +330,7 @@ class _GangmanReportDetailScreenState
                       color: const Color(0xFF0F172A).withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
@@ -347,7 +340,7 @@ class _GangmanReportDetailScreenState
                         ),
                         SizedBox(width: 6),
                         Text(
-                          'View Full Image',
+                          AppLocalizations.of(context)!.reportDetailViewImage,
                           style: TextStyle(
                             fontSize: 11.5,
                             fontWeight: FontWeight.w600,
@@ -412,8 +405,8 @@ class _GangmanReportDetailScreenState
             const SizedBox(height: 8),
             Text(
               report.originalPhotoPath == null
-                  ? 'No Photo Attached'
-                  : 'Photo Stored on Local Device',
+                  ? AppLocalizations.of(context)!.noPhotoAttached
+                  : AppLocalizations.of(context)!.photoNotFoundOnDevice,
               style: const TextStyle(
                 fontSize: 12,
                 color: Colors.white70,
@@ -428,8 +421,9 @@ class _GangmanReportDetailScreenState
 
   // 2. Report Header Row
   Widget _buildHeaderSection(HazardReport report) {
+    final l10n = AppLocalizations.of(context)!;
     final kmText =
-        'Km ${(report.kmMarker ?? 51.0).toStringAsFixed(1)}, ${report.nearestStationName ?? "Kurseong Station"}';
+        '${l10n.kmUnit} ${(report.kmMarker ?? 51.0).toStringAsFixed(1)}, ${report.nearestStationName ?? "Kurseong ${l10n.stationLabel}"}';
     final createdDateText = DateFormatUtils.formatReportDate(report.createdAt);
 
     return Row(
@@ -441,7 +435,7 @@ class _GangmanReportDetailScreenState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                _getHazardReportTitle(report),
+                _getHazardReportTitle(report, AppLocalizations.of(context)!),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
@@ -530,17 +524,13 @@ class _GangmanReportDetailScreenState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Card Title
-          const Row(
+          Row(
             children: [
-              Icon(
-                Symbols.layers_rounded,
-                color: Color(0xFF074E95),
-                size: 20,
-              ),
+              Icon(Symbols.layers_rounded, color: Color(0xFF074E95), size: 20),
               SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Report Status',
+                  l10n.reportStatusTitle,
                   style: TextStyle(
                     fontSize: 15.5,
                     fontWeight: FontWeight.w700,
@@ -675,11 +665,7 @@ class _GangmanReportDetailScreenState
           color: Color(0xFF22C55E), // Solid Green
           shape: BoxShape.circle,
         ),
-        child: const Icon(
-          Icons.check,
-          color: Colors.white,
-          size: 16,
-        ),
+        child: const Icon(Icons.check, color: Colors.white, size: 16),
       );
     }
 
@@ -689,10 +675,7 @@ class _GangmanReportDetailScreenState
       decoration: BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,
-        border: Border.all(
-          color: const Color(0xFFCBD5E1),
-          width: 2,
-        ),
+        border: Border.all(color: const Color(0xFFCBD5E1), width: 2),
       ),
     );
   }
@@ -701,7 +684,6 @@ class _GangmanReportDetailScreenState
   Widget _buildSyncSummaryCard(HazardReport report, AppLocalizations l10n) {
     final isSynced = report.syncStatus == SyncStatus.synced;
     final isFailed = report.syncStatus == SyncStatus.failed;
-
 
     Color badgeBg;
     Color badgeBorder;
@@ -713,19 +695,19 @@ class _GangmanReportDetailScreenState
       badgeBg = const Color(0xFFF0FDF4);
       badgeBorder = const Color(0xFF86EFAC);
       badgeFg = const Color(0xFF16A34A);
-      badgeText = 'Synced';
+      badgeText = l10n.syncSyncedShort;
       badgeIcon = Symbols.check_circle_rounded;
     } else if (isFailed) {
       badgeBg = const Color(0xFFFEF2F2);
       badgeBorder = const Color(0xFFFECACA);
       badgeFg = const Color(0xFFDC2626);
-      badgeText = 'Failed';
+      badgeText = l10n.syncFailedShort;
       badgeIcon = Symbols.cancel_rounded;
     } else {
       badgeBg = const Color(0xFFFEF9C3);
       badgeBorder = const Color(0xFFFEF08A);
       badgeFg = const Color(0xFF854D0E);
-      badgeText = 'Pending';
+      badgeText = l10n.syncPendingShort;
       badgeIcon = Symbols.sync_rounded;
     }
 
@@ -755,9 +737,9 @@ class _GangmanReportDetailScreenState
                 size: 20,
               ),
               const SizedBox(width: 8),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Sync Summary',
+                  l10n.syncSummaryTitle,
                   style: TextStyle(
                     fontSize: 15.5,
                     fontWeight: FontWeight.w700,
@@ -798,10 +780,8 @@ class _GangmanReportDetailScreenState
           // Subtitle
           Text(
             isSynced
-                ? 'Saved locally and synchronized with central server.'
-                : (isFailed
-                    ? 'Sync failed. Tap to retry.'
-                    : 'Queued locally for automatic sync at next station.'),
+                ? l10n.syncSavedAndSynced
+                : (isFailed ? l10n.syncFailedRetry : l10n.syncQueuedAtStation),
             style: const TextStyle(
               fontSize: 12.5,
               fontWeight: FontWeight.w400,
@@ -812,16 +792,13 @@ class _GangmanReportDetailScreenState
 
           // Bottom Soft Banner
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 9,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
             decoration: BoxDecoration(
               color: isSynced
                   ? const Color(0xFFDCFCE7)
                   : (isFailed
-                      ? const Color(0xFFFEE2E2)
-                      : const Color(0xFFFEF9C3)),
+                        ? const Color(0xFFFEE2E2)
+                        : const Color(0xFFFEF9C3)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -830,41 +807,44 @@ class _GangmanReportDetailScreenState
                   isSynced
                       ? Symbols.cloud_done_rounded
                       : (isFailed
-                          ? Symbols.error_rounded
-                          : Symbols.schedule_rounded),
+                            ? Symbols.error_rounded
+                            : Symbols.schedule_rounded),
                   size: 16,
                   color: isSynced
                       ? const Color(0xFF16A34A)
                       : (isFailed
-                          ? const Color(0xFFDC2626)
-                          : const Color(0xFFCA8A04)),
+                            ? const Color(0xFFDC2626)
+                            : const Color(0xFFCA8A04)),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     isSynced
-                        ? 'Cloud sync verified • Up to date with server'
+                        ? l10n.syncVerifiedCurrent
                         : (isFailed
-                            ? 'Error: ${report.lastSyncError ?? "Network error"}'
-                            : 'Pending cloud sync at next station'),
+                              ? l10n.syncErrorValue(
+                                  report.lastSyncError ??
+                                      l10n.networkErrorLabel,
+                                )
+                              : l10n.syncPendingCloudAtStation),
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
                       color: isSynced
                           ? const Color(0xFF15803D)
                           : (isFailed
-                              ? const Color(0xFFB91C1C)
-                              : const Color(0xFF854D0E)),
+                                ? const Color(0xFFB91C1C)
+                                : const Color(0xFF854D0E)),
                     ),
                   ),
                 ),
                 if (isFailed)
                   InkWell(
                     onTap: () => _triggerRetry(report),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
-                        'Retry',
+                        l10n.retry,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w800,
@@ -965,10 +945,10 @@ class _GangmanReportDetailScreenState
               Expanded(
                 child: Text(
                   l10n.gangmanNote,
-                style: const TextStyle(
-                  fontSize: 15.5,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF0F172A),
+                  style: const TextStyle(
+                    fontSize: 15.5,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF0F172A),
                   ),
                 ),
               ),
@@ -990,12 +970,18 @@ class _GangmanReportDetailScreenState
 
   // 6. Location & Track Alignment Card
   Widget _buildLocationCard(HazardReport report, AppLocalizations l10n) {
-    final stationName = report.nearestStationName ?? 'Kurseong Station';
+    final stationName =
+        report.nearestStationName ?? 'Kurseong ${l10n.stationLabel}';
     final kmNumber = (report.kmMarker ?? 51.0).toStringAsFixed(1);
     final sectionName = DhrWaypoints.getSectionName(report.sectionId);
     final sourceAccuracy = report.gpsAccuracyMeters != null
         ? '(\u00B1${report.gpsAccuracyMeters!.toStringAsFixed(1)}m)'
         : '';
+    final locationSourceLabel = switch (report.locationSource) {
+      LocationSource.gps => l10n.locationSourceGps,
+      LocationSource.manual => l10n.locationSourceManual,
+      LocationSource.fallback => l10n.locationSourceFallback,
+    };
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -1015,7 +1001,7 @@ class _GangmanReportDetailScreenState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Header Row
-          const Row(
+          Row(
             children: [
               Icon(
                 Symbols.location_on_rounded,
@@ -1025,7 +1011,7 @@ class _GangmanReportDetailScreenState
               SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Location & Track Alignment',
+                  l10n.locationTrackAlignmentTitle,
                   style: TextStyle(
                     fontSize: 15.5,
                     fontWeight: FontWeight.w700,
@@ -1071,7 +1057,7 @@ class _GangmanReportDetailScreenState
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Assigned Section: $sectionName',
+                  '${l10n.assignedSectionLabel}: $sectionName',
                   style: const TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
@@ -1094,8 +1080,7 @@ class _GangmanReportDetailScreenState
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Source: ${report.locationSource.name.toUpperCase()} $sourceAccuracy'
-                      .trim(),
+                  '$locationSourceLabel $sourceAccuracy'.trim(),
                   style: const TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
@@ -1112,7 +1097,7 @@ class _GangmanReportDetailScreenState
 
   // 7. Technical & AI Audit Details Collapsible Card
   Widget _buildAiAuditCard(HazardReport report, AppLocalizations l10n) {
-    final providerTitle = _providerDisplayName(report.aiProvider);
+    final providerTitle = _providerDisplayName(report.aiProvider, l10n);
     final displayModel = report.aiModel ?? 'nvidia/nemotron-3.5-super-vl:free';
     final languageName = report.aiLanguage?.displayName ?? 'English';
     final confidencePct =
@@ -1156,9 +1141,9 @@ class _GangmanReportDetailScreenState
                       size: 20,
                     ),
                     const SizedBox(width: 8),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'Technical & AI Audit Details',
+                        l10n.technicalAiAuditDetails,
                         style: TextStyle(
                           fontSize: 15.5,
                           fontWeight: FontWeight.w700,
@@ -1194,7 +1179,7 @@ class _GangmanReportDetailScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Sub-Header: Cloud Icon + "AI Advisory Metadata"
-                    const Row(
+                    Row(
                       children: [
                         Icon(
                           Symbols.cloud_rounded,
@@ -1204,7 +1189,7 @@ class _GangmanReportDetailScreenState
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'AI Advisory Metadata',
+                            l10n.aiAdvisoryMetadataHeading,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -1236,28 +1221,28 @@ class _GangmanReportDetailScreenState
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                            const Text(
-                              'AI Provider',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFF64748B),
+                              Text(
+                                l10n.aiProviderValue,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF64748B),
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              providerTitle,
-                              style: const TextStyle(
-                                fontSize: 13.5,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF0F172A),
+                              const SizedBox(height: 2),
+                              Text(
+                                providerTitle,
+                                style: const TextStyle(
+                                  fontSize: 13.5,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF0F172A),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                     const Divider(
                       height: 20,
                       thickness: 1,
@@ -1284,8 +1269,8 @@ class _GangmanReportDetailScreenState
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'AI Model',
+                              Text(
+                                l10n.aiModelValue,
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w500,
@@ -1338,28 +1323,28 @@ class _GangmanReportDetailScreenState
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'AI Language',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xFF64748B),
+                                    Text(
+                                      l10n.aiLanguageValue,
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFF64748B),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    languageName,
-                                    style: const TextStyle(
-                                      fontSize: 13.5,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xFF0F172A),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      languageName,
+                                      style: const TextStyle(
+                                        fontSize: 13.5,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xFF0F172A),
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
                             ],
                           ),
                         ),
@@ -1385,28 +1370,28 @@ class _GangmanReportDetailScreenState
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'Confidence',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xFF64748B),
+                                    Text(
+                                      l10n.confidenceLabel,
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFF64748B),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    confidencePct,
-                                    style: const TextStyle(
-                                      fontSize: 13.5,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xFF0F172A),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      confidencePct,
+                                      style: const TextStyle(
+                                        fontSize: 13.5,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xFF0F172A),
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
                             ],
                           ),
                         ),
@@ -1424,7 +1409,7 @@ class _GangmanReportDetailScreenState
                         color: const Color(0xFFE8F1FA),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Row(
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
@@ -1435,7 +1420,7 @@ class _GangmanReportDetailScreenState
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'AI suggestion is advisory only. Gangman inspection confirmed.',
+                              l10n.aiAdvisoryNotice,
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontStyle: FontStyle.italic,
@@ -1481,7 +1466,7 @@ class _GangmanReportDetailScreenState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Header Row
-          const Row(
+          Row(
             children: [
               Icon(
                 Symbols.assignment_rounded,
@@ -1491,7 +1476,7 @@ class _GangmanReportDetailScreenState
               SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Report Audit Information',
+                  l10n.reportAuditInformation,
                   style: TextStyle(
                     fontSize: 15.5,
                     fontWeight: FontWeight.w700,
@@ -1518,7 +1503,7 @@ class _GangmanReportDetailScreenState
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Report ID: ${report.id}',
+                  l10n.reportIdValue(report.id),
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -1528,11 +1513,7 @@ class _GangmanReportDetailScreenState
               ),
             ],
           ),
-          const Divider(
-            height: 18,
-            thickness: 1,
-            color: Color(0xFFF1F5F9),
-          ),
+          const Divider(height: 18, thickness: 1, color: Color(0xFFF1F5F9)),
 
           // Source Row
           Row(
@@ -1545,7 +1526,9 @@ class _GangmanReportDetailScreenState
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Source: Gangman Mobile Unit (${report.locationSource.name.toUpperCase()})',
+                  l10n.sourceGangmanMobile(
+                    report.locationSource.name.toUpperCase(),
+                  ),
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -1555,11 +1538,7 @@ class _GangmanReportDetailScreenState
               ),
             ],
           ),
-          const Divider(
-            height: 18,
-            thickness: 1,
-            color: Color(0xFFF1F5F9),
-          ),
+          const Divider(height: 18, thickness: 1, color: Color(0xFFF1F5F9)),
 
           // Audit / Status Row
           Row(
@@ -1577,8 +1556,8 @@ class _GangmanReportDetailScreenState
               Expanded(
                 child: Text(
                   hasBeenModified
-                      ? 'Last Modified: $updatedText'
-                      : 'Audit: Original submission (Unmodified)',
+                      ? l10n.lastModifiedValue(updatedText)
+                      : l10n.auditOriginalSubmission,
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -1596,17 +1575,13 @@ class _GangmanReportDetailScreenState
   }
 }
 
-
 /// Immersive edge-to-edge dark image viewer with clean native AppBar,
 /// interactive zoom, and double-tap gestures.
 class _FullScreenImageViewer extends StatefulWidget {
   final String photoPath;
   final HazardReport report;
 
-  const _FullScreenImageViewer({
-    required this.photoPath,
-    required this.report,
-  });
+  const _FullScreenImageViewer({required this.photoPath, required this.report});
 
   @override
   State<_FullScreenImageViewer> createState() => _FullScreenImageViewerState();
@@ -1635,30 +1610,24 @@ class _FullScreenImageViewerState extends State<_FullScreenImageViewer> {
     super.dispose();
   }
 
-  String _getReportTitle() {
-    switch (widget.report.confirmedHazardType) {
-      case HazardType.damagedWall:
-        return 'Damaged Retaining Wall Photo';
-      case HazardType.rockfall:
-        return 'Rockfall / Fallen Debris Photo';
-      case HazardType.slip:
-        return 'Landslip / Mudslide Photo';
-      case HazardType.blockedDrain:
-        return 'Blocked Catchwater Drain Photo';
-      case HazardType.trackDefect:
-        return 'Track Defect / Rail Gap Photo';
-      case HazardType.vegetation:
-        return 'Track Obstruction / Vegetation Photo';
-      case HazardType.other:
-        return 'Track Issue Photo';
-    }
+  String _getReportTitle(AppLocalizations l10n) {
+    final hazard = switch (widget.report.confirmedHazardType) {
+      HazardType.damagedWall => l10n.hazardTitleDamagedWall,
+      HazardType.rockfall => l10n.hazardTitleRockfall,
+      HazardType.slip => l10n.hazardTitleLandslip,
+      HazardType.blockedDrain => l10n.hazardTitleBlockedDrain,
+      HazardType.trackDefect => l10n.hazardTitleTrackDefectRailGap,
+      HazardType.vegetation => l10n.hazardTitleVegetation,
+      HazardType.other => l10n.hazardTitleOther,
+    };
+    return l10n.hazardPhotoTitle(hazard);
   }
 
   @override
   Widget build(BuildContext context) {
-    final kmText =
-        'Km ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${widget.report.nearestStationName ?? "Kurseong Station"}';
     final l10n = AppLocalizations.of(context)!;
+    final kmText =
+        '${l10n.kmUnit} ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${widget.report.nearestStationName ?? "Kurseong ${l10n.stationLabel}"}';
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -1695,7 +1664,7 @@ class _FullScreenImageViewerState extends State<_FullScreenImageViewer> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      _getReportTitle(),
+                      _getReportTitle(l10n),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,

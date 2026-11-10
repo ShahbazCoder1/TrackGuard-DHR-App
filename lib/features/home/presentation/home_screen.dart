@@ -16,7 +16,6 @@ import '../../../shared/models/hazard_report.dart';
 import '../../../shared/models/hazard_type.dart';
 import '../../../shared/models/sync_status.dart';
 import '../../../shared/widgets/connectivity_indicator.dart';
-import '../../../shared/widgets/hazard_icon.dart';
 import '../../../shared/widgets/trackguard_app_bar.dart';
 import '../../ai/domain/ai_service_provider.dart';
 import '../../ai/domain/offline_model_state.dart';
@@ -94,7 +93,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   const SizedBox(height: 14),
 
                   // 1. "Report a Problem" Primary Action Button (Mockup Design)
-                  _buildReportAProblemCard(context, l10n, currentLang),
+                  _buildReportAProblemCard(context, l10n),
                   const SizedBox(height: 14),
 
                   // 2. "Recent Reports" Card (Mockup Design - Top 3 Reports)
@@ -113,17 +112,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildReportAProblemCard(
-    BuildContext context,
-    AppLocalizations l10n,
-    AppLanguage currentLang,
-  ) {
-    final title = currentLang == AppLanguage.en
-        ? 'Report a Problem'
-        : l10n.newReport;
-    final subtitle = currentLang == AppLanguage.en
-        ? 'Take a photo and tell us\nwhat is wrong on the track.'
-        : l10n.reportTrackHazardDescription;
+  Widget _buildReportAProblemCard(BuildContext context, AppLocalizations l10n) {
+    final title = l10n.homeReportProblem;
+    final subtitle = l10n.homeReportProblemDescription;
 
     return Container(
       height: 98,
@@ -405,7 +396,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      _getReportTitle(context, report, currentLang),
+                      _getReportTitle(report, l10n),
                       style: const TextStyle(
                         color: Color(0xFF0F172A),
                         fontSize: 14.5,
@@ -426,7 +417,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         const SizedBox(width: 3),
                         Expanded(
                           child: Text(
-                            _formatLocation(report),
+                            _formatLocation(report, l10n),
                             style: const TextStyle(
                               color: Color(0xFF64748B),
                               fontSize: 11.5,
@@ -467,7 +458,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(width: 6),
 
               // Right: Status badge & chevron
-              _buildStatusPill(report.syncStatus, l10n, currentLang),
+              _buildStatusPill(report.syncStatus, l10n),
               const SizedBox(width: 2),
               const Icon(
                 Symbols.chevron_right_rounded,
@@ -571,13 +562,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildStatusPill(
-    SyncStatus status,
-    AppLocalizations l10n,
-    AppLanguage currentLang,
-  ) {
-    final isEnglish = currentLang == AppLanguage.en;
-
+  Widget _buildStatusPill(SyncStatus status, AppLocalizations l10n) {
     Color bgColor;
     Color textColor;
     IconData icon;
@@ -588,27 +573,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         bgColor = const Color(0xFFE8F5E9);
         textColor = const Color(0xFF1B8738);
         icon = Symbols.check_circle_rounded;
-        label = isEnglish ? 'Synced' : l10n.syncStatusSynced;
+        label = l10n.syncSyncedShort;
         break;
       case SyncStatus.pending:
       case SyncStatus.syncing:
         bgColor = const Color(0xFFFEF3D6);
         textColor = const Color(0xFFB45309);
         icon = Symbols.sync_rounded;
-        label = isEnglish ? 'Pending' : l10n.syncStatusPending;
+        label = l10n.syncPendingShort;
         break;
       case SyncStatus.failed:
       case SyncStatus.conflict:
         bgColor = const Color(0xFFFEE2E2);
         textColor = const Color(0xFFDC2626);
         icon = Symbols.error_rounded;
-        label = isEnglish ? 'Failed' : l10n.syncStatusFailed;
+        label = l10n.syncFailedShort;
         break;
       case SyncStatus.draft:
         bgColor = const Color(0xFFF1F5F9);
         textColor = const Color(0xFF64748B);
         icon = Symbols.edit_note_rounded;
-        label = isEnglish ? 'Draft' : l10n.syncStatusDraft;
+        label = l10n.syncDraftShort;
         break;
     }
 
@@ -641,7 +626,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     AppLocalizations l10n,
     AppLanguage currentLang,
   ) {
-    final title = _getEmergencyHelplineTitle(currentLang);
+    final title = _getEmergencyHelplineTitle(l10n);
 
     return Container(
       decoration: BoxDecoration(
@@ -913,61 +898,45 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  String _getEmergencyHelplineTitle(AppLanguage lang) {
-    switch (lang) {
-      case AppLanguage.hi:
-        return 'आपातकालीन नियंत्रण कक्ष / हेल्पलाइन';
-      case AppLanguage.bn:
-        return 'জরুরি নিয়ন্ত্রণ কক্ষ / হেল্পলাইন';
-      case AppLanguage.ne:
-        return 'आपतकालीन नियन्त्रण कक्ष / हेल्पलाइन';
-      case AppLanguage.en:
-        return 'Emergency Control Room / Helpline';
+  String _getEmergencyHelplineTitle(AppLocalizations l10n) {
+    return '${l10n.homeEmergencyControlRoom} / ${l10n.emergencyHelpline}';
+  }
+
+  String _getReportTitle(HazardReport report, AppLocalizations l10n) {
+    switch (report.confirmedHazardType) {
+      case HazardType.vegetation:
+        return l10n.homeTrackObstruction;
+      case HazardType.trackDefect:
+        return l10n.homeTrackDamage;
+      case HazardType.slip:
+      case HazardType.rockfall:
+        return l10n.homeLandslideRockfall;
+      case HazardType.blockedDrain:
+        return l10n.homeBlockedDrain;
+      case HazardType.damagedWall:
+        return l10n.homeDamagedWall;
+      case HazardType.other:
+        return l10n.homeAlignmentHazard;
     }
   }
 
-  String _getReportTitle(
-    BuildContext context,
-    HazardReport report,
-    AppLanguage currentLang,
-  ) {
-    if (currentLang == AppLanguage.en) {
-      switch (report.confirmedHazardType) {
-        case HazardType.vegetation:
-          return 'Track Obstruction';
-        case HazardType.trackDefect:
-          return 'Track Damage';
-        case HazardType.slip:
-        case HazardType.rockfall:
-          return 'Landslide / Rockfall';
-        case HazardType.blockedDrain:
-          return 'Blocked Drain';
-        case HazardType.damagedWall:
-          return 'Damaged Wall';
-        case HazardType.other:
-          return 'Alignment Hazard';
-      }
-    }
-    return HazardIcon.getLocalizedLabel(context, report.confirmedHazardType);
-  }
-
-  String _formatLocation(HazardReport report) {
+  String _formatLocation(HazardReport report, AppLocalizations l10n) {
     final kmStr = report.kmMarker != null
-        ? _formatKm(report.kmMarker!)
-        : 'KM --';
+        ? _formatKm(report.kmMarker!, l10n)
+        : '${l10n.kmUnit} --';
     final station =
         report.nearestStationName ??
         DhrWaypoints.getSectionName(report.sectionId);
     return '$kmStr, $station';
   }
 
-  String _formatKm(double km) {
+  String _formatKm(double km, AppLocalizations l10n) {
     final intKm = km.floor();
     final remainder = ((km - intKm) * 10).round();
     if (remainder > 0) {
-      return 'KM $intKm/$remainder';
+      return '${l10n.kmUnit} $intKm/$remainder';
     }
-    return 'KM $intKm';
+    return '${l10n.kmUnit} $intKm';
   }
 
   String _formatReportDate(DateTime dt, AppLocalizations l10n) {
@@ -995,7 +964,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       case AppLanguage.ne:
         return 'हालका रिपोर्टहरू';
       case AppLanguage.en:
-        return 'Recent Reports';
+        return l10n.recentReportsTitle;
     }
   }
 
@@ -1008,7 +977,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       case AppLanguage.ne:
         return 'सबै हेर्नुहोस्';
       case AppLanguage.en:
-        return 'View All';
+        return l10n.viewAll;
     }
   }
 }

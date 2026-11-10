@@ -34,8 +34,7 @@ class TrackGuardAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileTooltip =
-        AppLocalizations.of(context)?.navigationProfile ?? 'Profile';
+    final profileTooltip = AppLocalizations.of(context)!.navigationProfile;
     Widget? effectiveLeading = leading;
     if (effectiveLeading == null && showProfileLeading) {
       effectiveLeading = IconButton(
@@ -74,7 +73,11 @@ class TrackGuardAppBar extends StatelessWidget implements PreferredSizeWidget {
           const LanguageSelectorButton(iconColor: AppTheme.textPrimary),
         if (showProfile)
           IconButton(
-            icon: const Icon(Symbols.person_rounded, size: 24, color: AppTheme.textPrimary),
+            icon: const Icon(
+              Symbols.person_rounded,
+              size: 24,
+              color: AppTheme.textPrimary,
+            ),
             tooltip: profileTooltip,
             onPressed: () => context.push('/profile'),
           ),
