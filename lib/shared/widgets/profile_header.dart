@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../app/theme.dart';
-import '../../core/constants/dhr_waypoints.dart';
+import '../../core/localization/railway_display_names.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/models/app_user.dart';
 import '../../shared/models/user_role.dart';
@@ -27,7 +27,7 @@ class ProfileHeader extends StatelessWidget {
     final roleName = isAdmin ? l10n.roleAdmin : l10n.roleGangman;
 
     final sectionName = user?.assignedSection != null
-        ? DhrWaypoints.getSectionName(user!.assignedSection!)
+        ? localizedSectionName(l10n, user!.assignedSection!)
         : (isAdmin ? l10n.allDhrAlignment : l10n.unassignedSection);
 
     final avatar = CircleAvatar(

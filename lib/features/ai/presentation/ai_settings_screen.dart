@@ -461,59 +461,59 @@ class AiSettingsScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Header Row: Icon + "Offline Model" ... [Badge]
-          Row(
+          // Header Row: Icon + "Offline Model" ... [Badge] (Responsive Wrap prevents horizontal overflow)
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
             children: [
-              const Icon(
-                Symbols.memory_rounded,
-                color: Color(0xFF074E95),
-                size: 22,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  l10n.offlineModelTitle,
-                  style: TextStyle(
-                    color: Color(0xFF0A1E3F),
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.2,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Symbols.memory_rounded,
+                    color: Color(0xFF074E95),
+                    size: 22,
                   ),
-                  softWrap: false,
+                  const SizedBox(width: 8),
+                  Text(
+                    l10n.offlineModelTitle,
+                    style: const TextStyle(
+                      color: Color(0xFF0A1E3F),
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.2,
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4.0,
                 ),
-              ),
-              const SizedBox(width: 8),
-              Flexible(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 7,
-                    vertical: 3.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: badgeBgColor,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: badgeBorderColor, width: 1.0),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(badgeIcon, size: 12, color: badgeColor),
-                      const SizedBox(width: 4),
-                      Flexible(
-                        child: Text(
-                          badgeLabel,
-                          style: TextStyle(
-                            fontSize: 10.5,
-                            fontWeight: FontWeight.w700,
-                            color: badgeColor,
-                          ),
-                          maxLines: 1,
-                          softWrap: false,
-                          overflow: TextOverflow.visible,
-                        ),
+                decoration: BoxDecoration(
+                  color: badgeBgColor,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: badgeBorderColor, width: 1.0),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(badgeIcon, size: 13, color: badgeColor),
+                    const SizedBox(width: 5),
+                    Text(
+                      badgeLabel,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: badgeColor,
                       ),
-                    ],
-                  ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
             ],

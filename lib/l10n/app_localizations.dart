@@ -3387,6 +3387,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ref: {code}'**
   String syncReferenceCode(String code);
+
+  /// No description provided for @sectionKurseongGhum.
+  ///
+  /// In en, this message translates to:
+  /// **'Kurseong → Ghum'**
+  String get sectionKurseongGhum;
+
+  /// No description provided for @sectionGhumDarjeeling.
+  ///
+  /// In en, this message translates to:
+  /// **'Ghum → Darjeeling'**
+  String get sectionGhumDarjeeling;
+
+  /// No description provided for @languageNameEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageNameEnglish;
+
+  /// No description provided for @languageNameHindi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hindi'**
+  String get languageNameHindi;
+
+  /// No description provided for @languageNameBengali.
+  ///
+  /// In en, this message translates to:
+  /// **'Bengali'**
+  String get languageNameBengali;
+
+  /// No description provided for @languageNameNepali.
+  ///
+  /// In en, this message translates to:
+  /// **'Nepali'**
+  String get languageNameNepali;
 }
 
 class _AppLocalizationsDelegate

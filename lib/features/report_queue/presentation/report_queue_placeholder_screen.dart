@@ -9,7 +9,7 @@ import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/connectivity/connectivity_provider.dart';
-import '../../../core/constants/dhr_waypoints.dart';
+import '../../../core/localization/railway_display_names.dart';
 import '../../../core/sync/sync_error_message_mapper.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/hazard_report.dart';
@@ -219,41 +219,37 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                   ),
                   const SizedBox(height: 12),
 
-                  // 2. Filter Tabs (Evenly distributed across the row, zero horizontal scroll/overflow)
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildFilterTab(
+                  // 2. Filter Tabs (Horizontally scrollable, accommodates all languages without cramped text)
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      children: [
+                        _buildFilterTab(
                           QueueFilter.all,
                           l10n.filterAll,
                           reports.length,
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: _buildFilterTab(
+                        const SizedBox(width: 8),
+                        _buildFilterTab(
                           QueueFilter.pending,
                           l10n.filterPending,
                           pendingCount,
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: _buildFilterTab(
+                        const SizedBox(width: 8),
+                        _buildFilterTab(
                           QueueFilter.failed,
                           l10n.filterFailed,
                           failedCount,
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: _buildFilterTab(
+                        const SizedBox(width: 8),
+                        _buildFilterTab(
                           QueueFilter.synced,
                           l10n.filterSynced,
                           syncedCount,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 14),
 
@@ -281,7 +277,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
       borderRadius: BorderRadius.circular(9),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 160),
-        padding: const EdgeInsets.symmetric(vertical: 7.5),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7.5),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFF074E95) : Colors.white,
@@ -302,19 +298,14 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                 ]
               : null,
         ),
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Text(
-              '$title ($count)',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
-                color: isSelected ? Colors.white : const Color(0xFF0F172A),
-              ),
-            ),
+        child: Text(
+          '$title ($count)',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+            color: isSelected ? Colors.white : const Color(0xFF0F172A),
           ),
+          maxLines: 1,
         ),
       ),
     );
@@ -387,12 +378,9 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
     final kmText = report.kmMarker != null
         ? '${l10n.kmUnit} ${report.kmMarker!.toStringAsFixed(1)}'
         : '${l10n.kmUnit} 51.0';
-    final rawStation =
-        report.nearestStationName ??
-        DhrWaypoints.getSectionName(report.sectionId);
-    final stationName = rawStation.endsWith('Station')
-        ? rawStation
-        : '$rawStation ${l10n.stationLabel}';
+    final stationName = report.nearestStationName != null
+        ? localizedStationName(l10n, report.nearestStationName!)
+        : localizedSectionName(l10n, report.sectionId);
     final createdDateText = DateFormat('d MMM yyyy, h:mm a')
         .format(report.createdAt);
 
@@ -448,6 +436,8 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                               color: Color(0xFF0F172A),
                               height: 1.2,
                             ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 5),
                           Row(
@@ -481,11 +471,15 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                                 color: Color(0xFF64748B),
                               ),
                               const SizedBox(width: 3),
-                              Text(
-                                createdDateText,
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  color: Color(0xFF64748B),
+                              Expanded(
+                                child: Text(
+                                  createdDateText,
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    color: Color(0xFF64748B),
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],

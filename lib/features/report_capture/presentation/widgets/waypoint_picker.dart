@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:trackguard_dhr/core/constants/dhr_waypoints.dart';
+import 'package:trackguard_dhr/core/localization/railway_display_names.dart';
 import 'package:trackguard_dhr/l10n/app_localizations.dart';
 
 class WaypointPickerSheet extends StatefulWidget {
@@ -388,7 +389,7 @@ class _StationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final sectionName = DhrWaypoints.getSectionName(waypoint.sectionId);
+    final sectionName = localizedSectionName(l10n, waypoint.sectionId);
 
     return Semantics(
       selected: isSelected,
@@ -482,7 +483,7 @@ class _StationTile extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    l10n.stationName(waypoint.id),
+                                    localizedWaypointName(l10n, waypoint),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(

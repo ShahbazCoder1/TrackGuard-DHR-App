@@ -442,14 +442,19 @@ class _OfflineModelDownloadScreenState
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  l10n.offlineModelDownloading,
-                  style: const TextStyle(
-                    color: _ink,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
+                Expanded(
+                  child: Text(
+                    l10n.offlineModelDownloading,
+                    style: const TextStyle(
+                      color: _ink,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                const SizedBox(width: 8),
                 Text(
                   '${state.progressPercent}%',
                   style: const TextStyle(

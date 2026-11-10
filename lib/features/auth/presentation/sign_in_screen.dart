@@ -25,8 +25,15 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   @override
   void initState() {
     super.initState();
-    // Start intro immediately so there is zero delay before the splash plays
-    _startIntro();
+    // Only start the heavy hardware video intro if we know the user is unauthenticated.
+    // When the app starts up with an existing logged-in session, auth redirects immediately
+    // to the home dashboard — starting video playback here would allocate an Android MediaCodec
+    // and ImageReader surface only to abandon the buffer queue during redirect.
+    final authStatus = ref.read(authControllerProvider).status;
+    if (authStatus == AuthStatus.unauthenticated ||
+        authStatus == AuthStatus.authError) {
+      _startIntro();
+    }
   }
 
   @override
@@ -40,7 +47,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   }
 
   Future<void> _startIntro() async {
-    if (_introStarted) return;
+    if (_introStarted || !mounted) return;
     _introStarted = true;
 
     final controller = VideoPlayerController.asset(
@@ -52,7 +59,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     try {
       await controller.initialize();
 
-      if (!mounted) {
+      if (!mounted || !identical(_videoController, controller)) {
         await controller.dispose();
         return;
       }
@@ -62,9 +69,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
       controller.addListener(_onVideoChanged);
 
-      setState(() {});
-
-      await controller.play();
+      if (mounted) {
+        setState(() {});
+        await controller.play();
+      }
     } catch (error) {
       debugPrint('Splash video failed: $error');
 
@@ -76,7 +84,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         }
       }
 
-      await controller.dispose();
+      try {
+        await controller.dispose();
+      } catch (_) {}
     }
   }
 
@@ -254,11 +264,14 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   void dispose() {
+    _introStarted = false;
     final controller = _videoController;
+    _videoController = null;
 
     if (controller != null) {
       controller.removeListener(_onVideoChanged);
-      unawaited(controller.dispose());
+      controller.pause().catchError((_) {});
+      controller.dispose().catchError((_) {});
     }
 
     super.dispose();

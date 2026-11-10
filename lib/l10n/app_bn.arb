@@ -904,5 +904,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "sectionKurseongGhum": "কার্শিয়াং → ঘুম",
+  "sectionGhumDarjeeling": "ঘুম → দার্জিলিং",
+  "languageNameEnglish": "ইংরেজি",
+  "languageNameHindi": "হিন্দি",
+  "languageNameBengali": "বাংলা",
+  "languageNameNepali": "নেপালি"
 }

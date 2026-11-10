@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../core/connectivity/connectivity_provider.dart';
-import '../../../core/constants/dhr_waypoints.dart';
+import '../../../core/localization/railway_display_names.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/app_language.dart';
@@ -117,7 +117,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final subtitle = l10n.homeReportProblemDescription;
 
     return Container(
-      height: 98,
+      constraints: const BoxConstraints(minHeight: 98),
       decoration: BoxDecoration(
         color: const Color(0xFF074E95),
         borderRadius: BorderRadius.circular(20),
@@ -157,7 +157,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                 // Content row
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Row(
                     children: [
                       // Camera with sparkles icon
@@ -924,9 +924,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final kmStr = report.kmMarker != null
         ? _formatKm(report.kmMarker!, l10n)
         : '${l10n.kmUnit} --';
-    final station =
-        report.nearestStationName ??
-        DhrWaypoints.getSectionName(report.sectionId);
+    final station = report.nearestStationName != null
+        ? localizedStationName(l10n, report.nearestStationName!)
+        : localizedSectionName(l10n, report.sectionId);
     return '$kmStr, $station';
   }
 
