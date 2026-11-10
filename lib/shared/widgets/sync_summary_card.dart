@@ -52,16 +52,16 @@ class SyncSummaryCard extends StatelessWidget {
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Symbols.layers_rounded,
                     color: Color(0xFF074E95),
                     size: 21,
                   ),
-                  SizedBox(width: 7),
+                  const SizedBox(width: 7),
                   Text(
-                    'Sync Summary',
-                    style: TextStyle(
+                    l10n?.syncSummaryTitle ?? 'Sync Summary',
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF0F172A),
@@ -142,9 +142,9 @@ class SyncSummaryCard extends StatelessWidget {
                             color: Color(0xFFD97706),
                           ),
                           const SizedBox(width: 5),
-                          const Text(
-                            'Pending',
-                            style: TextStyle(
+                          Text(
+                            l10n?.syncStatusPending ?? 'Pending',
+                            style: const TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF92400E),
@@ -190,24 +190,24 @@ class SyncSummaryCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Symbols.error_rounded,
                             size: 16,
                             color: Color(0xFFDC2626),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Text(
-                            'Failed',
-                            style: TextStyle(
+                            l10n?.syncStatusFailed ?? 'Failed',
+                            style: const TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF991B1B),
                             ),
                           ),
-                          Spacer(),
-                          Icon(
+                          const Spacer(),
+                          const Icon(
                             Symbols.cancel_rounded,
                             size: 15,
                             color: Color(0xFFDC2626),
@@ -248,17 +248,17 @@ class SyncSummaryCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Symbols.check_circle_rounded,
                             size: 16,
                             color: Color(0xFF16A34A),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Text(
-                            'Synced',
-                            style: TextStyle(
+                            l10n?.syncStatusSynced ?? 'Synced',
+                            style: const TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF166534),
@@ -292,13 +292,13 @@ class SyncSummaryCard extends StatelessWidget {
                     border: Border.all(color: const Color(0xFFDCFCE7), width: 1.2),
                   ),
                   child: currentlySyncing
-                      ? const Column(
+                      ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Row(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 14,
                                   height: 14,
                                   child: CircularProgressIndicator(
@@ -306,10 +306,10 @@ class SyncSummaryCard extends StatelessWidget {
                                     color: Color(0xFF16A34A),
                                   ),
                                 ),
-                                SizedBox(width: 6),
+                                const SizedBox(width: 6),
                                 Text(
-                                  'Syncing...',
-                                  style: TextStyle(
+                                  l10n?.syncStatusSyncing ?? 'Syncing...',
+                                  style: const TextStyle(
                                     fontSize: 12.5,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xFF15803D),
@@ -317,10 +317,10 @@ class SyncSummaryCard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
-                              'Uploading reports...',
-                              style: TextStyle(
+                              l10n?.syncReportsSyncing ?? 'Syncing reports...',
+                              style: const TextStyle(
                                 fontSize: 10.5,
                                 color: Color(0xFF64748B),
                               ),
@@ -335,17 +335,17 @@ class SyncSummaryCard extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Row(
+                                  Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Symbols.sync_rounded,
                                         size: 16,
                                         color: Color(0xFF074E95),
                                       ),
-                                      SizedBox(width: 6),
+                                      const SizedBox(width: 6),
                                       Text(
-                                        'Sync Now',
-                                        style: TextStyle(
+                                        l10n?.syncNow ?? 'Sync Now',
+                                        style: const TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w700,
                                           color: Color(0xFF074E95),
@@ -355,7 +355,8 @@ class SyncSummaryCard extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    '${summary.pendingCount} pending upload',
+                                    l10n?.syncPendingReports(summary.pendingCount) ??
+                                        '${summary.pendingCount} pending upload',
                                     style: const TextStyle(
                                       fontSize: 10.5,
                                       color: Color(0xFF64748B),
@@ -369,17 +370,18 @@ class SyncSummaryCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Row(
-                                  children: const [
-                                    Icon(
+                                  children: [
+                                    const Icon(
                                       Symbols.cloud_done_rounded,
                                       size: 18,
                                       color: Color(0xFF16A34A),
                                     ),
-                                    SizedBox(width: 6),
+                                    const SizedBox(width: 6),
                                     Expanded(
                                       child: Text(
-                                        'All reports synced',
-                                        style: TextStyle(
+                                        l10n?.syncAllReportsSynced ??
+                                            'All reports synced',
+                                        style: const TextStyle(
                                           fontSize: 13.0,
                                           fontWeight: FontWeight.w700,
                                           color: Color(0xFF15803D),
@@ -392,7 +394,8 @@ class SyncSummaryCard extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
-                                  'Last synced: $syncDateFormatted',
+                                  l10n?.syncLastSuccessful(syncDateFormatted) ??
+                                      'Last synced: $syncDateFormatted',
                                   style: const TextStyle(
                                     fontSize: 11.0,
                                     fontWeight: FontWeight.w500,
@@ -414,7 +417,7 @@ class SyncSummaryCard extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: onViewQueue,
-                child: const Text('View Queue'),
+                child: Text(l10n?.viewQueue ?? 'View Queue'),
               ),
             ),
           ],

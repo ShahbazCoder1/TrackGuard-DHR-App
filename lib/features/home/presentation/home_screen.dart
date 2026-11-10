@@ -760,22 +760,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Emergency Control Room',
-                          style: TextStyle(
+                          l10n.homeEmergencyControlRoom,
+                          style: const TextStyle(
                             color: Color(0xFF0F172A),
                             fontSize: 17,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        SizedBox(height: 2),
+                        const SizedBox(height: 2),
                         Text(
-                          'DHR Permanent-Way Emergency Lines',
-                          style: TextStyle(
+                          l10n.homeEmergencyLinesSubtitle,
+                          style: const TextStyle(
                             color: Color(0xFF64748B),
                             fontSize: 12.5,
                           ),
@@ -787,31 +787,31 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
               const SizedBox(height: 18),
               _buildContactItem(
-                title: 'DHR Division Control Office',
-                subtitle: 'Kurseong / Katihar Operations Control',
+                title: l10n.homeDhrControlOffice,
+                subtitle: l10n.homeOperationsControl,
                 phone: '+91 354 234 4000',
-                badgeText: 'Primary Control',
+                badgeText: l10n.homePrimaryControlBadge,
               ),
               const SizedBox(height: 10),
               _buildContactItem(
-                title: 'Indian Railways Helpline',
-                subtitle: 'All-India Railway Emergency & Support',
+                title: l10n.homeRailwaysHelpline,
+                subtitle: l10n.homeRailwayEmergencySupport,
                 phone: '139',
-                badgeText: 'Toll-Free',
+                badgeText: l10n.homeTollFreeBadge,
               ),
               const SizedBox(height: 10),
               _buildContactItem(
-                title: 'National Emergency Service',
-                subtitle: 'Police, Medical & Disaster Management',
+                title: l10n.homeNationalEmergency,
+                subtitle: l10n.homePoliceMedicalDisaster,
                 phone: '112',
-                badgeText: 'Emergency',
+                badgeText: l10n.homeEmergencyBadge,
               ),
               const SizedBox(height: 14),
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(),
-                child: const Text(
-                  'Close',
-                  style: TextStyle(
+                child: Text(
+                  l10n.commonClose,
+                  style: const TextStyle(
                     color: Color(0xFF64748B),
                     fontWeight: FontWeight.w600,
                   ),

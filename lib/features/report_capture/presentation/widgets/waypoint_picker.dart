@@ -58,6 +58,7 @@ class _WaypointPickerSheetState extends State<WaypointPickerSheet> {
   Widget build(BuildContext context) {
     final waypoints = DhrWaypoints.waypoints;
     final nearest = _nearestTo(_activeKm);
+    final l10n = AppLocalizations.of(context);
 
     return Material(
       color: Colors.white,
@@ -261,9 +262,9 @@ class _WaypointPickerSheetState extends State<WaypointPickerSheet> {
                       child: Container(
                         color: Colors.white,
                         padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: const Text(
-                          'Edit Km Marker',
-                          style: TextStyle(
+                        child: Text(
+                          l10n?.editKm ?? 'Edit Km Marker',
+                          style: const TextStyle(
                             color: Color(0xFF074E95),
                             fontSize: 12.0,
                             fontWeight: FontWeight.w700,
@@ -330,19 +331,20 @@ class _WaypointPickerSheetState extends State<WaypointPickerSheet> {
                         Navigator.of(context).pop();
                       },
                       borderRadius: BorderRadius.circular(14),
-                      child: const Center(
+                      child: Center(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
+                            const Icon(
                               Symbols.check_circle_rounded,
                               color: Colors.white,
                               size: 20,
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
-                              'Use Selected Location',
-                              style: TextStyle(
+                              l10n?.waypointUseSelectedLocation ??
+                                  'Use Selected Location',
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.w700,

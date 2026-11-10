@@ -105,7 +105,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
         foregroundColor: _C.ink,
         centerTitle: true,
         leading: IconButton(
-          tooltip: 'Menu',
+          tooltip: l10n.navigationMenu,
           icon: const Icon(Symbols.menu_rounded),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
@@ -133,21 +133,21 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.transparent,
         indicatorColor: _C.brandSoft,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Symbols.dashboard_rounded),
-            selectedIcon: Icon(Symbols.dashboard_rounded),
-            label: 'Overview',
+            icon: const Icon(Symbols.dashboard_rounded),
+            selectedIcon: const Icon(Symbols.dashboard_rounded),
+            label: l10n.adminOverviewTab,
           ),
           NavigationDestination(
-            icon: Icon(Symbols.assignment_rounded),
-            selectedIcon: Icon(Symbols.assignment_rounded),
-            label: 'Reports',
+            icon: const Icon(Symbols.assignment_rounded),
+            selectedIcon: const Icon(Symbols.assignment_rounded),
+            label: l10n.adminReportsTab,
           ),
           NavigationDestination(
-            icon: Icon(Symbols.group_rounded),
-            selectedIcon: Icon(Symbols.group_rounded),
-            label: 'Users',
+            icon: const Icon(Symbols.group_rounded),
+            selectedIcon: const Icon(Symbols.group_rounded),
+            label: l10n.adminUsersTab,
           ),
         ],
       ),
@@ -366,7 +366,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
                 color: Color(0xFF64748B),
                 size: 22,
               ),
-              hintText: 'Search users by name or email',
+              hintText: l10n.searchUsersHint,
               hintStyle: const TextStyle(
                 color: Color(0xFF94A3B8),
                 fontSize: 14.0,
@@ -438,7 +438,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'No users matching "$_userSearchQuery"',
+                        l10n.adminNoMatchingUsers(_userSearchQuery),
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -535,6 +535,7 @@ class _UserCardState extends State<_UserCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final name = widget.user.fullName;
     final initial = (name != null && name.trim().isNotEmpty
             ? name.trim()[0]
@@ -593,7 +594,7 @@ class _UserCardState extends State<_UserCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name ?? 'Unnamed user',
+                      name ?? l10n.adminUnnamedUser,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -670,9 +671,9 @@ class _UserCardState extends State<_UserCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Role',
-                      style: TextStyle(
+                    Text(
+                      l10n.adminRoleHeading,
+                      style: const TextStyle(
                         fontSize: 11.5,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF64748B),
@@ -703,17 +704,17 @@ class _UserCardState extends State<_UserCard> {
                             DropdownMenuItem(
                               value: UserRole.admin,
                               child: Row(
-                                children: const [
-                                  Icon(
+                                children: [
+                                  const Icon(
                                     Symbols.shield_person_rounded,
                                     size: 18,
                                     color: Color(0xFF074E95),
                                   ),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
-                                      'Admin',
-                                      style: TextStyle(
+                                      l10n.adminRoleOptionAdmin,
+                                      style: const TextStyle(
                                         fontSize: 13.5,
                                         fontWeight: FontWeight.w700,
                                         color: Color(0xFF0F172A),
@@ -728,17 +729,17 @@ class _UserCardState extends State<_UserCard> {
                             DropdownMenuItem(
                               value: UserRole.gangman,
                               child: Row(
-                                children: const [
-                                  Icon(
+                                children: [
+                                  const Icon(
                                     Symbols.engineering_rounded,
                                     size: 18,
                                     color: Color(0xFF074E95),
                                   ),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
-                                      'Gangman',
-                                      style: TextStyle(
+                                      l10n.roleGangman,
+                                      style: const TextStyle(
                                         fontSize: 13.5,
                                         fontWeight: FontWeight.w700,
                                         color: Color(0xFF0F172A),
@@ -776,9 +777,9 @@ class _UserCardState extends State<_UserCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Assigned Section',
-                      style: TextStyle(
+                    Text(
+                      l10n.adminAssignedSectionDropdown,
+                      style: const TextStyle(
                         fontSize: 11.5,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF64748B),
@@ -806,20 +807,20 @@ class _UserCardState extends State<_UserCard> {
                             size: 22,
                           ),
                           items: [
-                            const DropdownMenuItem<String?>(
+                            DropdownMenuItem<String?>(
                               value: null,
                               child: Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Symbols.alt_route_rounded,
                                     size: 18,
                                     color: Color(0xFF074E95),
                                   ),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
-                                      'All sections',
-                                      style: TextStyle(
+                                      l10n.adminAllSections,
+                                      style: const TextStyle(
                                         fontSize: 13.5,
                                         fontWeight: FontWeight.w700,
                                         color: Color(0xFF0F172A),
@@ -981,6 +982,7 @@ class _AdminReportDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -1008,12 +1010,12 @@ class _AdminReportDetailScreenState
               color: Color(0xFF0F172A),
               size: 22,
             ),
-            tooltip: 'Back',
+            tooltip: l10n.navigationBack,
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: const Text(
-            'Report Details',
-            style: TextStyle(
+          title: Text(
+            l10n.adminReportDetails,
+            style: const TextStyle(
               fontSize: 17.5,
               fontWeight: FontWeight.w700,
               color: Color(0xFF0F172A),
@@ -1053,19 +1055,19 @@ class _AdminReportDetailScreenState
               padding: const EdgeInsets.fromLTRB(16, 4, 16, 28),
               children: [
                 // 1. Hero Photo Card with Tap to enlarge button
-                _buildHeroPhoto(r),
+                _buildHeroPhoto(r, l10n),
                 const SizedBox(height: 14),
 
                 // 2. Main Report Information Card
-                _buildMainInfoCard(r),
+                _buildMainInfoCard(r, l10n),
                 const SizedBox(height: 14),
 
                 // 3. Update Status Card
-                _buildUpdateStatusCard(r, current),
+                _buildUpdateStatusCard(r, current, l10n),
                 const SizedBox(height: 14),
 
                 // 4. Audit History Card
-                _buildAuditHistoryCard(),
+                _buildAuditHistoryCard(l10n),
               ],
             );
           },
@@ -1075,7 +1077,7 @@ class _AdminReportDetailScreenState
   }
 
   // 1. Hero Captured Photo
-  Widget _buildHeroPhoto(HazardReport r) {
+  Widget _buildHeroPhoto(HazardReport r, AppLocalizations l10n) {
     return FutureBuilder<String?>(
       future: mediaUrlFuture,
       builder: (context, snapshot) {
@@ -1138,13 +1140,13 @@ class _AdminReportDetailScreenState
                   },
                   errorBuilder: (_, _, _) => localPath != null
                       ? Image.file(File(localPath), fit: BoxFit.cover)
-                      : _fallbackPhotoCard(r),
+                      : _fallbackPhotoCard(r, l10n),
                 )
               else if (localPath != null)
                 Image.file(
                   File(localPath),
                   fit: BoxFit.cover,
-                  errorBuilder: (_, _, _) => _fallbackPhotoCard(r),
+                  errorBuilder: (_, _, _) => _fallbackPhotoCard(r, l10n),
                 )
               else if (snapshot.connectionState == ConnectionState.waiting)
                 const Center(
@@ -1154,7 +1156,7 @@ class _AdminReportDetailScreenState
                   ),
                 )
               else
-                _fallbackPhotoCard(r),
+                _fallbackPhotoCard(r, l10n),
 
               // "Tap to enlarge" Pill Button
               if (hasImage)
@@ -1179,18 +1181,18 @@ class _AdminReportDetailScreenState
                           color: const Color(0xFF0F172A).withValues(alpha: 0.85),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
+                            const Icon(
                               Symbols.crop_free_rounded,
                               size: 16,
                               color: Colors.white,
                             ),
-                            SizedBox(width: 6),
+                            const SizedBox(width: 6),
                             Text(
-                              'Tap to enlarge',
-                              style: TextStyle(
+                              l10n.adminTapToEnlarge,
+                              style: const TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -1209,7 +1211,7 @@ class _AdminReportDetailScreenState
     );
   }
 
-  Widget _fallbackPhotoCard(HazardReport report) {
+  Widget _fallbackPhotoCard(HazardReport report, AppLocalizations l10n) {
     return Container(
       color: const Color(0xFFF8FAFC),
       alignment: Alignment.center,
@@ -1222,9 +1224,9 @@ class _AdminReportDetailScreenState
             color: Colors.blueGrey.shade300,
           ),
           const SizedBox(height: 8),
-          const Text(
-            'No inspection photo for this report',
-            style: TextStyle(
+          Text(
+            l10n.adminNoInspectionPhoto,
+            style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
               color: Color(0xFF64748B),
@@ -1236,7 +1238,7 @@ class _AdminReportDetailScreenState
   }
 
   // 2. Main Info Card (Mockup Design)
-  Widget _buildMainInfoCard(HazardReport r) {
+  Widget _buildMainInfoCard(HazardReport r, AppLocalizations l10n) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1290,13 +1292,13 @@ class _AdminReportDetailScreenState
           // 7 Metadata Rows with Left Icon Containers
           _buildInfoRow(
             icon: Symbols.warning_amber_rounded,
-            label: 'Severity',
+            label: l10n.severity,
             valueWidget: _buildSeverityBadge(r.confirmedSeverity),
           ),
           _buildInfoDivider(),
           _buildInfoRow(
             icon: Symbols.alt_route_rounded,
-            label: 'Section',
+            label: l10n.adminSection,
             valueWidget: Text(
               _sectionName(r.sectionId),
               textAlign: TextAlign.end,
@@ -1312,7 +1314,7 @@ class _AdminReportDetailScreenState
           _buildInfoDivider(),
           _buildInfoRow(
             icon: Symbols.location_on_rounded,
-            label: 'Station',
+            label: l10n.adminStation,
             valueWidget: Text(
               r.nearestStationName ?? 'Kurseong Station',
               textAlign: TextAlign.end,
@@ -1328,9 +1330,9 @@ class _AdminReportDetailScreenState
           _buildInfoDivider(),
           _buildInfoRow(
             icon: Symbols.share_location_rounded,
-            label: 'Km Marker',
+            label: l10n.adminKmMarker,
             valueWidget: Text(
-              r.kmMarker == null ? 'Not specified' : _trimKm(r.kmMarker!),
+              r.kmMarker == null ? l10n.adminNotSpecified : _trimKm(r.kmMarker!),
               textAlign: TextAlign.end,
               style: const TextStyle(
                 fontSize: 13.5,
@@ -1342,7 +1344,7 @@ class _AdminReportDetailScreenState
           _buildInfoDivider(),
           _buildInfoRow(
             icon: Symbols.calendar_today_rounded,
-            label: 'Created',
+            label: l10n.adminCreated,
             valueWidget: Text(
               _formatDate(r.createdAt),
               textAlign: TextAlign.end,
@@ -1358,11 +1360,11 @@ class _AdminReportDetailScreenState
           _buildInfoDivider(),
           _buildInfoRow(
             icon: Symbols.my_location_rounded,
-            label: 'GPS',
+            label: l10n.adminGps,
             valueWidget: Text(
               r.latitude != null && r.longitude != null
                   ? '${r.latitude!.toStringAsFixed(6)}, ${r.longitude!.toStringAsFixed(6)}'
-                  : 'Not captured',
+                  : l10n.adminNotCaptured,
               textAlign: TextAlign.end,
               style: const TextStyle(
                 fontSize: 12.5,
@@ -1376,7 +1378,7 @@ class _AdminReportDetailScreenState
           _buildInfoDivider(),
           _buildInfoRow(
             icon: Symbols.description_rounded,
-            label: 'Report ID',
+            label: l10n.adminReportId,
             valueWidget: SelectableText(
               r.id,
               textAlign: TextAlign.end,
@@ -1394,7 +1396,7 @@ class _AdminReportDetailScreenState
             const SizedBox(height: 14),
             _buildNoteCard(
               icon: Symbols.assignment_rounded,
-              title: 'Gangman Note',
+              title: l10n.adminGangmanNoteTitle,
               content: r.userNote,
             ),
           ],
@@ -1404,7 +1406,7 @@ class _AdminReportDetailScreenState
             const SizedBox(height: 12),
             _buildNoteCard(
               icon: Symbols.lightbulb_rounded,
-              title: 'AI Suggestion',
+              title: l10n.adminAiSuggestionTitle,
               content: r.aiNote!,
             ),
           ],
@@ -1528,7 +1530,11 @@ class _AdminReportDetailScreenState
   }
 
   // 3. Update Status Card (Mockup Image 2)
-  Widget _buildUpdateStatusCard(HazardReport r, InspectionStatus current) {
+  Widget _buildUpdateStatusCard(
+    HazardReport r,
+    InspectionStatus current,
+    AppLocalizations l10n,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1558,9 +1564,9 @@ class _AdminReportDetailScreenState
                 size: 22,
               ),
               const SizedBox(width: 10),
-              const Text(
-                'Update Status',
-                style: TextStyle(
+              Text(
+                l10n.adminUpdateStatusHeading,
+                style: const TextStyle(
                   color: Color(0xFF0A1E3F),
                   fontSize: 16.5,
                   fontWeight: FontWeight.w700,
@@ -1573,7 +1579,7 @@ class _AdminReportDetailScreenState
           // Outlined Dropdown with Floating Label
           InputDecorator(
             decoration: InputDecoration(
-              labelText: 'Inspection Status',
+              labelText: l10n.adminInspectionStatus,
               labelStyle: const TextStyle(
                 color: Color(0xFF64748B),
                 fontSize: 13,
@@ -1651,14 +1657,14 @@ class _AdminReportDetailScreenState
                         color: Colors.white,
                       ),
                     )
-                  : const Row(
+                  : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Symbols.save_rounded, size: 20),
-                        SizedBox(width: 8),
+                        const Icon(Symbols.save_rounded, size: 20),
+                        const SizedBox(width: 8),
                         Text(
-                          'Save Status',
-                          style: TextStyle(
+                          l10n.adminSaveStatusButton,
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
                           ),
@@ -1673,7 +1679,7 @@ class _AdminReportDetailScreenState
   }
 
   // 4. Audit History Card (Mockup Image 2)
-  Widget _buildAuditHistoryCard() {
+  Widget _buildAuditHistoryCard(AppLocalizations l10n) {
     return FutureBuilder<List<Map<String, dynamic>>>(
       future: historyFuture,
       builder: (context, history) {
@@ -1723,9 +1729,9 @@ class _AdminReportDetailScreenState
                     size: 22,
                   ),
                   const SizedBox(width: 10),
-                  const Text(
-                    'Audit History',
-                    style: TextStyle(
+                  Text(
+                    l10n.adminAuditHistoryTitle,
+                    style: const TextStyle(
                       color: Color(0xFF0A1E3F),
                       fontSize: 16.5,
                       fontWeight: FontWeight.w700,
@@ -1737,15 +1743,15 @@ class _AdminReportDetailScreenState
 
               if (history.hasError)
                 Text(
-                  'Could not load history: ${history.error}',
+                  l10n.adminCouldNotLoadHistory('${history.error}'),
                   style: const TextStyle(color: Color(0xFFDC2626)),
                 )
               else if (rows.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Text(
-                    'No status changes recorded yet.',
-                    style: TextStyle(color: Color(0xFF64748B), fontSize: 13),
+                    l10n.adminNoStatusChangesYet,
+                    style: const TextStyle(color: Color(0xFF64748B), fontSize: 13),
                   ),
                 )
               else
@@ -1756,7 +1762,7 @@ class _AdminReportDetailScreenState
                   itemBuilder: (context, index) {
                     final h = rows[index];
                     final isLast = index == rows.length - 1;
-                    return _buildTimelineItem(h, isLast: isLast);
+                    return _buildTimelineItem(h, isLast: isLast, l10n: l10n);
                   },
                 ),
             ],
@@ -1766,7 +1772,11 @@ class _AdminReportDetailScreenState
     );
   }
 
-  Widget _buildTimelineItem(Map<String, dynamic> h, {required bool isLast}) {
+  Widget _buildTimelineItem(
+    Map<String, dynamic> h, {
+    required bool isLast,
+    required AppLocalizations l10n,
+  }) {
     final from = h['from_status'] == null
         ? 'Initial'
         : _humanize('${h['from_status']}');
@@ -1835,7 +1845,7 @@ class _AdminReportDetailScreenState
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'By ${h['changed_by'] ?? 'unknown'}',
+                    l10n.adminChangedBy(h['changed_by']?.toString() ?? 'unknown'),
                     style: const TextStyle(
                       fontSize: 11.5,
                       color: Color(0xFF64748B),
@@ -2095,6 +2105,7 @@ class _AdminFullScreenImageViewerState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final kmText =
         'Km ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${widget.report.nearestStationName ?? "Kurseong Station"}';
 
@@ -2127,7 +2138,7 @@ class _AdminFullScreenImageViewerState
                     color: Colors.white,
                     size: 22,
                   ),
-                  tooltip: 'Back',
+                  tooltip: l10n.navigationBack,
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 titleSpacing: 0,
@@ -2192,19 +2203,19 @@ class _AdminFullScreenImageViewerState
                             ),
                           );
                         },
-                        errorBuilder: (_, _, _) => const Center(
+                        errorBuilder: (_, _, _) => Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
+                              const Icon(
                                 Symbols.broken_image_rounded,
                                 size: 64,
                                 color: Colors.white54,
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               Text(
-                                'Photo could not be loaded from remote server',
-                                style: TextStyle(
+                                l10n.photoLoadFailedRemote,
+                                style: const TextStyle(
                                   color: Colors.white70,
                                   fontSize: 13,
                                 ),
@@ -2216,19 +2227,19 @@ class _AdminFullScreenImageViewerState
                     : Image.file(
                         File(widget.photoUrl),
                         fit: BoxFit.contain,
-                        errorBuilder: (_, _, _) => const Center(
+                        errorBuilder: (_, _, _) => Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
+                              const Icon(
                                 Symbols.broken_image_rounded,
                                 size: 64,
                                 color: Colors.white54,
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               Text(
-                                'Photo could not be loaded from device',
-                                style: TextStyle(
+                                l10n.photoLoadFailedDevice,
+                                style: const TextStyle(
                                   color: Colors.white70,
                                   fontSize: 13,
                                 ),
@@ -2492,6 +2503,7 @@ class _RecentReportsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -2517,17 +2529,17 @@ class _RecentReportsCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Symbols.article_rounded,
                     color: Color(0xFF074E95),
                     size: 22,
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
-                    'Recent Reports',
-                    style: TextStyle(
+                    l10n.recentReportsTitle,
+                    style: const TextStyle(
                       color: Color(0xFF0A1E3F),
                       fontSize: 17.0,
                       fontWeight: FontWeight.w700,
@@ -2539,8 +2551,8 @@ class _RecentReportsCard extends StatelessWidget {
               InkWell(
                 onTap: onViewAll,
                 borderRadius: BorderRadius.circular(8),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 4,
                     vertical: 4,
                   ),
@@ -2548,15 +2560,15 @@ class _RecentReportsCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'View All',
-                        style: TextStyle(
+                        l10n.viewAll,
+                        style: const TextStyle(
                           color: Color(0xFF074E95),
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      SizedBox(width: 4),
-                      Icon(
+                      const SizedBox(width: 4),
+                      const Icon(
                         Symbols.arrow_forward_rounded,
                         color: Color(0xFF074E95),
                         size: 16,
@@ -2570,12 +2582,12 @@ class _RecentReportsCard extends StatelessWidget {
           const SizedBox(height: 12),
 
           if (reports.isEmpty)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: Center(
                 child: Text(
-                  'No reports available.',
-                  style: TextStyle(color: Color(0xFF64748B), fontSize: 13.5),
+                  l10n.noReportsAvailable,
+                  style: const TextStyle(color: Color(0xFF64748B), fontSize: 13.5),
                 ),
               ),
             )
@@ -3153,7 +3165,7 @@ class _Empty extends StatelessWidget {
   );
 }
 
-Widget _error(String message, VoidCallback retry) => Center(
+Widget _error(String message, VoidCallback retry, [AppLocalizations? l10n]) => Center(
   child: Padding(
     padding: const EdgeInsets.all(24),
     child: Column(
@@ -3166,7 +3178,7 @@ Widget _error(String message, VoidCallback retry) => Center(
         OutlinedButton.icon(
           onPressed: retry,
           icon: const Icon(Symbols.refresh_rounded),
-          label: const Text('Retry'),
+          label: Text(l10n?.retry ?? 'Retry'),
         ),
       ],
     ),

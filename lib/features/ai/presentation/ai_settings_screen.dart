@@ -583,7 +583,7 @@ class AiSettingsScreen extends ConsumerWidget {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Initialization failed: $e'),
+                        content: Text(l10n.offlineModelInitFailed(e.toString())),
                         backgroundColor: AppTheme.statusRed,
                       ),
                     );
@@ -791,7 +791,7 @@ class AiSettingsScreen extends ConsumerWidget {
         primaryLabel: l10n.offlineModelDelete,
         primaryIcon: Icons.delete_outline_rounded,
         onPrimaryPressed: () => Navigator.of(ctx).pop(true),
-        cancelLabel: 'Cancel',
+        cancelLabel: l10n.cancel,
         onCancelPressed: () => Navigator.of(ctx).pop(false),
       ),
     );

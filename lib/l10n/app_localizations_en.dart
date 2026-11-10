@@ -797,7 +797,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Uses private on-device Gemma when available, cloud Gemini when connected, or heuristic rules.';
 
   @override
-  String get aiRetryAnalysis => 'Retry AI Analysis';
+  String get aiRetryAnalysis => 'Retry Analysis';
 
   @override
   String get aiUseManualClassification => 'Switch to Manual';
@@ -1304,4 +1304,246 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get permanentWayStaff => 'Permanent-Way Staff';
+
+  @override
+  String get reportLeaveTitle => 'Leave report?';
+
+  @override
+  String get reportLeaveMessage =>
+      'You have an unfinished report. Would you like to discard it?';
+
+  @override
+  String get reportDiscardAction => 'Discard Report';
+
+  @override
+  String get reportKeepEditing => 'Keep Editing';
+
+  @override
+  String get reportSaveDraft => 'Save as Draft';
+
+  @override
+  String get reportDiscardFailed =>
+      'Could not discard report. Please try again.';
+
+  @override
+  String get reportReviewTitle => 'Review & Confirm Report';
+
+  @override
+  String get reportSaveLocalReassurance => 'Saves safely on your phone first.';
+
+  @override
+  String get reportConfirmSaveLocal => 'Confirm & Save Locally';
+
+  @override
+  String get reportFieldVerification => 'Field Verification';
+
+  @override
+  String get reportHazardClassification => '1. HAZARD CLASSIFICATION';
+
+  @override
+  String get reportSeverityTier => '2. VERIFIED SEVERITY TIER';
+
+  @override
+  String get reportKmMarkerStep => '3. KILOMETER MARKER';
+
+  @override
+  String get reportGpsAutoMatched => 'AUTO-MATCHED GPS';
+
+  @override
+  String get reportFieldNoteStep => '4. FIELD OBSERVATION NOTE';
+
+  @override
+  String get reportNoteExample =>
+      'e.g. Outer bolt missing, 2 sleepers loose, track clear...';
+
+  @override
+  String get aiManualInput => 'Manual Input';
+
+  @override
+  String get aiSwitchToManual => 'Switch to Manual';
+
+  @override
+  String get aiInferenceUnavailable => 'AI Inference Unavailable';
+
+  @override
+  String get searchUsersHint => 'Search users by name or email';
+
+  @override
+  String get adminInspectionStatus => 'Inspection Status';
+
+  @override
+  String get homeEmergencyControlRoom => 'Emergency Control Room';
+
+  @override
+  String get homeEmergencyLinesSubtitle => 'DHR Permanent-Way Emergency Lines';
+
+  @override
+  String get homeDhrControlOffice => 'DHR Division Control Office';
+
+  @override
+  String get homeOperationsControl => 'Kurseong / Katihar Operations Control';
+
+  @override
+  String get homeRailwaysHelpline => 'Indian Railways Helpline';
+
+  @override
+  String get homeRailwayEmergencySupport =>
+      'All-India Railway Emergency & Support';
+
+  @override
+  String get homeNationalEmergency => 'National Emergency Service';
+
+  @override
+  String get homePoliceMedicalDisaster =>
+      'Police, Medical & Disaster Management';
+
+  @override
+  String get commonClose => 'Close';
+
+  @override
+  String get authContinueGoogle => 'Continue with Google';
+
+  @override
+  String get authContinueTerms => 'By continuing, you agree to our';
+
+  @override
+  String get authPrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String get authTermsConditions => 'Terms & Conditions';
+
+  @override
+  String get navigationMenu => 'Menu';
+
+  @override
+  String get reportLeaveWithDraftMessage =>
+      'You have a captured photo that has not been saved yet. Would you like to save it as a draft or discard it?';
+
+  @override
+  String get cameraGallery => 'Gallery';
+
+  @override
+  String get cameraSwitch => 'Switch';
+
+  @override
+  String get cameraUnavailableTitle => 'Camera Unavailable';
+
+  @override
+  String get cameraUnavailableSubtitle =>
+      'Please use the gallery fallback or retry the\ncamera.';
+
+  @override
+  String get waypointUseSelectedLocation => 'Use Selected Location';
+
+  @override
+  String get fieldVerificationRequired => 'REQUIRED';
+
+  @override
+  String get adminUnnamedUser => 'Unnamed user';
+
+  @override
+  String get adminAssignedSectionDropdown => 'Assigned Section';
+
+  @override
+  String get adminAllSections => 'All sections';
+
+  @override
+  String get adminGangmanNoteTitle => 'Gangman Note';
+
+  @override
+  String get adminAiSuggestionTitle => 'AI Suggestion';
+
+  @override
+  String get adminAuditHistoryTitle => 'Audit History';
+
+  @override
+  String get adminReportDetails => 'Report Details';
+
+  @override
+  String get adminSection => 'Section';
+
+  @override
+  String get adminStation => 'Station';
+
+  @override
+  String get adminKmMarker => 'Km Marker';
+
+  @override
+  String get adminCreated => 'Created';
+
+  @override
+  String get adminGps => 'GPS';
+
+  @override
+  String get adminReportId => 'Report ID';
+
+  @override
+  String get adminNotCaptured => 'Not captured';
+
+  @override
+  String adminNoMatchingUsers(String query) {
+    return 'No users matching \"$query\"';
+  }
+
+  @override
+  String get adminNoInspectionPhoto => 'No inspection photo for this report';
+
+  @override
+  String get adminRoleHeading => 'Role';
+
+  @override
+  String get adminRoleOptionAdmin => 'Admin';
+
+  @override
+  String get photoLoadFailedRemote =>
+      'Photo could not be loaded from remote server';
+
+  @override
+  String get photoLoadFailedDevice => 'Photo could not be loaded from device';
+
+  @override
+  String get recentReportsTitle => 'Recent Reports';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get noReportsAvailable => 'No reports available.';
+
+  @override
+  String get offlineModelDownloadSize => 'Download Size';
+
+  @override
+  String get offlineModelRequiredFreeSpace => 'Required Free Space';
+
+  @override
+  String offlineModelInitFailed(String error) {
+    return 'Initialization failed: $error';
+  }
+
+  @override
+  String offlineModelDownloadError(String error) {
+    return 'Download error: $error';
+  }
+
+  @override
+  String offlineModelDeleteFailed(String error) {
+    return 'Failed to delete model: $error';
+  }
+
+  @override
+  String get aiAdvisoryNoticeAction =>
+      'AI suggestions are advisory only. Permanent-way staff must inspect and confirm the actual hazard and required action.';
+
+  @override
+  String get mainNavigationHeading => 'MAIN NAVIGATION';
+
+  @override
+  String get homePrimaryControlBadge => 'Primary Control';
+
+  @override
+  String get homeTollFreeBadge => 'Toll-Free';
+
+  @override
+  String get homeEmergencyBadge => 'Emergency';
 }

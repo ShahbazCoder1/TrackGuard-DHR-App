@@ -48,7 +48,7 @@ class PendingAccessScreen extends ConsumerWidget {
             color: Color(0xFF0F172A),
             size: 22,
           ),
-          tooltip: 'Back',
+          tooltip: l10n.navigationBack,
           onPressed: () {
             if (context.canPop()) {
               context.pop();

@@ -1467,7 +1467,7 @@ abstract class AppLocalizations {
   /// No description provided for @aiRetryAnalysis.
   ///
   /// In en, this message translates to:
-  /// **'Retry AI Analysis'**
+  /// **'Retry Analysis'**
   String get aiRetryAnalysis;
 
   /// No description provided for @aiUseManualClassification.
@@ -2343,6 +2343,456 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Permanent-Way Staff'**
   String get permanentWayStaff;
+
+  /// No description provided for @reportLeaveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave report?'**
+  String get reportLeaveTitle;
+
+  /// No description provided for @reportLeaveMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have an unfinished report. Would you like to discard it?'**
+  String get reportLeaveMessage;
+
+  /// No description provided for @reportDiscardAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard Report'**
+  String get reportDiscardAction;
+
+  /// No description provided for @reportKeepEditing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Editing'**
+  String get reportKeepEditing;
+
+  /// No description provided for @reportSaveDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as Draft'**
+  String get reportSaveDraft;
+
+  /// No description provided for @reportDiscardFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not discard report. Please try again.'**
+  String get reportDiscardFailed;
+
+  /// No description provided for @reportReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review & Confirm Report'**
+  String get reportReviewTitle;
+
+  /// No description provided for @reportSaveLocalReassurance.
+  ///
+  /// In en, this message translates to:
+  /// **'Saves safely on your phone first.'**
+  String get reportSaveLocalReassurance;
+
+  /// No description provided for @reportConfirmSaveLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm & Save Locally'**
+  String get reportConfirmSaveLocal;
+
+  /// No description provided for @reportFieldVerification.
+  ///
+  /// In en, this message translates to:
+  /// **'Field Verification'**
+  String get reportFieldVerification;
+
+  /// No description provided for @reportHazardClassification.
+  ///
+  /// In en, this message translates to:
+  /// **'1. HAZARD CLASSIFICATION'**
+  String get reportHazardClassification;
+
+  /// No description provided for @reportSeverityTier.
+  ///
+  /// In en, this message translates to:
+  /// **'2. VERIFIED SEVERITY TIER'**
+  String get reportSeverityTier;
+
+  /// No description provided for @reportKmMarkerStep.
+  ///
+  /// In en, this message translates to:
+  /// **'3. KILOMETER MARKER'**
+  String get reportKmMarkerStep;
+
+  /// No description provided for @reportGpsAutoMatched.
+  ///
+  /// In en, this message translates to:
+  /// **'AUTO-MATCHED GPS'**
+  String get reportGpsAutoMatched;
+
+  /// No description provided for @reportFieldNoteStep.
+  ///
+  /// In en, this message translates to:
+  /// **'4. FIELD OBSERVATION NOTE'**
+  String get reportFieldNoteStep;
+
+  /// No description provided for @reportNoteExample.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Outer bolt missing, 2 sleepers loose, track clear...'**
+  String get reportNoteExample;
+
+  /// No description provided for @aiManualInput.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Input'**
+  String get aiManualInput;
+
+  /// No description provided for @aiSwitchToManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Manual'**
+  String get aiSwitchToManual;
+
+  /// No description provided for @aiInferenceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Inference Unavailable'**
+  String get aiInferenceUnavailable;
+
+  /// No description provided for @searchUsersHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search users by name or email'**
+  String get searchUsersHint;
+
+  /// No description provided for @adminInspectionStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspection Status'**
+  String get adminInspectionStatus;
+
+  /// No description provided for @homeEmergencyControlRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency Control Room'**
+  String get homeEmergencyControlRoom;
+
+  /// No description provided for @homeEmergencyLinesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'DHR Permanent-Way Emergency Lines'**
+  String get homeEmergencyLinesSubtitle;
+
+  /// No description provided for @homeDhrControlOffice.
+  ///
+  /// In en, this message translates to:
+  /// **'DHR Division Control Office'**
+  String get homeDhrControlOffice;
+
+  /// No description provided for @homeOperationsControl.
+  ///
+  /// In en, this message translates to:
+  /// **'Kurseong / Katihar Operations Control'**
+  String get homeOperationsControl;
+
+  /// No description provided for @homeRailwaysHelpline.
+  ///
+  /// In en, this message translates to:
+  /// **'Indian Railways Helpline'**
+  String get homeRailwaysHelpline;
+
+  /// No description provided for @homeRailwayEmergencySupport.
+  ///
+  /// In en, this message translates to:
+  /// **'All-India Railway Emergency & Support'**
+  String get homeRailwayEmergencySupport;
+
+  /// No description provided for @homeNationalEmergency.
+  ///
+  /// In en, this message translates to:
+  /// **'National Emergency Service'**
+  String get homeNationalEmergency;
+
+  /// No description provided for @homePoliceMedicalDisaster.
+  ///
+  /// In en, this message translates to:
+  /// **'Police, Medical & Disaster Management'**
+  String get homePoliceMedicalDisaster;
+
+  /// No description provided for @commonClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get commonClose;
+
+  /// No description provided for @authContinueGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get authContinueGoogle;
+
+  /// No description provided for @authContinueTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, you agree to our'**
+  String get authContinueTerms;
+
+  /// No description provided for @authPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get authPrivacyPolicy;
+
+  /// No description provided for @authTermsConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get authTermsConditions;
+
+  /// No description provided for @navigationMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get navigationMenu;
+
+  /// No description provided for @reportLeaveWithDraftMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have a captured photo that has not been saved yet. Would you like to save it as a draft or discard it?'**
+  String get reportLeaveWithDraftMessage;
+
+  /// No description provided for @cameraGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get cameraGallery;
+
+  /// No description provided for @cameraSwitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch'**
+  String get cameraSwitch;
+
+  /// No description provided for @cameraUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera Unavailable'**
+  String get cameraUnavailableTitle;
+
+  /// No description provided for @cameraUnavailableSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please use the gallery fallback or retry the\ncamera.'**
+  String get cameraUnavailableSubtitle;
+
+  /// No description provided for @waypointUseSelectedLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Selected Location'**
+  String get waypointUseSelectedLocation;
+
+  /// No description provided for @fieldVerificationRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'REQUIRED'**
+  String get fieldVerificationRequired;
+
+  /// No description provided for @adminUnnamedUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Unnamed user'**
+  String get adminUnnamedUser;
+
+  /// No description provided for @adminAssignedSectionDropdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned Section'**
+  String get adminAssignedSectionDropdown;
+
+  /// No description provided for @adminAllSections.
+  ///
+  /// In en, this message translates to:
+  /// **'All sections'**
+  String get adminAllSections;
+
+  /// No description provided for @adminGangmanNoteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gangman Note'**
+  String get adminGangmanNoteTitle;
+
+  /// No description provided for @adminAiSuggestionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Suggestion'**
+  String get adminAiSuggestionTitle;
+
+  /// No description provided for @adminAuditHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit History'**
+  String get adminAuditHistoryTitle;
+
+  /// No description provided for @adminReportDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Details'**
+  String get adminReportDetails;
+
+  /// No description provided for @adminSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Section'**
+  String get adminSection;
+
+  /// No description provided for @adminStation.
+  ///
+  /// In en, this message translates to:
+  /// **'Station'**
+  String get adminStation;
+
+  /// No description provided for @adminKmMarker.
+  ///
+  /// In en, this message translates to:
+  /// **'Km Marker'**
+  String get adminKmMarker;
+
+  /// No description provided for @adminCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get adminCreated;
+
+  /// No description provided for @adminGps.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS'**
+  String get adminGps;
+
+  /// No description provided for @adminReportId.
+  ///
+  /// In en, this message translates to:
+  /// **'Report ID'**
+  String get adminReportId;
+
+  /// No description provided for @adminNotCaptured.
+  ///
+  /// In en, this message translates to:
+  /// **'Not captured'**
+  String get adminNotCaptured;
+
+  /// No description provided for @adminNoMatchingUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'No users matching \"{query}\"'**
+  String adminNoMatchingUsers(String query);
+
+  /// No description provided for @adminNoInspectionPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'No inspection photo for this report'**
+  String get adminNoInspectionPhoto;
+
+  /// No description provided for @adminRoleHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get adminRoleHeading;
+
+  /// No description provided for @adminRoleOptionAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get adminRoleOptionAdmin;
+
+  /// No description provided for @photoLoadFailedRemote.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo could not be loaded from remote server'**
+  String get photoLoadFailedRemote;
+
+  /// No description provided for @photoLoadFailedDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo could not be loaded from device'**
+  String get photoLoadFailedDevice;
+
+  /// No description provided for @recentReportsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Reports'**
+  String get recentReportsTitle;
+
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAll;
+
+  /// No description provided for @noReportsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No reports available.'**
+  String get noReportsAvailable;
+
+  /// No description provided for @offlineModelDownloadSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Download Size'**
+  String get offlineModelDownloadSize;
+
+  /// No description provided for @offlineModelRequiredFreeSpace.
+  ///
+  /// In en, this message translates to:
+  /// **'Required Free Space'**
+  String get offlineModelRequiredFreeSpace;
+
+  /// No description provided for @offlineModelInitFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialization failed: {error}'**
+  String offlineModelInitFailed(String error);
+
+  /// No description provided for @offlineModelDownloadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Download error: {error}'**
+  String offlineModelDownloadError(String error);
+
+  /// No description provided for @offlineModelDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete model: {error}'**
+  String offlineModelDeleteFailed(String error);
+
+  /// No description provided for @aiAdvisoryNoticeAction.
+  ///
+  /// In en, this message translates to:
+  /// **'AI suggestions are advisory only. Permanent-way staff must inspect and confirm the actual hazard and required action.'**
+  String get aiAdvisoryNoticeAction;
+
+  /// No description provided for @mainNavigationHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'MAIN NAVIGATION'**
+  String get mainNavigationHeading;
+
+  /// No description provided for @homePrimaryControlBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Control'**
+  String get homePrimaryControlBadge;
+
+  /// No description provided for @homeTollFreeBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Toll-Free'**
+  String get homeTollFreeBadge;
+
+  /// No description provided for @homeEmergencyBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency'**
+  String get homeEmergencyBadge;
 }
 
 class _AppLocalizationsDelegate

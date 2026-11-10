@@ -86,7 +86,7 @@ class _OfflineModelDownloadScreenState
               color: _ink,
               size: 22,
             ),
-            tooltip: 'Back',
+            tooltip: l10n.navigationBack,
           ),
           title: Text(
             l10n.offlinePhotoHelperPackTitle,
@@ -108,7 +108,7 @@ class _OfflineModelDownloadScreenState
           children: [
             _buildHero(state, l10n),
             const SizedBox(height: 18),
-            _buildStoragePanel(),
+            _buildStoragePanel(l10n),
             const SizedBox(height: 16),
             Text(
               l10n.downloadPreferencesHeading,
@@ -232,7 +232,7 @@ class _OfflineModelDownloadScreenState
     );
   }
 
-  Widget _buildStoragePanel() {
+  Widget _buildStoragePanel(AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
       decoration: _panelDecoration(radius: 16),
@@ -241,7 +241,7 @@ class _OfflineModelDownloadScreenState
           Expanded(
             child: _buildStorageMetric(
               icon: Symbols.storage_rounded,
-              label: 'Download Size',
+              label: l10n.offlineModelDownloadSize,
               value: '~2.6 GB',
             ),
           ),
@@ -254,7 +254,7 @@ class _OfflineModelDownloadScreenState
           Expanded(
             child: _buildStorageMetric(
               icon: Symbols.smartphone_rounded,
-              label: 'Required Free Space',
+              label: l10n.offlineModelRequiredFreeSpace,
               value: '≥ 4 GB',
             ),
           ),
@@ -531,7 +531,7 @@ class _OfflineModelDownloadScreenState
               isLoading: _isLoading,
               onPressed: _isLoading
                   ? null
-                  : () => _initializeModel(context, manager),
+                  : () => _initializeModel(context, manager, l10n),
             ),
           ] else ...[
             if (state.errorMessage != null) ...[
@@ -781,6 +781,7 @@ class _OfflineModelDownloadScreenState
   Future<void> _initializeModel(
     BuildContext context,
     OfflineModelManager manager,
+    AppLocalizations l10n,
   ) async {
     setState(() => _isLoading = true);
     try {
@@ -789,7 +790,7 @@ class _OfflineModelDownloadScreenState
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Initialization failed: $e'),
+            content: Text(l10n.offlineModelInitFailed(e.toString())),
             backgroundColor: AppTheme.statusRed,
           ),
         );
@@ -829,7 +830,7 @@ class _OfflineModelDownloadScreenState
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Download error: $e'),
+          content: Text(l10n.offlineModelDownloadError(e.toString())),
           backgroundColor: AppTheme.statusRed,
         ),
       );
@@ -901,7 +902,7 @@ class _OfflineModelDownloadScreenState
         primaryLabel: l10n.offlineModelDelete,
         primaryIcon: Symbols.delete_outline_rounded,
         onPrimaryPressed: () => Navigator.of(ctx).pop(true),
-        cancelLabel: 'Cancel',
+        cancelLabel: l10n.cancel,
         onCancelPressed: () => Navigator.of(ctx).pop(false),
       ),
     );
@@ -921,7 +922,7 @@ class _OfflineModelDownloadScreenState
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to delete model: $e'),
+              content: Text(l10n.offlineModelDeleteFailed(e.toString())),
               backgroundColor: AppTheme.statusRed,
             ),
           );

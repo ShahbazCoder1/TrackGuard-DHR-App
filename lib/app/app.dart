@@ -15,7 +15,8 @@ class TrackGuardApp extends ConsumerWidget {
     final locale = ref.watch(currentLocaleProvider);
 
     return MaterialApp.router(
-      title: 'TrackGuard DHR',
+      onGenerateTitle: (context) =>
+          AppLocalizations.of(context)?.appTitle ?? 'TrackGuard DHR',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       routerConfig: router,

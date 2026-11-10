@@ -81,6 +81,7 @@ class _LanguageDropdownPopup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final screenSize = MediaQuery.sizeOf(context);
     final currentLang = ref.watch(appLanguageProvider);
     const popupWidth = 220.0;
@@ -142,19 +143,19 @@ class _LanguageDropdownPopup extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Clean Header
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Symbols.translate_indic_rounded,
                             size: 18,
                             color: Color(0xFF074E95),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Text(
-                            'Select Language',
-                            style: TextStyle(
+                            l10n?.selectLanguage ?? 'Select Language',
+                            style: const TextStyle(
                               fontSize: 13.5,
                               fontWeight: FontWeight.w700,
                               color: Color(0xFF0F172A),

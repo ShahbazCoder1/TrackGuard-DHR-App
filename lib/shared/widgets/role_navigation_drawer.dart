@@ -54,11 +54,11 @@ class RoleNavigationDrawer extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(18, 8, 18, 6),
                     child: Text(
-                      'MAIN NAVIGATION',
-                      style: TextStyle(
+                      l10n.mainNavigationHeading,
+                      style: const TextStyle(
                         fontSize: 11.0,
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF94A3B8),
+                        color: Color(0xFF94A3B8),
                         letterSpacing: 0.8,
                       ),
                     ),

@@ -353,7 +353,7 @@ class AiSuggestionCard extends StatelessWidget {
                       ),
                       onPressed: onRetry,
                       icon: const Icon(Symbols.refresh_rounded, size: 16),
-                      label: const Text('Retry Analysis'),
+                      label: Text(l10n.aiRetryAnalysis),
                     ),
                   ),
                 if (onSwitchToManual != null) ...[
@@ -369,7 +369,7 @@ class AiSuggestionCard extends StatelessWidget {
                       ),
                       onPressed: onSwitchToManual,
                       icon: const Icon(Symbols.edit_note_rounded, size: 16),
-                      label: const Text('Manual Input'),
+                      label: Text(l10n.aiManualInput),
                     ),
                   ),
                 ],
@@ -379,19 +379,19 @@ class AiSuggestionCard extends StatelessWidget {
           const SizedBox(height: 14),
 
           // Advisory Notice
-          const Row(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
+              const Icon(
                 Symbols.info_rounded,
                 size: 16,
                 color: Color(0xFF074E95),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'AI suggestions are advisory only. Permanent-way staff must inspect and confirm the actual hazard and required action.',
-                  style: TextStyle(
+                  l10n.aiAdvisoryNoticeAction,
+                  style: const TextStyle(
                     fontSize: 11.5,
                     color: Color(0xFF475569),
                     height: 1.3,

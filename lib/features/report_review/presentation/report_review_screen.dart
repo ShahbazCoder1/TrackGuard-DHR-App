@@ -62,6 +62,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
     if (reviewState.draft == null) return true;
     if (reviewState.isSaving) return false;
 
+    final l10n = AppLocalizations.of(context);
     final action = await showDialog<_ReviewExitAction>(
       context: context,
       barrierDismissible: false,
@@ -69,14 +70,14 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
         icon: Icons.edit_note_rounded,
         iconBgColor: TrackGuardDialog.brandBlueSoft,
         iconColor: TrackGuardDialog.brandBlue,
-        title: 'Leave report?',
-        message: 'You have an unfinished report. Would you like to discard it?',
-        primaryLabel: 'Discard Report',
+        title: l10n?.reportLeaveTitle ?? 'Leave report?',
+        message: l10n?.reportLeaveMessage ?? 'You have an unfinished report. Would you like to discard it?',
+        primaryLabel: l10n?.reportDiscardAction ?? 'Discard Report',
         primaryIcon: Icons.delete_outline_rounded,
         primaryColor: TrackGuardDialog.red,
         onPrimaryPressed: () =>
             Navigator.of(dialogContext).pop(_ReviewExitAction.discard),
-        cancelLabel: 'Keep Editing',
+        cancelLabel: l10n?.reportKeepEditing ?? 'Keep Editing',
         onCancelPressed: () => Navigator.of(dialogContext).pop(),
       ),
     );
@@ -89,8 +90,11 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
     if (!mounted) return false;
     if (!discarded) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not discard report. Please try again.'),
+        SnackBar(
+          content: Text(
+            l10n?.reportDiscardFailed ??
+                'Could not discard report. Please try again.',
+          ),
         ),
       );
       return false;
@@ -254,7 +258,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                 color: Color(0xFF0F172A),
                 size: 22,
               ),
-              tooltip: 'Back',
+              tooltip: l10n.navigationBack,
               onPressed: () async {
                 final shouldPop = await _handleBackPressed();
                 if (shouldPop && context.mounted) {
@@ -262,8 +266,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                 }
               },
             ),
-            title: const Text(
-              'Review & Confirm Report',
+          title: Text(
+            AppLocalizations.of(context)!.reportReviewTitle,
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
@@ -302,7 +306,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: const Color(0xFFBFDBFE)),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
@@ -312,7 +316,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                         ),
                         SizedBox(width: 8),
                         Text(
-                          'Saves safely on your phone first.',
+                          AppLocalizations.of(context)!.reportSaveLocalReassurance,
                           style: TextStyle(
                             fontSize: 12.5,
                             fontStyle: FontStyle.italic,
@@ -362,7 +366,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                                 ),
                               ),
                             )
-                          : const Row(
+                          : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
@@ -372,7 +376,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                                 ),
                                 SizedBox(width: 8),
                                 Text(
-                                  'Confirm & Save Locally',
+                                  AppLocalizations.of(context)!.reportConfirmSaveLocal,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
@@ -535,10 +539,10 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                               size: 20,
                             ),
                             const SizedBox(width: 8),
-                            const Expanded(
+                            Expanded(
                               child: Text(
-                                'Field Verification',
-                                style: TextStyle(
+                                l10n.reportFieldVerification,
+                                style: const TextStyle(
                                   fontSize: 15.5,
                                   fontWeight: FontWeight.w700,
                                   color: Color(0xFF0F172A),
@@ -560,9 +564,9 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                                   color: const Color(0xFFFECACA),
                                 ),
                               ),
-                              child: const Text(
-                                'REQUIRED',
-                                style: TextStyle(
+                              child: Text(
+                                l10n.fieldVerificationRequired,
+                                style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w800,
                                   color: Color(0xFFDC2626),
@@ -577,8 +581,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                         const SizedBox(height: 14),
 
                         // 1. HAZARD CLASSIFICATION
-                        const Text(
-                          '1. HAZARD CLASSIFICATION',
+                        Text(
+                          AppLocalizations.of(context)!.reportHazardClassification,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
@@ -597,8 +601,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                         const SizedBox(height: 14),
 
                         // 2. VERIFIED SEVERITY TIER
-                        const Text(
-                          '2. VERIFIED SEVERITY TIER',
+                        Text(
+                          AppLocalizations.of(context)!.reportSeverityTier,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
@@ -619,8 +623,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                         // 3. KILOMETER MARKER
                         Row(
                           children: [
-                            const Text(
-                              '3. KILOMETER MARKER',
+                            Text(
+                              AppLocalizations.of(context)!.reportKmMarkerStep,
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
@@ -641,8 +645,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                                   color: const Color(0xFFBFDBFE),
                                 ),
                               ),
-                              child: const Text(
-                                'AUTO-MATCHED GPS',
+                              child: Text(
+                                AppLocalizations.of(context)!.reportGpsAutoMatched,
                                 style: TextStyle(
                                   fontSize: 9.5,
                                   fontWeight: FontWeight.w700,
@@ -718,8 +722,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                         const SizedBox(height: 14),
 
                         // 4. FIELD OBSERVATION NOTE
-                        const Text(
-                          '4. FIELD OBSERVATION NOTE',
+                        Text(
+                          AppLocalizations.of(context)!.reportFieldNoteStep,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
@@ -741,7 +745,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFF8FAFC),
-                            hintText: 'e.g. Outer bolt missing, 2 sleepers loose, track clear...',
+                            hintText: AppLocalizations.of(context)!.reportNoteExample,
                             hintStyle: const TextStyle(
                               fontSize: 12.5,
                               color: Color(0xFF94A3B8),

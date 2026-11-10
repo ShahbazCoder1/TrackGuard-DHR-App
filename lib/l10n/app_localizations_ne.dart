@@ -792,7 +792,7 @@ class AppLocalizationsNe extends AppLocalizations {
       'उपलब्ध हुँदा निजी अन-डिभाइस गेम्मा, कनेक्ट हुँदा क्लाउड जेमिनी, वा ह्युरिस्टिक नियमहरू प्रयोग गर्दछ।';
 
   @override
-  String get aiRetryAnalysis => 'एआई विश्लेषण पुनः प्रयास';
+  String get aiRetryAnalysis => 'विश्लेषण फेरि गर्नुहोस्';
 
   @override
   String get aiUseManualClassification => 'म्यानुअलमा स्विच गर्नुहोस्';
@@ -1302,4 +1302,247 @@ class AppLocalizationsNe extends AppLocalizations {
 
   @override
   String get permanentWayStaff => 'स्थायी-मार्ग कर्मचारी';
+
+  @override
+  String get reportLeaveTitle => 'रिपोर्ट छोड्नुहुन्छ?';
+
+  @override
+  String get reportLeaveMessage =>
+      'तपाईंको रिपोर्ट पूरा भएको छैन। के तपाईं यसलाई हटाउन चाहनुहुन्छ?';
+
+  @override
+  String get reportDiscardAction => 'रिपोर्ट हटाउनुहोस्';
+
+  @override
+  String get reportKeepEditing => 'सम्पादन जारी राख्नुहोस्';
+
+  @override
+  String get reportSaveDraft => 'मस्यौदाको रूपमा सुरक्षित गर्नुहोस्';
+
+  @override
+  String get reportDiscardFailed =>
+      'रिपोर्ट हटाउन सकिएन। फेरि प्रयास गर्नुहोस्।';
+
+  @override
+  String get reportReviewTitle => 'रिपोर्ट समीक्षा र पुष्टि गर्नुहोस्';
+
+  @override
+  String get reportSaveLocalReassurance =>
+      'पहिले तपाईंको फोनमा सुरक्षित रूपमा सुरक्षित हुन्छ।';
+
+  @override
+  String get reportConfirmSaveLocal => 'पुष्टि गरेर फोनमा सुरक्षित गर्नुहोस्';
+
+  @override
+  String get reportFieldVerification => 'मैदानी प्रमाणीकरण';
+
+  @override
+  String get reportHazardClassification => '१. जोखिम वर्गीकरण';
+
+  @override
+  String get reportSeverityTier => '२. प्रमाणित गम्भीरता तह';
+
+  @override
+  String get reportKmMarkerStep => '३. किलोमिटर मार्कर';
+
+  @override
+  String get reportGpsAutoMatched => 'स्वचालित GPS मिलान';
+
+  @override
+  String get reportFieldNoteStep => '४. मैदानी निरीक्षण टिप्पणी';
+
+  @override
+  String get reportNoteExample =>
+      'उदाहरण: बाहिरी बोल्ट छैन, २ स्लीपर खुकुला, ट्र्याक सफा...';
+
+  @override
+  String get aiManualInput => 'म्यानुअल प्रविष्टि';
+
+  @override
+  String get aiSwitchToManual => 'म्यानुअल वर्गीकरण रोज्नुहोस्';
+
+  @override
+  String get aiInferenceUnavailable => 'AI विश्लेषण उपलब्ध छैन';
+
+  @override
+  String get searchUsersHint => 'नाम वा इमेलबाट प्रयोगकर्ता खोज्नुहोस्';
+
+  @override
+  String get adminInspectionStatus => 'निरीक्षण अवस्था';
+
+  @override
+  String get homeEmergencyControlRoom => 'आपत्कालीन नियन्त्रण कक्ष';
+
+  @override
+  String get homeEmergencyLinesSubtitle => 'DHR स्थायी-पथ आपत्कालीन सम्पर्क';
+
+  @override
+  String get homeDhrControlOffice => 'DHR डिभिजन नियन्त्रण कार्यालय';
+
+  @override
+  String get homeOperationsControl => 'खरसाङ / कटिहार सञ्चालन नियन्त्रण';
+
+  @override
+  String get homeRailwaysHelpline => 'भारतीय रेल्वे हेल्पलाइन';
+
+  @override
+  String get homeRailwayEmergencySupport => 'अखिल भारतीय रेल आपत्कालीन सहायता';
+
+  @override
+  String get homeNationalEmergency => 'राष्ट्रिय आपत्कालीन सेवा';
+
+  @override
+  String get homePoliceMedicalDisaster =>
+      'प्रहरी, स्वास्थ्य र विपद् व्यवस्थापन';
+
+  @override
+  String get commonClose => 'बन्द गर्नुहोस्';
+
+  @override
+  String get authContinueGoogle => 'Google मार्फत जारी राख्नुहोस्';
+
+  @override
+  String get authContinueTerms =>
+      'जारी राखेर, तपाईं हाम्रा सर्तहरूमा सहमत हुनुहुन्छ';
+
+  @override
+  String get authPrivacyPolicy => 'गोपनीयता नीति';
+
+  @override
+  String get authTermsConditions => 'नियम तथा सर्तहरू';
+
+  @override
+  String get navigationMenu => 'मेनु';
+
+  @override
+  String get reportLeaveWithDraftMessage =>
+      'तपाईंले एउटा तस्बिर खिच्नुभएको छ जुन अहिले सुरक्षित गरिएको छैन। के तपाईं यसलाई मस्यौदाको रूपमा सुरक्षित गर्न चाहनुहुन्छ वा हटाउन चाहनुहुन्छ?';
+
+  @override
+  String get cameraGallery => 'ग्यालरी';
+
+  @override
+  String get cameraSwitch => 'क्यामेरा बदल्नुहोस्';
+
+  @override
+  String get cameraUnavailableTitle => 'क्यामेरा उपलब्ध छैन';
+
+  @override
+  String get cameraUnavailableSubtitle =>
+      'कृपया ग्यालरी विकल्प प्रयोग गर्नुहोस् वा क्यामेरा पुनः प्रयास गर्नुहोस्।';
+
+  @override
+  String get waypointUseSelectedLocation => 'छानिएको स्थान प्रयोग गर्नुहोस्';
+
+  @override
+  String get fieldVerificationRequired => 'आवश्यक';
+
+  @override
+  String get adminUnnamedUser => 'नाम नभएको प्रयोगकर्ता';
+
+  @override
+  String get adminAssignedSectionDropdown => 'तोकिएको खण्ड';
+
+  @override
+  String get adminAllSections => 'सबै खण्डहरू';
+
+  @override
+  String get adminGangmanNoteTitle => 'ग्याङम्यान नोट';
+
+  @override
+  String get adminAiSuggestionTitle => 'एआई सुझाव';
+
+  @override
+  String get adminAuditHistoryTitle => 'अडिट इतिहास';
+
+  @override
+  String get adminReportDetails => 'रिपोर्ट विवरण';
+
+  @override
+  String get adminSection => 'खण्ड';
+
+  @override
+  String get adminStation => 'स्टेशन';
+
+  @override
+  String get adminKmMarker => 'किमी मार्कर';
+
+  @override
+  String get adminCreated => 'सिर्जना गरिएको';
+
+  @override
+  String get adminGps => 'जीपीएस';
+
+  @override
+  String get adminReportId => 'रिपोर्ट आईडी';
+
+  @override
+  String get adminNotCaptured => 'क्याप्चर गरिएको छैन';
+
+  @override
+  String adminNoMatchingUsers(String query) {
+    return '\"$query\" सँग मिल्ने कुनै प्रयोगकर्ता भेटिएन';
+  }
+
+  @override
+  String get adminNoInspectionPhoto =>
+      'यो रिपोर्टको लागि कुनै निरीक्षण तस्बिर छैन';
+
+  @override
+  String get adminRoleHeading => 'भूमिका';
+
+  @override
+  String get adminRoleOptionAdmin => 'प्रशासक';
+
+  @override
+  String get photoLoadFailedRemote => 'रिमोट सर्भरबाट तस्बिर लोड गर्न सकिएन';
+
+  @override
+  String get photoLoadFailedDevice => 'उपकरणबाट तस्बिर लोड गर्न सकिएन';
+
+  @override
+  String get recentReportsTitle => 'हालका रिपोर्टहरू';
+
+  @override
+  String get viewAll => 'सबै हेर्नुहोस्';
+
+  @override
+  String get noReportsAvailable => 'कुनै रिपोर्ट उपलब्ध छैन।';
+
+  @override
+  String get offlineModelDownloadSize => 'डाउनलोड आकार';
+
+  @override
+  String get offlineModelRequiredFreeSpace => 'आवश्यक खाली ठाउँ';
+
+  @override
+  String offlineModelInitFailed(String error) {
+    return 'सुरुवातीकरण असफल भयो: $error';
+  }
+
+  @override
+  String offlineModelDownloadError(String error) {
+    return 'डाउनलोड त्रुटि: $error';
+  }
+
+  @override
+  String offlineModelDeleteFailed(String error) {
+    return 'मोडेल मेटाउन असफल भयो: $error';
+  }
+
+  @override
+  String get aiAdvisoryNoticeAction =>
+      'एआई सुझावहरू सल्लाहकार मात्र हुन्। स्थायी-मार्ग कर्मचारीहरूले वास्तविक जोखिम र आवश्यक कारबाही निरीक्षण र पुष्टि गर्नुपर्छ।';
+
+  @override
+  String get mainNavigationHeading => 'मुख्य नेभिगेसन';
+
+  @override
+  String get homePrimaryControlBadge => 'प्राथमिक नियन्त्रण';
+
+  @override
+  String get homeTollFreeBadge => 'टोल-फ्री';
+
+  @override
+  String get homeEmergencyBadge => 'आपतकालीन';
 }
