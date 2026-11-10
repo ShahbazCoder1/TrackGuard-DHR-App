@@ -183,7 +183,7 @@ class _GangmanReportDetailScreenState
               color: Color(0xFF0F172A),
               size: 22,
             ),
-            tooltip: 'Back',
+            tooltip: l10n.navigationBack,
             onPressed: () {
               if (context.canPop()) {
                 context.pop();
@@ -1658,6 +1658,7 @@ class _FullScreenImageViewerState extends State<_FullScreenImageViewer> {
   Widget build(BuildContext context) {
     final kmText =
         'Km ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${widget.report.nearestStationName ?? "Kurseong Station"}';
+    final l10n = AppLocalizations.of(context)!;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -1685,7 +1686,7 @@ class _FullScreenImageViewerState extends State<_FullScreenImageViewer> {
                     color: Colors.white,
                     size: 22,
                   ),
-                  tooltip: 'Back',
+                  tooltip: l10n.navigationBack,
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 titleSpacing: 0,
@@ -1740,19 +1741,19 @@ class _FullScreenImageViewerState extends State<_FullScreenImageViewer> {
                 child: Image.file(
                   File(widget.photoPath),
                   fit: BoxFit.contain,
-                  errorBuilder: (_, _, _) => const Center(
+                  errorBuilder: (_, _, _) => Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
+                        const Icon(
                           Symbols.broken_image_rounded,
                           size: 64,
                           color: Colors.white54,
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Text(
-                          'Photo could not be loaded from device',
-                          style: TextStyle(
+                          l10n.photoLoadFailedDevice,
+                          style: const TextStyle(
                             color: Colors.white70,
                             fontSize: 13,
                           ),

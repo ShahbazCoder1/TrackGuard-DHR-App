@@ -109,6 +109,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
 
     _isExitDialogOpen = true;
 
+    final l10n = AppLocalizations.of(context);
     final action = await showDialog<_CaptureExitAction>(
       context: context,
       barrierDismissible: false,
@@ -116,18 +117,19 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
         icon: Icons.edit_note_rounded,
         iconBgColor: TrackGuardDialog.brandBlueSoft,
         iconColor: TrackGuardDialog.brandBlue,
-        title: 'Leave this report?',
-        message: 'You have a captured photo that has not been saved yet. Would you like to save it as a draft or discard it?',
-        primaryLabel: 'Save as Draft',
+        title: l10n?.reportLeaveTitle ?? 'Leave report?',
+        message: l10n?.reportLeaveWithDraftMessage ??
+            'You have a captured photo that has not been saved yet. Would you like to save it as a draft or discard it?',
+        primaryLabel: l10n?.reportSaveDraft ?? 'Save as Draft',
         primaryIcon: Icons.bookmark_added_rounded,
         primaryColor: TrackGuardDialog.brandBlue,
         onPrimaryPressed: () =>
             Navigator.pop(dialogContext, _CaptureExitAction.saveDraft),
-        secondaryLabel: 'Discard Report',
+        secondaryLabel: l10n?.reportDiscardAction ?? 'Discard Report',
         secondaryIcon: Icons.delete_outline_rounded,
         onSecondaryPressed: () =>
             Navigator.pop(dialogContext, _CaptureExitAction.discard),
-        cancelLabel: 'Keep Editing',
+        cancelLabel: l10n?.reportKeepEditing ?? 'Keep Editing',
         onCancelPressed: () => Navigator.pop(dialogContext),
       ),
     );
@@ -540,7 +542,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
                 // Gallery button with label
                 _buildBottomControlItem(
                   icon: Symbols.image_rounded,
-                  label: 'Gallery',
+                  label: l10n.cameraGallery,
                   onTap: controller.pickFromGallery,
                 ),
 
@@ -556,7 +558,7 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
                 // Switch Camera button with label
                 _buildBottomControlItem(
                   icon: Symbols.cameraswitch_rounded,
-                  label: 'Switch',
+                  label: l10n.cameraSwitch,
                   onTap: controller.hasMultipleCameras
                       ? controller.switchCamera
                       : null,
@@ -750,6 +752,7 @@ class _CameraErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
@@ -785,10 +788,10 @@ class _CameraErrorView extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Title
-            const Text(
-              'Camera Unavailable',
+            Text(
+              l10n?.cameraUnavailableTitle ?? 'Camera Unavailable',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFF0F172A),
                 fontSize: 20.0,
                 fontWeight: FontWeight.w700,
@@ -798,10 +801,11 @@ class _CameraErrorView extends StatelessWidget {
             const SizedBox(height: 8),
 
             // Subtitle
-            const Text(
-              'Please use the gallery fallback or retry the\ncamera.',
+            Text(
+              l10n?.cameraUnavailableSubtitle ??
+                  'Please use the gallery fallback or retry the\ncamera.',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFF64748B),
                 fontSize: 14.0,
                 fontWeight: FontWeight.w400,

@@ -342,7 +342,7 @@
   "aiImageTooLarge": "The image is too large for analysis. A compressed version will be used.",
   "aiPrivacyNotice": "On-device Gemma models process images locally without uploading data to external cloud servers.",
   "aiOfflineFirstNotice": "Uses private on-device Gemma when available, cloud Gemini when connected, or heuristic rules.",
-  "aiRetryAnalysis": "Retry AI Analysis",
+  "aiRetryAnalysis": "Retry Analysis",
   "aiUseManualClassification": "Switch to Manual",
   "aiActualProvider": "Active Provider",
   "offlineModelDownloadTitle": "Gemma 4 E2B Download",
@@ -632,5 +632,108 @@
   "aiInferenceError": "AI Inference Error",
   "aiAdvisoryMetadataHeading": "AI ADVISORY METADATA",
   "accountInactive": "Account Inactive",
-  "permanentWayStaff": "Permanent-Way Staff"
+  "permanentWayStaff": "Permanent-Way Staff",
+  "reportLeaveTitle": "Leave report?",
+  "reportLeaveMessage": "You have an unfinished report. Would you like to discard it?",
+  "reportDiscardAction": "Discard Report",
+  "reportKeepEditing": "Keep Editing",
+  "reportSaveDraft": "Save as Draft",
+  "reportDiscardFailed": "Could not discard report. Please try again.",
+  "reportReviewTitle": "Review & Confirm Report",
+  "reportSaveLocalReassurance": "Saves safely on your phone first.",
+  "reportConfirmSaveLocal": "Confirm & Save Locally",
+  "reportFieldVerification": "Field Verification",
+  "reportHazardClassification": "1. HAZARD CLASSIFICATION",
+  "reportSeverityTier": "2. VERIFIED SEVERITY TIER",
+  "reportKmMarkerStep": "3. KILOMETER MARKER",
+  "reportGpsAutoMatched": "AUTO-MATCHED GPS",
+  "reportFieldNoteStep": "4. FIELD OBSERVATION NOTE",
+  "reportNoteExample": "e.g. Outer bolt missing, 2 sleepers loose, track clear...",
+  "aiManualInput": "Manual Input",
+  "aiSwitchToManual": "Switch to Manual",
+  "aiInferenceUnavailable": "AI Inference Unavailable",
+  "searchUsersHint": "Search users by name or email",
+  "adminInspectionStatus": "Inspection Status",
+  "homeEmergencyControlRoom": "Emergency Control Room",
+  "homeEmergencyLinesSubtitle": "DHR Permanent-Way Emergency Lines",
+  "homeDhrControlOffice": "DHR Division Control Office",
+  "homeOperationsControl": "Kurseong / Katihar Operations Control",
+  "homeRailwaysHelpline": "Indian Railways Helpline",
+  "homeRailwayEmergencySupport": "All-India Railway Emergency & Support",
+  "homeNationalEmergency": "National Emergency Service",
+  "homePoliceMedicalDisaster": "Police, Medical & Disaster Management",
+  "commonClose": "Close",
+  "authContinueGoogle": "Continue with Google",
+  "authContinueTerms": "By continuing, you agree to our",
+  "authPrivacyPolicy": "Privacy Policy",
+  "authTermsConditions": "Terms & Conditions",
+  "navigationMenu": "Menu",
+  "reportLeaveWithDraftMessage": "You have a captured photo that has not been saved yet. Would you like to save it as a draft or discard it?",
+  "cameraGallery": "Gallery",
+  "cameraSwitch": "Switch",
+  "cameraUnavailableTitle": "Camera Unavailable",
+  "cameraUnavailableSubtitle": "Please use the gallery fallback or retry the\ncamera.",
+  "waypointUseSelectedLocation": "Use Selected Location",
+  "fieldVerificationRequired": "REQUIRED",
+  "adminUnnamedUser": "Unnamed user",
+  "adminAssignedSectionDropdown": "Assigned Section",
+  "adminAllSections": "All sections",
+  "adminGangmanNoteTitle": "Gangman Note",
+  "adminAiSuggestionTitle": "AI Suggestion",
+  "adminAuditHistoryTitle": "Audit History",
+  "adminReportDetails": "Report Details",
+  "adminSection": "Section",
+  "adminStation": "Station",
+  "adminKmMarker": "Km Marker",
+  "adminCreated": "Created",
+  "adminGps": "GPS",
+  "adminReportId": "Report ID",
+  "adminNotCaptured": "Not captured",
+  "adminNoMatchingUsers": "No users matching \"{query}\"",
+  "@adminNoMatchingUsers": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "adminNoInspectionPhoto": "No inspection photo for this report",
+  "adminRoleHeading": "Role",
+  "adminRoleOptionAdmin": "Admin",
+  "photoLoadFailedRemote": "Photo could not be loaded from remote server",
+  "photoLoadFailedDevice": "Photo could not be loaded from device",
+  "recentReportsTitle": "Recent Reports",
+  "viewAll": "View All",
+  "noReportsAvailable": "No reports available.",
+  "offlineModelDownloadSize": "Download Size",
+  "offlineModelRequiredFreeSpace": "Required Free Space",
+  "offlineModelInitFailed": "Initialization failed: {error}",
+  "@offlineModelInitFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineModelDownloadError": "Download error: {error}",
+  "@offlineModelDownloadError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineModelDeleteFailed": "Failed to delete model: {error}",
+  "@offlineModelDeleteFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiAdvisoryNoticeAction": "AI suggestions are advisory only. Permanent-way staff must inspect and confirm the actual hazard and required action.",
+  "mainNavigationHeading": "MAIN NAVIGATION",
+  "homePrimaryControlBadge": "Primary Control",
+  "homeTollFreeBadge": "Toll-Free",
+  "homeEmergencyBadge": "Emergency"
 }
