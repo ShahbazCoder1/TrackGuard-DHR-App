@@ -153,10 +153,12 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                         r.syncStatus == SyncStatus.syncing,
                   )
                   .length;
-              final failedCount =
-                  reports.where((r) => r.syncStatus == SyncStatus.failed).length;
-              final syncedCount =
-                  reports.where((r) => r.syncStatus == SyncStatus.synced).length;
+              final failedCount = reports
+                  .where((r) => r.syncStatus == SyncStatus.failed)
+                  .length;
+              final syncedCount = reports
+                  .where((r) => r.syncStatus == SyncStatus.synced)
+                  .length;
 
               return ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
@@ -223,7 +225,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                       Expanded(
                         child: _buildFilterTab(
                           QueueFilter.all,
-                          'All',
+                          l10n.filterAll,
                           reports.length,
                         ),
                       ),
@@ -231,7 +233,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                       Expanded(
                         child: _buildFilterTab(
                           QueueFilter.pending,
-                          'Pending',
+                          l10n.filterPending,
                           pendingCount,
                         ),
                       ),
@@ -239,7 +241,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                       Expanded(
                         child: _buildFilterTab(
                           QueueFilter.failed,
-                          'Failed',
+                          l10n.filterFailed,
                           failedCount,
                         ),
                       ),
@@ -247,7 +249,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                       Expanded(
                         child: _buildFilterTab(
                           QueueFilter.synced,
-                          'Synced',
+                          l10n.filterSynced,
                           syncedCount,
                         ),
                       ),
@@ -285,7 +287,9 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
           color: isSelected ? const Color(0xFF074E95) : Colors.white,
           borderRadius: BorderRadius.circular(9),
           border: Border.all(
-            color: isSelected ? const Color(0xFF074E95) : const Color(0xFFE2E8F0),
+            color: isSelected
+                ? const Color(0xFF074E95)
+                : const Color(0xFFE2E8F0),
             width: 1.1,
           ),
           boxShadow: isSelected
@@ -352,11 +356,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            Symbols.inbox_rounded,
-            size: 48,
-            color: Color(0xFF94A3B8),
-          ),
+          const Icon(Symbols.inbox_rounded, size: 48, color: Color(0xFF94A3B8)),
           const SizedBox(height: 12),
           Text(
             noReportsAtAll
@@ -385,14 +385,16 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
     AppLocalizations l10n,
   ) {
     final kmText = report.kmMarker != null
-        ? 'Km ${report.kmMarker!.toStringAsFixed(1)}'
-        : 'Km 51.0';
-    final rawStation = report.nearestStationName ??
+        ? '${l10n.kmUnit} ${report.kmMarker!.toStringAsFixed(1)}'
+        : '${l10n.kmUnit} 51.0';
+    final rawStation =
+        report.nearestStationName ??
         DhrWaypoints.getSectionName(report.sectionId);
-    final stationName =
-        rawStation.endsWith('Station') ? rawStation : '$rawStation Station';
-    final createdDateText =
-        DateFormat('d MMM yyyy, h:mm a').format(report.createdAt);
+    final stationName = rawStation.endsWith('Station')
+        ? rawStation
+        : '$rawStation ${l10n.stationLabel}';
+    final createdDateText = DateFormat('d MMM yyyy, h:mm a')
+        .format(report.createdAt);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 11),
@@ -439,7 +441,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _getHazardDisplayTitle(report),
+                            _getHazardDisplayTitle(report, l10n),
                             style: const TextStyle(
                               fontSize: 14.5,
                               fontWeight: FontWeight.w700,
@@ -527,26 +529,27 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
     );
   }
 
-  String _getHazardDisplayTitle(HazardReport report) {
+  String _getHazardDisplayTitle(HazardReport report, AppLocalizations l10n) {
     switch (report.confirmedHazardType) {
       case HazardType.damagedWall:
-        return 'Damaged\nRetaining Wall';
+        return l10n.hazardTitleDamagedWall;
       case HazardType.rockfall:
-        return 'Rockfall /\nFallen Debris';
+        return l10n.hazardTitleRockfall;
       case HazardType.slip:
-        return 'Landslip /\nMudslide';
+        return l10n.hazardTitleLandslip;
       case HazardType.blockedDrain:
-        return 'Blocked\nCatchwater Drain';
+        return l10n.hazardTitleBlockedDrain;
       case HazardType.trackDefect:
-        return 'Track Defect /\nRail Gap';
+        return l10n.hazardTitleTrackDefectRailGap;
       case HazardType.vegetation:
-        return 'Track Obstruction /\nVegetation';
+        return l10n.hazardTitleVegetation;
       case HazardType.other:
-        return 'Track Issue /\nOther Hazard';
+        return l10n.hazardTitleOther;
     }
   }
 
   Widget _buildStatusPill(SyncStatus status) {
+    final l10n = AppLocalizations.of(context)!;
     Color bg;
     Color border;
     Color fg;
@@ -559,7 +562,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
         border = const Color(0xFFBBF7D0);
         fg = const Color(0xFF15803D);
         icon = Symbols.check_circle_rounded;
-        text = 'Synced';
+        text = l10n.syncSyncedShort;
         break;
       case SyncStatus.pending:
       case SyncStatus.syncing:
@@ -567,7 +570,7 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
         border = const Color(0xFFFEF08A);
         fg = const Color(0xFF854D0E);
         icon = Symbols.sync_rounded;
-        text = 'Pending';
+        text = l10n.syncPendingShort;
         break;
       case SyncStatus.failed:
       case SyncStatus.conflict:
@@ -575,14 +578,14 @@ class _ReportQueueScreenState extends ConsumerState<ReportQueueScreen> {
         border = const Color(0xFFFECACA);
         fg = const Color(0xFF991B1B);
         icon = Symbols.error_rounded;
-        text = 'Failed';
+        text = l10n.syncFailedShort;
         break;
       case SyncStatus.draft:
         bg = const Color(0xFFF1F5F9);
         border = const Color(0xFFE2E8F0);
         fg = const Color(0xFF475569);
         icon = Symbols.edit_document_rounded;
-        text = 'Draft';
+        text = l10n.syncDraftShort;
         break;
     }
 

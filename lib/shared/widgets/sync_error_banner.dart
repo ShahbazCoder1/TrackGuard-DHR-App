@@ -74,7 +74,8 @@ class SyncErrorBanner extends StatelessWidget {
                     if (technicalCode != null) ...[
                       const SizedBox(height: 4),
                       Text(
-                        'Ref: $technicalCode',
+                        AppLocalizations.of(context)!
+                            .syncReferenceCode(technicalCode),
                         style: const TextStyle(
                           color: AppTheme.textSecondary,
                           fontSize: 10,

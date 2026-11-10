@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:trackguard_dhr/shared/models/severity.dart';
+import 'package:trackguard_dhr/l10n/app_localizations.dart';
 
 class SeveritySelector extends StatelessWidget {
   final Severity selectedSeverity;
@@ -25,34 +26,35 @@ class SeveritySelector extends StatelessWidget {
     }
   }
 
-  String _tierCode(Severity severity) {
+  String _tierCode(Severity severity, AppLocalizations l10n) {
     switch (severity) {
       case Severity.low:
-        return 'LOW';
+        return l10n.severityLowShort.toUpperCase();
       case Severity.medium:
-        return 'MED';
+        return l10n.severityMediumShort.toUpperCase();
       case Severity.high:
-        return 'HIGH';
+        return l10n.severityHighShort.toUpperCase();
       case Severity.critical:
-        return 'CRIT';
+        return l10n.severityCriticalShort.toUpperCase();
     }
   }
 
-  String _tierLabel(Severity severity) {
+  String _tierLabel(Severity severity, AppLocalizations l10n) {
     switch (severity) {
       case Severity.low:
-        return 'Monitor';
+        return l10n.severityMonitor;
       case Severity.medium:
-        return 'Maintain';
+        return l10n.severityMaintain;
       case Severity.high:
-        return 'Urgent';
+        return l10n.severityUrgent;
       case Severity.critical:
-        return 'Critical';
+        return l10n.severityTierCritical;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       children: Severity.values.map((severity) {
         final isSelected = severity == selectedSeverity;
@@ -101,7 +103,7 @@ class SeveritySelector extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                  _tierCode(severity),
+                                  _tierCode(severity, l10n),
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: isSelected
@@ -119,7 +121,7 @@ class SeveritySelector extends StatelessWidget {
 
                             // Subtitle label
                             Text(
-                              _tierLabel(severity),
+                              _tierLabel(severity, l10n),
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: isSelected

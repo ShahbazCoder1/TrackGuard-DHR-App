@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/google_sign_in_button.dart';
 import '../domain/auth_state.dart';
 import 'auth_controller.dart';
@@ -32,7 +33,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Precache the first-frame asset so Flutter can render it instantly
-    precacheImage(const AssetImage('assets/branding/splash_frame.png'), context);
+    precacheImage(
+      const AssetImage('assets/branding/splash_frame.png'),
+      context,
+    );
   }
 
   Future<void> _startIntro() async {
@@ -120,6 +124,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     ref.listen<AuthState>(authControllerProvider, (previous, next) {
       if (next.status == AuthStatus.unauthenticated) {
         _startIntro();
@@ -127,8 +132,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     });
 
     final authState = ref.watch(authControllerProvider);
-    final isAuthenticating =
-        authState.status == AuthStatus.authenticating;
+    final isAuthenticating = authState.status == AuthStatus.authenticating;
 
     return Scaffold(
       backgroundColor: const Color(0xFFB7D4F2), // Matches splash sky background
@@ -145,9 +149,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Positioned.fill(
-              child: _buildBackground(),
-            ),
+            Positioned.fill(child: _buildBackground()),
 
             // Seamless atmospheric mountain-blue gradient matching the mockup
             Positioned.fill(
@@ -192,13 +194,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GoogleSignInButton(
-                          text: 'Continue with Google',
+                          text: l10n.authContinueGoogle,
                           isLoading: isAuthenticating,
                           onPressed: isAuthenticating
                               ? null
                               : () => ref
-                                  .read(authControllerProvider.notifier)
-                                  .signInWithGoogle(),
+                                    .read(authControllerProvider.notifier)
+                                    .signInWithGoogle(),
                         ),
                         const SizedBox(height: 18),
                         Text.rich(
@@ -210,12 +212,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                               height: 1.45,
                               letterSpacing: 0.1,
                             ),
-                            children: const [
+                            children: [
+                              TextSpan(text: '${l10n.authContinueTerms} '),
                               TextSpan(
-                                text: 'By continuing, you agree to our ',
-                              ),
-                              TextSpan(
-                                text: 'Privacy Policy',
+                                text: l10n.authPrivacyPolicy,
                                 style: TextStyle(
                                   color: Color(0xFF00C2F2),
                                   fontWeight: FontWeight.w700,
@@ -223,7 +223,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                               ),
                               TextSpan(text: '\nand '),
                               TextSpan(
-                                text: 'Terms & Conditions',
+                                text: l10n.authTermsConditions,
                                 style: TextStyle(
                                   color: Color(0xFF00C2F2),
                                   fontWeight: FontWeight.w700,

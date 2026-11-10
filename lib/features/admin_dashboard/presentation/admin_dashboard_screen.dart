@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -81,10 +82,8 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
   Future<void> _openReport(HazardReport report) async {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => AdminReportDetailScreen(
-          reportId: report.id,
-          initialReport: report,
-        ),
+        builder: (_) =>
+            AdminReportDetailScreen(reportId: report.id, initialReport: report),
       ),
     );
     if (mounted) setState(_reload);
@@ -118,10 +117,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
             letterSpacing: -0.2,
           ),
         ),
-        actions: const [
-          LanguageSelectorButton(),
-          SizedBox(width: 4),
-        ],
+        actions: const [LanguageSelectorButton(), SizedBox(width: 4)],
       ),
       body: IndexedStack(
         index: _tab,
@@ -166,8 +162,9 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
       }
       if (snapshot.hasError) {
         return _error(
-          'Could not load reports: ${snapshot.error}',
+          l10n.adminLoadReportsFailed('${snapshot.error}'),
           () => setState(_reload),
+          l10n,
         );
       }
       final reports = snapshot.data ?? [];
@@ -205,10 +202,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
       for (final s in InspectionStatus.values)
         s: sortedReports.where((r) => r.inspectionStatus == s).length,
     };
-    final sections = <String, int>{
-      'kurseong-ghum': 0,
-      'ghum-darjeeling': 0,
-    };
+    final sections = <String, int>{'kurseong-ghum': 0, 'ghum-darjeeling': 0};
     for (final r in sortedReports) {
       sections.update(r.sectionId, (n) => n + 1, ifAbsent: () => 1);
     }
@@ -271,13 +265,13 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
           child: Row(
             children: [
               _FilterChip(
-                label: 'All (${reports.length})',
+                label: '${l10n.filterAll} (${reports.length})',
                 selected: _filter == null,
                 onTap: () => setState(() => _filter = null),
               ),
               for (final s in InspectionStatus.values)
                 _FilterChip(
-                  label: _statusLabel(s),
+                  label: _statusLabel(AppLocalizations.of(context)!, s),
                   selected: _filter == s,
                   onTap: () => setState(() => _filter = s),
                 ),
@@ -286,11 +280,11 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
         ),
         const SizedBox(height: 12),
         if (shown.isEmpty)
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(top: 48),
             child: _Empty(
               icon: Symbols.filter_alt_off_rounded,
-              text: 'No reports with this status.',
+              text: l10n.noReportsMatchFilter,
             ),
           )
         else
@@ -319,10 +313,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: const Color(0xFFE2E8F0),
-                width: 1.2,
-              ),
+              border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
               boxShadow: [
                 BoxShadow(
                   color: const Color(0xFF0F172A).withValues(alpha: 0.03),
@@ -335,143 +326,143 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
               controller: _userSearchController,
               onTapOutside: (_) =>
                   FocusManager.instance.primaryFocus?.unfocus(),
-              onSubmitted: (_) =>
-                  FocusManager.instance.primaryFocus?.unfocus(),
+              onSubmitted: (_) => FocusManager.instance.primaryFocus?.unfocus(),
               onChanged: (val) {
                 setState(() {
                   _userSearchQuery = val;
                 });
               },
-            cursorColor: const Color(0xFF074E95),
-            style: const TextStyle(
-              fontSize: 14.5,
-              fontWeight: FontWeight.w500,
-              color: Color(0xFF0F172A),
-            ),
-            decoration: InputDecoration(
-              isDense: true,
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
-              filled: false,
-              fillColor: Colors.transparent,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 12,
+              cursorColor: const Color(0xFF074E95),
+              style: const TextStyle(
+                fontSize: 14.5,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF0F172A),
               ),
-              prefixIcon: const Icon(
-                Symbols.search_rounded,
-                color: Color(0xFF64748B),
-                size: 22,
+              decoration: InputDecoration(
+                isDense: true,
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                filled: false,
+                fillColor: Colors.transparent,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
+                prefixIcon: const Icon(
+                  Symbols.search_rounded,
+                  color: Color(0xFF64748B),
+                  size: 22,
+                ),
+                hintText: l10n.searchUsersHint,
+                hintStyle: const TextStyle(
+                  color: Color(0xFF94A3B8),
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w400,
+                ),
+                suffixIcon: _userSearchQuery.isNotEmpty
+                    ? IconButton(
+                        icon: const Icon(
+                          Icons.clear_rounded,
+                          size: 18,
+                          color: Color(0xFF94A3B8),
+                        ),
+                        onPressed: () {
+                          _userSearchController.clear();
+                          setState(() {
+                            _userSearchQuery = '';
+                          });
+                        },
+                      )
+                    : null,
               ),
-              hintText: l10n.searchUsersHint,
-              hintStyle: const TextStyle(
-                color: Color(0xFF94A3B8),
-                fontSize: 14.0,
-                fontWeight: FontWeight.w400,
-              ),
-              suffixIcon: _userSearchQuery.isNotEmpty
-                  ? IconButton(
-                      icon: const Icon(
-                        Icons.clear_rounded,
-                        size: 18,
-                        color: Color(0xFF94A3B8),
-                      ),
-                      onPressed: () {
-                        _userSearchController.clear();
-                        setState(() {
-                          _userSearchQuery = '';
-                        });
-                      },
-                    )
-                  : null,
             ),
           ),
         ),
-      ),
 
-      // Users List or Empty / Loading State
-      Expanded(
-        child: FutureBuilder<List<AppUser>>(
-          future: _profiles,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting &&
-                !snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return _error(
-                'Could not load users: ${snapshot.error}',
-                () => setState(_reload),
-              );
-            }
-            final allUsers = snapshot.data ?? [];
-            if (allUsers.isEmpty) {
-              return _Empty(
-                icon: Symbols.group_rounded,
-                text: l10n.adminNoProfilesFound,
-              );
-            }
+        // Users List or Empty / Loading State
+        Expanded(
+          child: FutureBuilder<List<AppUser>>(
+            future: _profiles,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting &&
+                  !snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return _error(
+                  l10n.adminLoadUsersFailed('${snapshot.error}'),
+                  () => setState(_reload),
+                  l10n,
+                );
+              }
+              final allUsers = snapshot.data ?? [];
+              if (allUsers.isEmpty) {
+                return _Empty(
+                  icon: Symbols.group_rounded,
+                  text: l10n.adminNoProfilesFound,
+                );
+              }
 
-            final query = _userSearchQuery.trim().toLowerCase();
-            final users = query.isEmpty
-                ? allUsers
-                : allUsers.where((u) {
-                    final name = (u.fullName ?? '').toLowerCase();
-                    final email = u.email.toLowerCase();
-                    return name.contains(query) || email.contains(query);
-                  }).toList();
+              final query = _userSearchQuery.trim().toLowerCase();
+              final users = query.isEmpty
+                  ? allUsers
+                  : allUsers.where((u) {
+                      final name = (u.fullName ?? '').toLowerCase();
+                      final email = u.email.toLowerCase();
+                      return name.contains(query) || email.contains(query);
+                    }).toList();
 
-            if (users.isEmpty && query.isNotEmpty) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Symbols.search_off_rounded,
-                        size: 48,
-                        color: Color(0xFF94A3B8),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        l10n.adminNoMatchingUsers(_userSearchQuery),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF64748B),
+              if (users.isEmpty && query.isNotEmpty) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Symbols.search_off_rounded,
+                          size: 48,
+                          color: Color(0xFF94A3B8),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                        const SizedBox(height: 12),
+                        Text(
+                          l10n.adminNoMatchingUsers(_userSearchQuery),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF64748B),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+
+              return RefreshIndicator(
+                onRefresh: _refresh,
+                child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(16, 6, 16, 24),
+                  itemCount: users.length,
+                  itemBuilder: (context, index) => _UserCard(
+                    key: ValueKey(users[index].id),
+                    user: users[index],
+                    repo: _repo,
+                    onChanged: () => setState(_reload),
                   ),
                 ),
               );
-            }
-
-            return RefreshIndicator(
-              onRefresh: _refresh,
-              child: ListView.builder(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(16, 6, 16, 24),
-                itemCount: users.length,
-                itemBuilder: (context, index) => _UserCard(
-                  key: ValueKey(users[index].id),
-                  user: users[index],
-                  repo: _repo,
-                  onChanged: () => setState(_reload),
-                ),
-              ),
-            );
-          },
+            },
+          ),
         ),
-      ),
-    ],
-  ),
-);
+      ],
+    ),
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -517,10 +508,10 @@ class _UserCardState extends State<_UserCard> {
         role = nextRole;
         sectionId = nextSection;
       });
-      _toast('Profile updated');
+      _toast(AppLocalizations.of(context)!.adminProfileUpdated);
       widget.onChanged();
     } catch (e) {
-      _toast('Update failed: $e');
+      _toast(AppLocalizations.of(context)!.adminProfileUpdateFailed('$e'));
     } finally {
       if (mounted) setState(() => saving = false);
     }
@@ -537,10 +528,9 @@ class _UserCardState extends State<_UserCard> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final name = widget.user.fullName;
-    final initial = (name != null && name.trim().isNotEmpty
-            ? name.trim()[0]
-            : '?')
-        .toUpperCase();
+    final initial =
+        (name != null && name.trim().isNotEmpty ? name.trim()[0] : '?')
+            .toUpperCase();
     final known = DhrWaypoints.sections.any((s) => s.id == sectionId);
 
     return Container(
@@ -549,10 +539,7 @@ class _UserCardState extends State<_UserCard> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.2,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF0F172A).withValues(alpha: 0.04),
@@ -633,8 +620,9 @@ class _UserCardState extends State<_UserCard> {
                       activeTrackColor: const Color(0xFF074E95),
                       inactiveThumbColor: Colors.white,
                       inactiveTrackColor: const Color(0xFFCBD5E1),
-                      trackOutlineColor:
-                          WidgetStateProperty.all(Colors.transparent),
+                      trackOutlineColor: WidgetStateProperty.all(
+                        Colors.transparent,
+                      ),
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       onChanged: saving
                           ? null
@@ -647,7 +635,7 @@ class _UserCardState extends State<_UserCard> {
                   ),
                   const SizedBox(height: 1),
                   Text(
-                    active ? 'Active' : 'Inactive',
+                    active ? l10n.activeStatus : l10n.inactiveStatus,
                     style: TextStyle(
                       fontSize: 11.0,
                       fontWeight: FontWeight.w700,
@@ -911,7 +899,6 @@ class _UserCardState extends State<_UserCard> {
   }
 }
 
-
 // ---------------------------------------------------------------------------
 // Report detail
 // ---------------------------------------------------------------------------
@@ -965,9 +952,9 @@ class _AdminReportDetailScreenState
         _reload();
         selected = null;
       });
-      _toast('Status updated');
+      _toast(AppLocalizations.of(context)!.adminStatusUpdated);
     } catch (e) {
-      _toast('Status update failed: $e');
+      _toast(AppLocalizations.of(context)!.adminStatusUpdateFailedToast('$e'));
     } finally {
       if (mounted) setState(() => saving = false);
     }
@@ -1030,22 +1017,21 @@ class _AdminReportDetailScreenState
             if (snapshot.connectionState == ConnectionState.waiting &&
                 !snapshot.hasData) {
               return const Center(
-                child: CircularProgressIndicator(
-                  color: Color(0xFF074E95),
-                ),
+                child: CircularProgressIndicator(color: Color(0xFF074E95)),
               );
             }
             if (snapshot.hasError && !snapshot.hasData) {
               return _error(
-                'Could not load report: ${snapshot.error}',
+                l10n.adminLoadReportFailed('${snapshot.error}'),
                 () => setState(_reload),
+                l10n,
               );
             }
             final r = snapshot.data;
             if (r == null) {
-              return const _Empty(
+              return _Empty(
                 icon: Symbols.lock_rounded,
-                text: 'Report not found or access denied.',
+                text: l10n.adminReportNotFound,
               );
             }
 
@@ -1081,18 +1067,23 @@ class _AdminReportDetailScreenState
     return FutureBuilder<String?>(
       future: mediaUrlFuture,
       builder: (context, snapshot) {
-        final remoteUrl = snapshot.data ??
-            ((r.originalPhotoPath != null && r.originalPhotoPath!.startsWith('http'))
+        final remoteUrl =
+            snapshot.data ??
+            ((r.originalPhotoPath != null &&
+                    r.originalPhotoPath!.startsWith('http'))
                 ? r.originalPhotoPath
-                : ((r.thumbnailPhotoPath != null && r.thumbnailPhotoPath!.startsWith('http'))
-                    ? r.thumbnailPhotoPath
-                    : null));
+                : ((r.thumbnailPhotoPath != null &&
+                          r.thumbnailPhotoPath!.startsWith('http'))
+                      ? r.thumbnailPhotoPath
+                      : null));
 
-        final rawLocal = r.originalPhotoPath ??
+        final rawLocal =
+            r.originalPhotoPath ??
             r.thumbnailPhotoPath ??
             widget.initialReport?.originalPhotoPath ??
             widget.initialReport?.thumbnailPhotoPath;
-        final localPath = (rawLocal != null &&
+        final localPath =
+            (rawLocal != null &&
                 !rawLocal.startsWith('http') &&
                 File(rawLocal).existsSync())
             ? rawLocal
@@ -1130,7 +1121,8 @@ class _AdminReportDetailScreenState
                       child: Center(
                         child: CircularProgressIndicator(
                           value: progress.expectedTotalBytes != null
-                              ? progress.cumulativeBytesLoaded / progress.expectedTotalBytes!
+                              ? progress.cumulativeBytesLoaded /
+                                    progress.expectedTotalBytes!
                               : null,
                           strokeWidth: 2.5,
                           color: const Color(0xFF074E95),
@@ -1178,7 +1170,8 @@ class _AdminReportDetailScreenState
                           vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF0F172A).withValues(alpha: 0.85),
+                          color: const Color(0xFF0F172A)
+                              .withValues(alpha: 0.85),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
@@ -1243,10 +1236,7 @@ class _AdminReportDetailScreenState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.2,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF0F172A).withValues(alpha: 0.05),
@@ -1270,7 +1260,10 @@ class _AdminReportDetailScreenState
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  _hazardTitle(r.confirmedHazardType),
+                  _localizedHazardTitle(
+                    AppLocalizations.of(context)!,
+                    r.confirmedHazardType,
+                  ),
                   style: const TextStyle(
                     color: Color(0xFF0A1E3F),
                     fontSize: 18,
@@ -1316,7 +1309,7 @@ class _AdminReportDetailScreenState
             icon: Symbols.location_on_rounded,
             label: l10n.adminStation,
             valueWidget: Text(
-              r.nearestStationName ?? 'Kurseong Station',
+              r.nearestStationName ?? 'Kurseong ${l10n.stationLabel}',
               textAlign: TextAlign.end,
               style: const TextStyle(
                 fontSize: 13.5,
@@ -1332,7 +1325,9 @@ class _AdminReportDetailScreenState
             icon: Symbols.share_location_rounded,
             label: l10n.adminKmMarker,
             valueWidget: Text(
-              r.kmMarker == null ? l10n.adminNotSpecified : _trimKm(r.kmMarker!),
+              r.kmMarker == null
+                  ? l10n.adminNotSpecified
+                  : _trimKm(r.kmMarker!),
               textAlign: TextAlign.end,
               style: const TextStyle(
                 fontSize: 13.5,
@@ -1432,11 +1427,7 @@ class _AdminReportDetailScreenState
               color: const Color(0xFFE8F1FA),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              icon,
-              color: const Color(0xFF074E95),
-              size: 17,
-            ),
+            child: Icon(icon, color: const Color(0xFF074E95), size: 17),
           ),
           const SizedBox(width: 10),
           SizedBox(
@@ -1452,10 +1443,7 @@ class _AdminReportDetailScreenState
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: valueWidget,
-            ),
+            child: Align(alignment: Alignment.centerRight, child: valueWidget),
           ),
         ],
       ),
@@ -1463,11 +1451,7 @@ class _AdminReportDetailScreenState
   }
 
   Widget _buildInfoDivider() {
-    return const Divider(
-      height: 16,
-      thickness: 1,
-      color: Color(0xFFF1F5F9),
-    );
+    return const Divider(height: 16, thickness: 1, color: Color(0xFFF1F5F9));
   }
 
   Widget _buildNoteCard({
@@ -1489,11 +1473,7 @@ class _AdminReportDetailScreenState
         children: [
           Row(
             children: [
-              Icon(
-                icon,
-                size: 18,
-                color: const Color(0xFF074E95),
-              ),
+              Icon(icon, size: 18, color: const Color(0xFF074E95)),
               const SizedBox(width: 8),
               Text(
                 title,
@@ -1518,10 +1498,7 @@ class _AdminReportDetailScreenState
             const SizedBox(height: 6),
             Text(
               footer,
-              style: const TextStyle(
-                fontSize: 11.5,
-                color: Color(0xFF64748B),
-              ),
+              style: const TextStyle(fontSize: 11.5, color: Color(0xFF64748B)),
             ),
           ],
         ],
@@ -1539,10 +1516,7 @@ class _AdminReportDetailScreenState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.2,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF0F172A).withValues(alpha: 0.05),
@@ -1599,7 +1573,10 @@ class _AdminReportDetailScreenState
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFF074E95), width: 1.5),
+                borderSide: const BorderSide(
+                  color: Color(0xFF074E95),
+                  width: 1.5,
+                ),
               ),
             ),
             child: DropdownButtonHideUnderline(
@@ -1615,7 +1592,7 @@ class _AdminReportDetailScreenState
                       (s) => DropdownMenuItem(
                         value: s,
                         child: Text(
-                          _statusLabel(s),
+                          _statusLabel(AppLocalizations.of(context)!, s),
                           style: const TextStyle(
                             fontSize: 14.5,
                             fontWeight: FontWeight.w700,
@@ -1625,9 +1602,7 @@ class _AdminReportDetailScreenState
                       ),
                     )
                     .toList(),
-                onChanged: saving
-                    ? null
-                    : (s) => setState(() => selected = s),
+                onChanged: saving ? null : (s) => setState(() => selected = s),
               ),
             ),
           ),
@@ -1704,10 +1679,7 @@ class _AdminReportDetailScreenState
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: const Color(0xFFE2E8F0),
-              width: 1.2,
-            ),
+            border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
             boxShadow: [
               BoxShadow(
                 color: const Color(0xFF0F172A).withValues(alpha: 0.05),
@@ -1751,7 +1723,10 @@ class _AdminReportDetailScreenState
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Text(
                     l10n.adminNoStatusChangesYet,
-                    style: const TextStyle(color: Color(0xFF64748B), fontSize: 13),
+                    style: const TextStyle(
+                      color: Color(0xFF64748B),
+                      fontSize: 13,
+                    ),
                   ),
                 )
               else
@@ -1778,11 +1753,11 @@ class _AdminReportDetailScreenState
     required AppLocalizations l10n,
   }) {
     final from = h['from_status'] == null
-        ? 'Initial'
-        : _humanize('${h['from_status']}');
+        ? l10n.statusInitial
+        : _localizedStatus(l10n, '${h['from_status']}');
     final to = h['to_status'] == null
-        ? 'Acknowledged'
-        : _humanize('${h['to_status']}');
+        ? l10n.statusAcknowledged
+        : _localizedStatus(l10n, '${h['to_status']}');
 
     return IntrinsicHeight(
       child: Row(
@@ -1807,10 +1782,7 @@ class _AdminReportDetailScreenState
                 ),
                 if (!isLast)
                   Expanded(
-                    child: Container(
-                      width: 2,
-                      color: const Color(0xFFE2E8F0),
-                    ),
+                    child: Container(width: 2, color: const Color(0xFFE2E8F0)),
                   ),
               ],
             ),
@@ -1845,7 +1817,9 @@ class _AdminReportDetailScreenState
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    l10n.adminChangedBy(h['changed_by']?.toString() ?? 'unknown'),
+                    l10n.adminChangedBy(
+                      h['changed_by']?.toString() ?? 'unknown',
+                    ),
                     style: const TextStyle(
                       fontSize: 11.5,
                       color: Color(0xFF64748B),
@@ -1859,7 +1833,8 @@ class _AdminReportDetailScreenState
                       color: Color(0xFF64748B),
                     ),
                   ),
-                  if (h['comment'] != null && '${h['comment']}'.trim().isNotEmpty) ...[
+                  if (h['comment'] != null &&
+                      '${h['comment']}'.trim().isNotEmpty) ...[
                     const SizedBox(height: 4),
                     Text(
                       '${h['comment']}',
@@ -1872,7 +1847,11 @@ class _AdminReportDetailScreenState
                   ],
                   if (!isLast) ...[
                     const SizedBox(height: 10),
-                    const Divider(height: 1, thickness: 1, color: Color(0xFFF1F5F9)),
+                    const Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: Color(0xFFF1F5F9),
+                    ),
                   ],
                 ],
               ),
@@ -1884,6 +1863,7 @@ class _AdminReportDetailScreenState
   }
 
   Widget _buildStatusPill(InspectionStatus status) {
+    final l10n = AppLocalizations.of(context)!;
     Color bg;
     Color fg;
     IconData icon;
@@ -1894,25 +1874,25 @@ class _AdminReportDetailScreenState
         bg = const Color(0xFFFEE2E2);
         fg = const Color(0xFFDC2626);
         icon = Symbols.error_outline_rounded;
-        label = 'Open';
+        label = l10n.statusOpen;
         break;
       case InspectionStatus.acknowledged:
         bg = const Color(0xFFFEF3C7);
         fg = const Color(0xFFB45309);
         icon = Symbols.visibility_rounded;
-        label = 'Acknowledged';
+        label = l10n.statusAcknowledged;
         break;
       case InspectionStatus.inspectionRequired:
         bg = const Color(0xFFFFEDD5);
         fg = const Color(0xFFC2410C);
         icon = Symbols.build_rounded;
-        label = 'Inspection Required';
+        label = l10n.statusInspectionRequired;
         break;
       case InspectionStatus.resolved:
         bg = const Color(0xFFDCFCE7);
         fg = const Color(0xFF15803D);
         icon = Symbols.check_circle_rounded;
-        label = 'Resolved';
+        label = l10n.statusResolved;
         break;
     }
 
@@ -1941,6 +1921,7 @@ class _AdminReportDetailScreenState
   }
 
   Widget _buildSeverityBadge(Severity severity) {
+    final l10n = AppLocalizations.of(context)!;
     Color bg;
     Color fg;
     String label;
@@ -1949,22 +1930,22 @@ class _AdminReportDetailScreenState
       case Severity.low:
         bg = const Color(0xFFDCFCE7);
         fg = const Color(0xFF15803D);
-        label = 'Low';
+        label = l10n.severityLowShort;
         break;
       case Severity.medium:
         bg = const Color(0xFFFEF9C3);
         fg = const Color(0xFF854D0E);
-        label = 'Medium';
+        label = l10n.severityMediumShort;
         break;
       case Severity.high:
         bg = const Color(0xFFFEE2E2);
         fg = const Color(0xFFDC2626);
-        label = 'High';
+        label = l10n.severityHighShort;
         break;
       case Severity.critical:
         bg = const Color(0xFFFEE2E2);
         fg = const Color(0xFF991B1B);
-        label = 'Critical';
+        label = l10n.severityCriticalShort;
         break;
     }
 
@@ -2001,25 +1982,6 @@ class _AdminReportDetailScreenState
         return Symbols.park_rounded;
       case HazardType.other:
         return Symbols.warning_rounded;
-    }
-  }
-
-  String _hazardTitle(HazardType type) {
-    switch (type) {
-      case HazardType.trackDefect:
-        return 'Track Defect';
-      case HazardType.slip:
-        return 'Landslip / Mudslide';
-      case HazardType.rockfall:
-        return 'Rockfall';
-      case HazardType.blockedDrain:
-        return 'Blocked Drain';
-      case HazardType.damagedWall:
-        return 'Damaged Wall';
-      case HazardType.vegetation:
-        return 'Vegetation Overgrowth';
-      case HazardType.other:
-        return 'Other Hazard';
     }
   }
 
@@ -2084,32 +2046,27 @@ class _AdminFullScreenImageViewerState
     super.dispose();
   }
 
-  String _getReportTitle() {
-    switch (widget.report.confirmedHazardType) {
-      case HazardType.damagedWall:
-        return 'Damaged Retaining Wall Photo';
-      case HazardType.rockfall:
-        return 'Rockfall / Fallen Debris Photo';
-      case HazardType.slip:
-        return 'Landslip / Mudslide Photo';
-      case HazardType.blockedDrain:
-        return 'Blocked Catchwater Drain Photo';
-      case HazardType.trackDefect:
-        return 'Track Defect / Rail Gap Photo';
-      case HazardType.vegetation:
-        return 'Track Obstruction / Vegetation Photo';
-      case HazardType.other:
-        return 'Track Issue Photo';
-    }
+  String _getReportTitle(AppLocalizations l10n) {
+    final hazard = switch (widget.report.confirmedHazardType) {
+      HazardType.damagedWall => l10n.hazardTitleDamagedWall,
+      HazardType.rockfall => l10n.hazardTitleRockfall,
+      HazardType.slip => l10n.hazardTitleLandslip,
+      HazardType.blockedDrain => l10n.hazardTitleBlockedDrain,
+      HazardType.trackDefect => l10n.hazardTitleTrackDefectRailGap,
+      HazardType.vegetation => l10n.hazardTitleVegetation,
+      HazardType.other => l10n.hazardTitleOther,
+    };
+    return l10n.hazardPhotoTitle(hazard);
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final kmText =
-        'Km ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${widget.report.nearestStationName ?? "Kurseong Station"}';
+        '${l10n.kmUnit} ${(widget.report.kmMarker ?? 51.0).toStringAsFixed(1)} • ${widget.report.nearestStationName ?? "Kurseong ${l10n.stationLabel}"}';
 
-    final isNetwork = widget.photoUrl.startsWith('http://') ||
+    final isNetwork =
+        widget.photoUrl.startsWith('http://') ||
         widget.photoUrl.startsWith('https://');
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -2147,7 +2104,7 @@ class _AdminFullScreenImageViewerState
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      _getReportTitle(),
+                      _getReportTitle(l10n),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -2468,7 +2425,11 @@ class _SectionRow extends StatelessWidget {
             color: _C.brandSoft,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(Symbols.alt_route_rounded, color: _C.brand, size: 22),
+          child: const Icon(
+            Symbols.alt_route_rounded,
+            color: _C.brand,
+            size: 22,
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -2508,10 +2469,7 @@ class _RecentReportsCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.2,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF0F172A).withValues(alpha: 0.05),
@@ -2587,7 +2545,10 @@ class _RecentReportsCard extends StatelessWidget {
               child: Center(
                 child: Text(
                   l10n.noReportsAvailable,
-                  style: const TextStyle(color: Color(0xFF64748B), fontSize: 13.5),
+                  style: const TextStyle(
+                    color: Color(0xFF64748B),
+                    fontSize: 13.5,
+                  ),
                 ),
               ),
             )
@@ -2599,14 +2560,14 @@ class _RecentReportsCard extends StatelessWidget {
                   height: 20,
                   thickness: 1.2,
                 ),
-              _buildReportItem(reports[i]),
+              _buildReportItem(reports[i], l10n),
             ],
         ],
       ),
     );
   }
 
-  Widget _buildReportItem(HazardReport report) {
+  Widget _buildReportItem(HazardReport report, AppLocalizations l10n) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -2632,7 +2593,7 @@ class _RecentReportsCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      _humanize(report.confirmedHazardType.name),
+                      _localizedHazardTitle(l10n, report.confirmedHazardType),
                       style: const TextStyle(
                         color: Color(0xFF0F172A),
                         fontSize: 14.5,
@@ -2653,7 +2614,7 @@ class _RecentReportsCard extends StatelessWidget {
                         const SizedBox(width: 3),
                         Expanded(
                           child: Text(
-                            _locationLabel(report),
+                            _locationLabel(report, l10n),
                             style: const TextStyle(
                               color: Color(0xFF64748B),
                               fontSize: 11.5,
@@ -2746,7 +2707,8 @@ class _ReportThumbnailState extends ConsumerState<_ReportThumbnail> {
     }
 
     // 2. Direct Supabase network/signed URL
-    if (path != null && (path.startsWith('http://') || path.startsWith('https://'))) {
+    if (path != null &&
+        (path.startsWith('http://') || path.startsWith('https://'))) {
       _resolvedUrl = path;
       return;
     }
@@ -2759,19 +2721,23 @@ class _ReportThumbnailState extends ConsumerState<_ReportThumbnail> {
 
     // 5. Fetch signed URL directly from Supabase
     _loading = true;
-    ref.read(adminRepositoryProvider).fetchReportMediaUrl(rep.id, userId: rep.createdBy).then((url) {
-      if (mounted) {
-        if (url != null && url.isNotEmpty) {
-          _urlCache[rep.id] = url;
-        }
-        setState(() {
-          _resolvedUrl = url;
-          _loading = false;
+    ref
+        .read(adminRepositoryProvider)
+        .fetchReportMediaUrl(rep.id, userId: rep.createdBy)
+        .then((url) {
+          if (mounted) {
+            if (url != null && url.isNotEmpty) {
+              _urlCache[rep.id] = url;
+            }
+            setState(() {
+              _resolvedUrl = url;
+              _loading = false;
+            });
+          }
+        })
+        .catchError((_) {
+          if (mounted) setState(() => _loading = false);
         });
-      }
-    }).catchError((_) {
-      if (mounted) setState(() => _loading = false);
-    });
   }
 
   @override
@@ -2791,12 +2757,13 @@ class _ReportThumbnailState extends ConsumerState<_ReportThumbnail> {
     }
 
     // 2. Network URL (from batch or fetched)
-    final url = _resolvedUrl ??
+    final url =
+        _resolvedUrl ??
         (rep.thumbnailPhotoPath?.startsWith('http') == true
             ? rep.thumbnailPhotoPath
             : (rep.originalPhotoPath?.startsWith('http') == true
-                ? rep.originalPhotoPath
-                : null));
+                  ? rep.originalPhotoPath
+                  : null));
 
     if (url != null && url.isNotEmpty) {
       return Image.network(
@@ -2815,7 +2782,10 @@ class _ReportThumbnailState extends ConsumerState<_ReportThumbnail> {
             child: const SizedBox(
               width: 16,
               height: 16,
-              child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF074E95)),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Color(0xFF074E95),
+              ),
             ),
           );
         },
@@ -2832,7 +2802,10 @@ class _ReportThumbnailState extends ConsumerState<_ReportThumbnail> {
         child: const SizedBox(
           width: 16,
           height: 16,
-          child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF074E95)),
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+            color: Color(0xFF074E95),
+          ),
         ),
       );
     }
@@ -2891,9 +2864,7 @@ class _ReportThumbnailState extends ConsumerState<_ReportThumbnail> {
       child: Stack(
         children: [
           Positioned.fill(
-            child: CustomPaint(
-              painter: _MiniTrackWatermarkPainter(),
-            ),
+            child: CustomPaint(painter: _MiniTrackWatermarkPainter()),
           ),
           Center(
             child: Container(
@@ -2902,11 +2873,7 @@ class _ReportThumbnailState extends ConsumerState<_ReportThumbnail> {
                 color: Colors.black.withValues(alpha: 0.35),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                iconData,
-                size: 16,
-                color: accentColor,
-              ),
+              child: Icon(iconData, size: 16, color: accentColor),
             ),
           ),
         ],
@@ -2928,11 +2895,23 @@ class _MiniTrackWatermarkPainter extends CustomPainter {
 
     final leftRail = size.width * 0.28;
     final rightRail = size.width * 0.72;
-    canvas.drawLine(Offset(leftRail, 0), Offset(leftRail, size.height), railPaint);
-    canvas.drawLine(Offset(rightRail, 0), Offset(rightRail, size.height), railPaint);
+    canvas.drawLine(
+      Offset(leftRail, 0),
+      Offset(leftRail, size.height),
+      railPaint,
+    );
+    canvas.drawLine(
+      Offset(rightRail, 0),
+      Offset(rightRail, size.height),
+      railPaint,
+    );
 
     for (double y = 8; y < size.height; y += 12) {
-      canvas.drawLine(Offset(leftRail - 6, y), Offset(rightRail + 6, y), sleeperPaint);
+      canvas.drawLine(
+        Offset(leftRail - 6, y),
+        Offset(rightRail + 6, y),
+        sleeperPaint,
+      );
     }
   }
 
@@ -2972,7 +2951,10 @@ class _ReportRow extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      _humanize(report.confirmedHazardType.name),
+                      _localizedHazardTitle(
+                        AppLocalizations.of(context)!,
+                        report.confirmedHazardType,
+                      ),
                       style: const TextStyle(
                         color: Color(0xFF0F172A),
                         fontSize: 14.5,
@@ -2993,7 +2975,10 @@ class _ReportRow extends StatelessWidget {
                         const SizedBox(width: 3),
                         Expanded(
                           child: Text(
-                            _locationLabel(report),
+                            _locationLabel(
+                              report,
+                              AppLocalizations.of(context)!,
+                            ),
                             style: const TextStyle(
                               color: Color(0xFF64748B),
                               fontSize: 11.5,
@@ -3046,10 +3031,6 @@ class _ReportRow extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 class _FilterChip extends StatelessWidget {
   const _FilterChip({
@@ -3127,7 +3108,9 @@ class _StatusPill extends StatelessWidget {
             const SizedBox(width: 5),
           ],
           Text(
-            compact ? _statusShortLabel(status) : _statusLabel(status),
+            compact
+                ? _statusShortLabel(AppLocalizations.of(context)!, status)
+                : _statusLabel(AppLocalizations.of(context)!, status),
             style: TextStyle(
               color: color,
               fontSize: 11.5,
@@ -3165,25 +3148,26 @@ class _Empty extends StatelessWidget {
   );
 }
 
-Widget _error(String message, VoidCallback retry, [AppLocalizations? l10n]) => Center(
-  child: Padding(
-    padding: const EdgeInsets.all(24),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Icon(Symbols.cloud_off_rounded, size: 40, color: _C.muted),
-        const SizedBox(height: 12),
-        Text(message, textAlign: TextAlign.center),
-        const SizedBox(height: 12),
-        OutlinedButton.icon(
-          onPressed: retry,
-          icon: const Icon(Symbols.refresh_rounded),
-          label: Text(l10n?.retry ?? 'Retry'),
+Widget _error(String message, VoidCallback retry, AppLocalizations l10n) =>
+    Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Symbols.cloud_off_rounded, size: 40, color: _C.muted),
+            const SizedBox(height: 12),
+            Text(message, textAlign: TextAlign.center),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: retry,
+              icon: const Icon(Symbols.refresh_rounded),
+              label: Text(l10n.retry),
+            ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -3209,31 +3193,54 @@ IconData _statusIcon(InspectionStatus s) => switch (s) {
   InspectionStatus.resolved => Symbols.check_circle_rounded,
 };
 
-String _statusLabel(InspectionStatus s) {
+String _statusLabel(AppLocalizations l10n, InspectionStatus s) {
   switch (s) {
     case InspectionStatus.open:
-      return 'Open';
+      return l10n.statusOpen;
     case InspectionStatus.acknowledged:
-      return 'Acknowledged';
+      return l10n.statusAcknowledged;
     case InspectionStatus.inspectionRequired:
-      return 'Inspection required';
+      return l10n.statusInspectionRequired;
     case InspectionStatus.resolved:
-      return 'Resolved';
+      return l10n.statusResolved;
   }
 }
 
 /// Shorter labels for the compact pill in list rows.
-String _statusShortLabel(InspectionStatus s) {
+String _statusShortLabel(AppLocalizations l10n, InspectionStatus s) {
   switch (s) {
     case InspectionStatus.open:
-      return 'Open';
+      return l10n.statusOpenShort;
     case InspectionStatus.acknowledged:
-      return 'Seen';
+      return l10n.statusAcknowledged;
     case InspectionStatus.inspectionRequired:
-      return 'Inspect';
+      return l10n.statusInspectShort;
     case InspectionStatus.resolved:
-      return 'Resolved';
+      return l10n.statusResolved;
   }
+}
+
+String _localizedStatus(AppLocalizations l10n, String raw) {
+  return switch (raw.toLowerCase()) {
+    'open' => l10n.statusOpen,
+    'acknowledged' => l10n.statusAcknowledged,
+    'inspectionrequired' ||
+    'inspection_required' => l10n.statusInspectionRequired,
+    'resolved' => l10n.statusResolved,
+    _ => raw,
+  };
+}
+
+String _localizedHazardTitle(AppLocalizations l10n, HazardType type) {
+  return switch (type) {
+    HazardType.trackDefect => l10n.hazardTitleTrackDefectRailGap,
+    HazardType.slip => l10n.hazardTitleLandslip,
+    HazardType.rockfall => l10n.hazardTitleRockfall,
+    HazardType.blockedDrain => l10n.hazardTitleBlockedDrain,
+    HazardType.damagedWall => l10n.hazardTitleDamagedWall,
+    HazardType.vegetation => l10n.hazardTitleVegetation,
+    HazardType.other => l10n.hazardTitleOther,
+  };
 }
 
 String _sectionName(String id) {
@@ -3251,33 +3258,29 @@ String _trimKm(num km) =>
     km == km.roundToDouble() ? '${km.toInt()}' : km.toStringAsFixed(1);
 
 /// "KM 51, Kurseong", falling back to the section name.
-String _locationLabel(HazardReport r) {
+String _locationLabel(HazardReport r, AppLocalizations l10n) {
   final station = r.nearestStationName;
   final parts = [
-    if (r.kmMarker != null) 'KM ${_trimKm(r.kmMarker!)}',
+    if (r.kmMarker != null) '${l10n.kmUnit} ${_trimKm(r.kmMarker!)}',
     if (station != null && station.isNotEmpty) station,
   ];
   return parts.isEmpty ? _sectionName(r.sectionId) : parts.join(', ');
 }
 
-/// `inspectionRequired` / `inspection_required` -> `Inspection required`.
-String _humanize(String raw) {
-  final spaced = raw
-      .replaceAllMapped(
-        RegExp(r'([a-z0-9])([A-Z])'),
-        (m) => '${m[1]} ${m[2]}',
-      )
-      .replaceAll('_', ' ')
-      .trim()
-      .toLowerCase();
-  if (spaced.isEmpty) return raw;
-  return spaced[0].toUpperCase() + spaced.substring(1);
-}
-
 String _formatDate(DateTime date) {
   const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
   final d = date.toLocal();
   final hour = d.hour % 12 == 0 ? 12 : d.hour % 12;

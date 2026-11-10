@@ -1016,11 +1016,6 @@ class AppLocalizationsNe extends AppLocalizations {
       'निरीक्षण ड्राफ्ट लोड गर्न सकिएन।';
 
   @override
-  String hazardReportTitle(String hazard) {
-    return '$hazard रिपोर्ट';
-  }
-
-  @override
   String get statusStepSent => 'पठाइयो';
 
   @override
@@ -1036,7 +1031,7 @@ class AppLocalizationsNe extends AppLocalizations {
   String get reportAuditInformation => 'रिपोर्ट अडिट जानकारी';
 
   @override
-  String get noPhotoAttached => 'कुनै तस्बिर संलग्न छैन';
+  String get noPhotoAttached => 'तस्बिर संलग्न छैन';
 
   @override
   String get photoNotFoundOnDevice => 'यन्त्रमा तस्बिर फेला परेन';
@@ -1545,4 +1540,343 @@ class AppLocalizationsNe extends AppLocalizations {
 
   @override
   String get homeEmergencyBadge => 'आपतकालीन';
+
+  @override
+  String get filterAll => 'सबै';
+
+  @override
+  String get filterPending => 'बाँकी';
+
+  @override
+  String get filterFailed => 'असफल';
+
+  @override
+  String get filterSynced => 'सिंक गरिएको';
+
+  @override
+  String get hazardTitleTrackDefectRailGap =>
+      'ट्र्याक दोष / रेलबीचको खाली ठाउँ';
+
+  @override
+  String get hazardTitleDamagedWall => 'क्षतिग्रस्त रिटेनिङ पर्खाल';
+
+  @override
+  String get hazardTitleRockfall => 'ढुङ्गा खस्नु / भग्नावशेष खस्नु';
+
+  @override
+  String get hazardTitleLandslip => 'पहिरो / हिलो पहिरो';
+
+  @override
+  String get hazardTitleBlockedDrain => 'अवरुद्ध पानी सङ्कलन नाली';
+
+  @override
+  String get hazardTitleVegetation => 'वनस्पति';
+
+  @override
+  String get hazardTitleOther => 'ट्र्याक समस्या / अन्य जोखिम';
+
+  @override
+  String get kmUnit => 'कि.मि.';
+
+  @override
+  String get stationLabel => 'स्टेसन';
+
+  @override
+  String get modelNameLabel => 'मोडेलको नाम';
+
+  @override
+  String get modelNotReady => 'तयार छैन';
+
+  @override
+  String get modelReady => 'तयार';
+
+  @override
+  String get modelChecking => 'जाँच हुँदैछ';
+
+  @override
+  String get modelActivating => 'सक्रिय गरिँदैछ';
+
+  @override
+  String get modelCorruptedLabel => 'बिग्रिएको';
+
+  @override
+  String get modelFailedLabel => 'असफल';
+
+  @override
+  String get reportStatusTitle => 'रिपोर्टको अवस्था';
+
+  @override
+  String get locationTrackAlignmentTitle => 'स्थान र ट्र्याक मिलान';
+
+  @override
+  String get assignedSectionLabel => 'तोकिएको खण्ड';
+
+  @override
+  String get sourceGpsLabel => 'स्रोत: GPS';
+
+  @override
+  String get technicalAiAuditDetails => 'प्राविधिक तथा AI लेखापरीक्षण विवरण';
+
+  @override
+  String get aiProviderValue => 'AI प्रदायक';
+
+  @override
+  String get aiModelValue => 'AI मोडेल';
+
+  @override
+  String get aiLanguageValue => 'AI भाषा';
+
+  @override
+  String get confidenceLabel => 'विश्वास स्तर';
+
+  @override
+  String get auditOriginalSubmission =>
+      'लेखापरीक्षण: मूल पेश (परिवर्तन नगरिएको)';
+
+  @override
+  String reportIdValue(String id) {
+    return 'रिपोर्ट ID: $id';
+  }
+
+  @override
+  String sourceGangmanMobile(String source) {
+    return 'स्रोत: ग्याङम्यान मोबाइल युनिट ($source)';
+  }
+
+  @override
+  String get selectNearestWaypoint => 'नजिकको DHR स्टेसन / वेपोइन्ट छान्नुहोस्';
+
+  @override
+  String get nearest => 'नजिकको';
+
+  @override
+  String get homeTrackObstruction => 'ट्र्याक अवरोध';
+
+  @override
+  String get homeTrackDamage => 'ट्र्याक क्षति';
+
+  @override
+  String get homeLandslideRockfall => 'पहिरो / ढुङ्गा खस्नु';
+
+  @override
+  String get homeBlockedDrain => 'अवरुद्ध नाली';
+
+  @override
+  String get homeDamagedWall => 'क्षतिग्रस्त पर्खाल';
+
+  @override
+  String get homeAlignmentHazard => 'रेलमार्ग जोखिम';
+
+  @override
+  String get emergencyHelpline => 'हेल्पलाइन';
+
+  @override
+  String get activeStatus => 'सक्रिय';
+
+  @override
+  String get inactiveStatus => 'निष्क्रिय';
+
+  @override
+  String hazardPhotoTitle(String hazard) {
+    return '$hazard तस्बिर';
+  }
+
+  @override
+  String get syncQueuedAtStation =>
+      'अर्को स्टेसनमा स्वतः सिङ्क गर्न स्थानीय रूपमा लामबद्ध।';
+
+  @override
+  String get syncVerifiedCurrent =>
+      'क्लाउड सिङ्क प्रमाणित • सर्भरसँग अद्यावधिक';
+
+  @override
+  String get syncFailedRetry =>
+      'सिङ्क असफल भयो। पुनः प्रयास गर्न ट्याप गर्नुहोस्।';
+
+  @override
+  String syncErrorValue(String error) {
+    return 'त्रुटि: $error';
+  }
+
+  @override
+  String get syncPendingCloudAtStation => 'अर्को स्टेसनमा क्लाउड सिङ्क बाँकी';
+
+  @override
+  String get offlineModelReadyDescription =>
+      'उपकरणमा AI सक्रिय छ। इन्टरनेट बिना ट्र्याक निरीक्षण र जोखिम सुझाव पाउन सक्नुहुन्छ।';
+
+  @override
+  String get offlineModelDownloadedDescription =>
+      'मोडेल फाइलहरू यस फोनमा डाउनलोड छन्। अफलाइन फोटो विश्लेषण सुरु गर्न तल ट्याप गर्नुहोस्।';
+
+  @override
+  String get offlineModelDownloadingDescription =>
+      'अफलाइन AI फाइलहरू डाउनलोड हुँदैछन्। डाउनलोड पूरा नभएसम्म एप खुला राख्नुहोस्।';
+
+  @override
+  String get offlineModelActivatingDescription =>
+      'अफलाइन मोडेल सक्रिय हुँदैछ... केही समय लाग्नेछ।';
+
+  @override
+  String get offlineModelFailedDescription =>
+      'डाउनलोड असफल भयो। जडान जाँचेर तल पुनः प्रयास गर्नुहोस्।';
+
+  @override
+  String get offlineModelCorruptedDescription =>
+      'मोडेल फाइल बिग्रिएको देखिन्छ। कृपया मेटाएर पुनः डाउनलोड गर्नुहोस्।';
+
+  @override
+  String get offlineModelCheckingDescription => 'मोडेलको अवस्था जाँच हुँदैछ...';
+
+  @override
+  String get offlineModelNotDownloadedDescription =>
+      'नेटवर्क नभएको बेला ट्र्याक दोष सुझाव पाउन अफलाइन मोडेल (~1.2 GB) एक पटक डाउनलोड गर्नुहोस्।';
+
+  @override
+  String get statusOpenShort => 'खुला';
+
+  @override
+  String get statusInspectShort => 'निरीक्षण';
+
+  @override
+  String get severityLowShort => 'कम';
+
+  @override
+  String get severityMediumShort => 'मध्यम';
+
+  @override
+  String get severityHighShort => 'उच्च';
+
+  @override
+  String get severityCriticalShort => 'गम्भीर';
+
+  @override
+  String get networkErrorLabel => 'नेटवर्क त्रुटि';
+
+  @override
+  String get selectorHazardSlip => 'पहिरो /\nचिप्लिनु';
+
+  @override
+  String get selectorHazardRockfall => 'ठूलो ढुङ्गा /\nखस्नु';
+
+  @override
+  String get selectorHazardDrain => 'अवरुद्ध\nनाली';
+
+  @override
+  String get selectorHazardWall => 'रिटेनिङ\nपर्खाल';
+
+  @override
+  String get selectorHazardTrack => 'ट्र्याक दोष /\nजोड';
+
+  @override
+  String get selectorHazardVegetation => 'बढेको\nवनस्पति';
+
+  @override
+  String get selectorHazardOther => 'अन्य दोष / जोखिम';
+
+  @override
+  String get severityMonitor => 'निगरानी';
+
+  @override
+  String get severityMaintain => 'मर्मत';
+
+  @override
+  String get severityUrgent => 'तत्काल';
+
+  @override
+  String get severityTierCritical => 'गम्भीर';
+
+  @override
+  String lastModifiedValue(Object date) {
+    return 'अन्तिम परिमार्जन: $date';
+  }
+
+  @override
+  String get homeReportProblem => 'समस्या रिपोर्ट गर्नुहोस्';
+
+  @override
+  String get homeReportProblemDescription =>
+      'तस्बिर खिचेर ट्र्याकमा के समस्या छ बताउनुहोस्।';
+
+  @override
+  String syncStatusSemantic(Object status) {
+    return 'सिङ्क अवस्था: $status';
+  }
+
+  @override
+  String adminLoadReportsFailed(String error) {
+    return 'रिपोर्ट लोड गर्न सकिएन: $error';
+  }
+
+  @override
+  String adminLoadUsersFailed(String error) {
+    return 'प्रयोगकर्ता लोड गर्न सकिएन: $error';
+  }
+
+  @override
+  String adminLoadReportFailed(String error) {
+    return 'रिपोर्ट लोड गर्न सकिएन: $error';
+  }
+
+  @override
+  String get statusInitial => 'सुरुआती';
+
+  @override
+  String get offlineShortStatus => 'अफलाइन';
+
+  @override
+  String get profileAccountDetails => 'खाता विवरण';
+
+  @override
+  String adminProfileUpdateFailed(String error) {
+    return 'अपडेट असफल भयो: $error';
+  }
+
+  @override
+  String adminStatusUpdateFailedToast(String error) {
+    return 'अवस्था अपडेट असफल भयो: $error';
+  }
+
+  @override
+  String get offlineModelTitle => 'अफलाइन मोडेल';
+
+  @override
+  String get aiProviderHeuristicShort => 'अनुमानमा आधारित';
+
+  @override
+  String get aiRetryAnalysisLabel => 'AI विश्लेषण पुनः प्रयास गर्नुहोस्';
+
+  @override
+  String get heuristicModelName => 'नियममा आधारित अनुमान';
+
+  @override
+  String get aiProviderHeuristicDisplay => 'अनुमानमा आधारित वैकल्पिक प्रणाली';
+
+  @override
+  String get aiProviderManualDisplay => 'म्यानुअल निरीक्षण';
+
+  @override
+  String get supervisorName => 'सुपरभाइजर';
+
+  @override
+  String get syncPendingShort => 'बाँकी';
+
+  @override
+  String get syncFailedShort => 'असफल';
+
+  @override
+  String get syncSyncedShort => 'सिंक गरिएको';
+
+  @override
+  String get syncDraftShort => 'मस्यौदा';
+
+  @override
+  String syncRetryAttempts(int count) {
+    return 'पुनः प्रयास: $count';
+  }
+
+  @override
+  String syncReferenceCode(String code) {
+    return 'सन्दर्भ: $code';
+  }
 }

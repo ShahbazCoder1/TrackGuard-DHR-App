@@ -106,7 +106,7 @@ class SyncStatusCard extends StatelessWidget {
               if (report.retryCount > 0) ...[
                 const SizedBox(height: 8),
                 Text(
-                  'Retry attempts: ${report.retryCount}',
+                  l10n.syncRetryAttempts(report.retryCount),
                   style: const TextStyle(
                     fontSize: 11,
                     color: AppTheme.textSecondary,

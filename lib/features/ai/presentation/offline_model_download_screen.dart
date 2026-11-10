@@ -32,9 +32,13 @@ class _OfflineModelDownloadScreenState
   static const Color _ink = Color(0xFF0F172A);
   static const Color _navy = Color(0xFF0A1E3F);
   static const Color _blue = Color(0xFF074E95); // Home screen primary DHR blue
-  static const Color _blueSoft = Color(0xFFEBF3FC); // Home screen soft blue container
+  static const Color _blueSoft = Color(
+    0xFFEBF3FC,
+  ); // Home screen soft blue container
   static const Color _border = Color(0xFFE2E8F0); // Home screen border
-  static const Color _secondary = Color(0xFF64748B); // Home screen secondary slate text
+  static const Color _secondary = Color(
+    0xFF64748B,
+  ); // Home screen secondary slate text
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,8 @@ class _OfflineModelDownloadScreenState
     final isOnlineAsync = ref.watch(isOnlineProvider);
     final isOnline = isOnlineAsync.value ?? false;
 
-    final state = modelStateAsync.value ??
+    final state =
+        modelStateAsync.value ??
         const OfflineModelState(
           status: OfflineModelStatus.checking,
           modelName: AiProviderConfig.offlineGemmaModelName,
@@ -74,18 +79,16 @@ class _OfflineModelDownloadScreenState
           leading: IconButton(
             onPressed: () async {
               if (state.isDownloading) {
-                final shouldLeave =
-                    await _showExitConfirmationDialog(context, l10n);
+                final shouldLeave = await _showExitConfirmationDialog(
+                  context,
+                  l10n,
+                );
                 if (shouldLeave && context.mounted) context.pop();
               } else {
                 context.pop();
               }
             },
-            icon: const Icon(
-              Symbols.arrow_back_rounded,
-              color: _ink,
-              size: 22,
-            ),
+            icon: const Icon(Symbols.arrow_back_rounded, color: _ink, size: 22),
             tooltip: l10n.navigationBack,
           ),
           title: Text(
@@ -155,11 +158,7 @@ class _OfflineModelDownloadScreenState
             color: _blueSoft,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: const Icon(
-            Symbols.layers_rounded,
-            size: 34,
-            color: _blue,
-          ),
+          child: const Icon(Symbols.layers_rounded, size: 34, color: _blue),
         ),
         const SizedBox(height: 12),
         Text(
@@ -190,13 +189,13 @@ class _OfflineModelDownloadScreenState
             color: _blueSoft,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Symbols.cloud_download_rounded, color: _blue, size: 16),
               SizedBox(width: 6),
               Text(
-                'AI Model',
+                l10n.aiModelLabel,
                 style: TextStyle(
                   color: _blue,
                   fontSize: 12,
@@ -711,17 +710,14 @@ class _OfflineModelDownloadScreenState
     );
   }
 
-  Widget _buildStatusBadge(
-    OfflineModelStatus status,
-    AppLocalizations l10n,
-  ) {
+  Widget _buildStatusBadge(OfflineModelStatus status, AppLocalizations l10n) {
     late final Color color;
     late final String label;
 
     switch (status) {
       case OfflineModelStatus.ready:
         color = AppTheme.statusGreen;
-        label = l10n.offlineModelReady;
+        label = l10n.modelReady;
         break;
       case OfflineModelStatus.downloaded:
         color = AppTheme.statusGreen;
@@ -741,7 +737,7 @@ class _OfflineModelDownloadScreenState
         break;
       case OfflineModelStatus.checking:
         color = _secondary;
-        label = 'Checking...';
+        label = '${l10n.modelChecking}...';
         break;
       case OfflineModelStatus.unsupported:
         color = AppTheme.statusRed;
@@ -749,7 +745,7 @@ class _OfflineModelDownloadScreenState
         break;
       case OfflineModelStatus.corrupted:
         color = AppTheme.statusRed;
-        label = 'Corrupted';
+        label = l10n.modelCorruptedLabel;
         break;
       case OfflineModelStatus.notDownloaded:
         color = AppTheme.statusRed;

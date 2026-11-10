@@ -28,7 +28,7 @@ class ProfileHeader extends StatelessWidget {
 
     final sectionName = user?.assignedSection != null
         ? DhrWaypoints.getSectionName(user!.assignedSection!)
-        : (isAdmin ? 'All DHR Alignment' : l10n.unassignedSection);
+        : (isAdmin ? l10n.allDhrAlignment : l10n.unassignedSection);
 
     final avatar = CircleAvatar(
       backgroundColor: roleColor.withValues(alpha: 0.2),
@@ -44,7 +44,8 @@ class ProfileHeader extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                user?.fullName ?? (isAdmin ? 'Supervisor' : 'Gangman'),
+                user?.fullName ??
+                    (isAdmin ? l10n.supervisorName : l10n.roleGangman),
                 style: TextStyle(
                   fontSize: compact ? 15 : 18,
                   fontWeight: FontWeight.w700,
@@ -76,7 +77,10 @@ class ProfileHeader extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           user?.email ?? '',
-          style: TextStyle(fontSize: compact ? 12 : 13, color: AppTheme.textSecondary),
+          style: TextStyle(
+            fontSize: compact ? 12 : 13,
+            color: AppTheme.textSecondary,
+          ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),

@@ -10,11 +10,9 @@ class ConnectivityIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final color = isOnline ? AppTheme.statusGreen : AppTheme.statusAmber;
-    final text = isOnline
-        ? (l10n?.onlineStatus ?? 'Online')
-        : (l10n?.offlineStatus ?? 'Offline mode — ready');
+    final text = isOnline ? l10n.onlineStatus : l10n.offlineStatus;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -36,7 +34,9 @@ class ConnectivityIndicator extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                color: isOnline ? const Color(0xFF14532D) : AppTheme.textSecondary,
+                color: isOnline
+                    ? const Color(0xFF14532D)
+                    : AppTheme.textSecondary,
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
               ),

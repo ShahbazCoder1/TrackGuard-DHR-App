@@ -452,20 +452,12 @@
   "savesSafelyOnPhoneFirst": "Saves safely on your phone first.",
   "draftMissing": "Draft Missing",
   "inspectionDraftCouldNotBeLoaded": "Inspection draft could not be loaded.",
-  "hazardReportTitle": "{hazard} Report",
-  "@hazardReportTitle": {
-    "placeholders": {
-      "hazard": {
-        "type": "String"
-      }
-    }
-  },
   "statusStepSent": "Sent",
   "statusStepSeenBySupervisor": "Seen by Supervisor",
   "statusStepResolved": "Resolved",
   "technicalAndAiAuditDetails": "Technical & AI Audit Details",
   "reportAuditInformation": "REPORT AUDIT INFORMATION",
-  "noPhotoAttached": "No photo attached",
+  "noPhotoAttached": "No Photo Attached",
   "photoNotFoundOnDevice": "Photo not found on device",
   "reportSource": "Source: {source} {accuracy}",
   "@reportSource": {
@@ -735,5 +727,182 @@
   "mainNavigationHeading": "MAIN NAVIGATION",
   "homePrimaryControlBadge": "Primary Control",
   "homeTollFreeBadge": "Toll-Free",
-  "homeEmergencyBadge": "Emergency"
+  "homeEmergencyBadge": "Emergency",
+  "filterAll": "All",
+  "filterPending": "Pending",
+  "filterFailed": "Failed",
+  "filterSynced": "Synced",
+  "hazardTitleTrackDefectRailGap": "Track Defect / Rail Gap",
+  "hazardTitleDamagedWall": "Damaged Retaining Wall",
+  "hazardTitleRockfall": "Rockfall / Fallen Debris",
+  "hazardTitleLandslip": "Landslip / Mudslide",
+  "hazardTitleBlockedDrain": "Blocked Catchwater Drain",
+  "hazardTitleVegetation": "Vegetation",
+  "hazardTitleOther": "Track Issue / Other Hazard",
+  "kmUnit": "Km",
+  "stationLabel": "Station",
+  "modelNameLabel": "Model Name",
+  "modelNotReady": "Not Ready",
+  "modelReady": "Ready",
+  "modelChecking": "Checking",
+  "modelActivating": "Activating",
+  "modelCorruptedLabel": "Corrupted",
+  "modelFailedLabel": "Failed",
+  "reportStatusTitle": "Report Status",
+  "locationTrackAlignmentTitle": "Location & Track Alignment",
+  "assignedSectionLabel": "Assigned Section",
+  "sourceGpsLabel": "Source: GPS",
+  "technicalAiAuditDetails": "Technical & AI Audit Details",
+  "aiProviderValue": "AI Provider",
+  "aiModelValue": "AI Model",
+  "aiLanguageValue": "AI Language",
+  "confidenceLabel": "Confidence",
+  "auditOriginalSubmission": "Audit: Original submission (Unmodified)",
+  "reportIdValue": "Report ID: {id}",
+  "@reportIdValue": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "sourceGangmanMobile": "Source: Gangman Mobile Unit ({source})",
+  "@sourceGangmanMobile": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "selectNearestWaypoint": "Select Nearest DHR Station / Waypoint",
+  "nearest": "Nearest",
+  "homeTrackObstruction": "Track Obstruction",
+  "homeTrackDamage": "Track Damage",
+  "homeLandslideRockfall": "Landslide / Rockfall",
+  "homeBlockedDrain": "Blocked Drain",
+  "homeDamagedWall": "Damaged Wall",
+  "homeAlignmentHazard": "Alignment Hazard",
+  "emergencyHelpline": "Helpline",
+  "activeStatus": "Active",
+  "inactiveStatus": "Inactive",
+  "hazardPhotoTitle": "{hazard} Photo",
+  "@hazardPhotoTitle": {
+    "placeholders": {
+      "hazard": {
+        "type": "String"
+      }
+    }
+  },
+  "syncQueuedAtStation": "Queued locally for automatic sync at next station.",
+  "syncVerifiedCurrent": "Cloud sync verified • Up to date with server",
+  "syncFailedRetry": "Sync failed. Tap to retry.",
+  "syncErrorValue": "Error: {error}",
+  "@syncErrorValue": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "syncPendingCloudAtStation": "Pending cloud sync at next station",
+  "offlineModelReadyDescription": "On-device AI is active. You can inspect tracks and get hazard suggestions without an internet connection.",
+  "offlineModelDownloadedDescription": "Model files are downloaded on this phone. Tap below to activate offline photo analysis.",
+  "offlineModelDownloadingDescription": "Downloading offline AI files. Please keep the app open until download completes.",
+  "offlineModelActivatingDescription": "Activating offline model... this will take a moment.",
+  "offlineModelFailedDescription": "Download failed. Please check your connection and tap retry below.",
+  "offlineModelCorruptedDescription": "Model files appear corrupted. Please delete and re-download.",
+  "offlineModelCheckingDescription": "Checking model status...",
+  "offlineModelNotDownloadedDescription": "Download the offline model (~1.2 GB) once to enable track defect suggestions without network coverage.",
+  "statusOpenShort": "Open",
+  "statusInspectShort": "Inspect",
+  "severityLowShort": "Low",
+  "severityMediumShort": "Medium",
+  "severityHighShort": "High",
+  "severityCriticalShort": "Critical",
+  "networkErrorLabel": "Network error",
+  "selectorHazardSlip": "Landslide /\nSlip",
+  "selectorHazardRockfall": "Boulder /\nRockfall",
+  "selectorHazardDrain": "Blocked\nDrain",
+  "selectorHazardWall": "Retaining\nWall",
+  "selectorHazardTrack": "Track Defect /\nJoint",
+  "selectorHazardVegetation": "Vegetation\nOvergrowth",
+  "selectorHazardOther": "Other Defect / Hazard",
+  "severityMonitor": "Monitor",
+  "severityMaintain": "Maintain",
+  "severityUrgent": "Urgent",
+  "severityTierCritical": "Critical",
+  "lastModifiedValue": "Last Modified: {date}",
+  "homeReportProblem": "Report a Problem",
+  "homeReportProblemDescription": "Take a photo and tell us\nwhat is wrong on the track.",
+  "syncStatusSemantic": "Sync Status: {status}",
+  "adminLoadReportsFailed": "Could not load reports: {error}",
+  "@adminLoadReportsFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminLoadUsersFailed": "Could not load users: {error}",
+  "@adminLoadUsersFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminLoadReportFailed": "Could not load report: {error}",
+  "@adminLoadReportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "statusInitial": "Initial",
+  "offlineShortStatus": "Offline",
+  "profileAccountDetails": "Account Details",
+  "adminProfileUpdateFailed": "Update failed: {error}",
+  "@adminProfileUpdateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adminStatusUpdateFailedToast": "Status update failed: {error}",
+  "@adminStatusUpdateFailedToast": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineModelTitle": "Offline Model",
+  "aiProviderHeuristicShort": "Heuristic",
+  "aiRetryAnalysisLabel": "Retry AI Analysis",
+  "heuristicModelName": "Rule-based Heuristics",
+  "aiProviderHeuristicDisplay": "Heuristic Fallback",
+  "aiProviderManualDisplay": "Manual Inspection",
+  "supervisorName": "Supervisor",
+  "syncPendingShort": "Pending",
+  "syncFailedShort": "Failed",
+  "syncSyncedShort": "Synced",
+  "syncDraftShort": "Draft",
+  "syncRetryAttempts": "Retry attempts: {count}",
+  "@syncRetryAttempts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "syncReferenceCode": "Ref: {code}",
+  "@syncReferenceCode": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  }
 }

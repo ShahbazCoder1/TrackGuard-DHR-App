@@ -73,7 +73,7 @@ class SyncStatusBadge extends StatelessWidget {
     final text = _label(l10n);
 
     return Semantics(
-      label: 'Sync Status: $text',
+      label: l10n.syncStatusSemantic(text),
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: isCompact ? 6 : 10,

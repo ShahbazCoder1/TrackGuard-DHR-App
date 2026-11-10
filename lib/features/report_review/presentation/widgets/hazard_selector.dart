@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:trackguard_dhr/shared/models/hazard_type.dart';
+import 'package:trackguard_dhr/l10n/app_localizations.dart';
 
 class HazardSelector extends StatelessWidget {
   final HazardType selectedHazard;
@@ -12,22 +13,22 @@ class HazardSelector extends StatelessWidget {
     required this.onSelected,
   });
 
-  String _getLabel(HazardType type) {
+  String _getLabel(HazardType type, AppLocalizations l10n) {
     switch (type) {
       case HazardType.slip:
-        return 'Landslide /\nSlip';
+        return l10n.selectorHazardSlip;
       case HazardType.rockfall:
-        return 'Boulder /\nRockfall';
+        return l10n.selectorHazardRockfall;
       case HazardType.blockedDrain:
-        return 'Blocked\nDrain';
+        return l10n.selectorHazardDrain;
       case HazardType.damagedWall:
-        return 'Retaining\nWall';
+        return l10n.selectorHazardWall;
       case HazardType.trackDefect:
-        return 'Track Defect /\nJoint';
+        return l10n.selectorHazardTrack;
       case HazardType.vegetation:
-        return 'Vegetation\nOvergrowth';
+        return l10n.selectorHazardVegetation;
       case HazardType.other:
-        return 'Other Defect / Hazard';
+        return l10n.selectorHazardOther;
     }
   }
 
@@ -88,6 +89,7 @@ class HazardSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return LayoutBuilder(
       builder: (context, constraints) {
         final cardWidth = (constraints.maxWidth - 8) / 2;
@@ -127,7 +129,9 @@ class HazardSelector extends StatelessWidget {
                         children: [
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -150,7 +154,7 @@ class HazardSelector extends StatelessWidget {
                                   // Hazard Label
                                   Expanded(
                                     child: Text(
-                                      _getLabel(type),
+                                      _getLabel(type, l10n),
                                       style: TextStyle(
                                         fontSize: 11.5,
                                         fontWeight: isSelected
@@ -235,7 +239,7 @@ class HazardSelector extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  _getLabel(type),
+                                  _getLabel(type, l10n),
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: isSelected

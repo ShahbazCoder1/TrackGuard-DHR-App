@@ -26,9 +26,10 @@ class PendingAccessScreen extends ConsumerWidget {
         ? DhrWaypoints.getSectionName(user!.assignedSection!)
         : (isAdmin ? l10n.allDhrAlignment : l10n.unassignedSection);
 
-    final roleBadgeText =
-        (isAdmin ? l10n.roleAdmin : l10n.roleGangman).toUpperCase();
-    final displayName = user?.fullName ?? (isAdmin ? 'Supervisor' : 'Gangman');
+    final roleBadgeText = (isAdmin ? l10n.roleAdmin : l10n.roleGangman)
+        .toUpperCase();
+    final displayName =
+        user?.fullName ?? (isAdmin ? l10n.supervisorName : l10n.roleGangman);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
@@ -70,7 +71,10 @@ class PendingAccessScreen extends ConsumerWidget {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 24.0,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
