@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'dart:ui' show Locale;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../core/storage/local_media_storage.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/constants/dhr_waypoints.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../core/supabase/supabase_provider.dart';
@@ -19,11 +21,15 @@ import '../../../shared/models/sync_status.dart';
 import '../../ai/domain/ai_service_provider.dart';
 import '../../ai/domain/ai_settings.dart';
 import '../../reports/domain/report_repository_provider.dart';
+import '../../report_capture/presentation/report_capture_controller.dart';
+import '../../ai/data/ai_analysis_service_impl.dart';
+import '../../../core/errors/ai_error_mapper.dart';
 
 class ReportReviewState {
   final ReportDraft? draft;
   final bool isLoadingDraft;
   final bool isAnalyzing;
+  final AiProvider? activeProvider;
   final AiAnalysisResult? aiResult;
   final HazardType confirmedHazard;
   final Severity confirmedSeverity;
@@ -38,6 +44,7 @@ class ReportReviewState {
     this.draft,
     this.isLoadingDraft = true,
     this.isAnalyzing = false,
+    this.activeProvider,
     this.aiResult,
     this.confirmedHazard = HazardType.other,
     this.confirmedSeverity = Severity.medium,
@@ -53,6 +60,8 @@ class ReportReviewState {
     ReportDraft? draft,
     bool? isLoadingDraft,
     bool? isAnalyzing,
+    AiProvider? activeProvider,
+    bool clearActiveProvider = false,
     AiAnalysisResult? aiResult,
     HazardType? confirmedHazard,
     Severity? confirmedSeverity,
@@ -69,6 +78,9 @@ class ReportReviewState {
       draft: draft ?? this.draft,
       isLoadingDraft: isLoadingDraft ?? this.isLoadingDraft,
       isAnalyzing: isAnalyzing ?? this.isAnalyzing,
+      activeProvider: clearActiveProvider
+          ? null
+          : (activeProvider ?? this.activeProvider),
       aiResult: clearAiResult ? null : (aiResult ?? this.aiResult),
       confirmedHazard: confirmedHazard ?? this.confirmedHazard,
       confirmedSeverity: confirmedSeverity ?? this.confirmedSeverity,
@@ -88,6 +100,8 @@ class ReportReviewController extends Notifier<ReportReviewState> {
   static const _uuid = Uuid();
   int _analysisGeneration = 0;
   String? _activeSessionId;
+  bool _hazardEdited = false;
+  bool _severityEdited = false;
 
   @override
   ReportReviewState build() {
@@ -113,6 +127,8 @@ class ReportReviewController extends Notifier<ReportReviewState> {
     final initialKm = draft.reviewKmMarker ?? draft.location.kmMarker ?? 51.0;
 
     _activeSessionId = draft.sessionId;
+    _hazardEdited = draft.confirmedHazard != null;
+    _severityEdited = draft.confirmedSeverity != null;
 
     state = state.copyWith(
       draft: draft,
@@ -134,6 +150,7 @@ class ReportReviewController extends Notifier<ReportReviewState> {
 
     state = state.copyWith(
       isAnalyzing: true,
+      clearActiveProvider: true,
       clearAiResult: true,
       clearAiError: true,
     );
@@ -142,12 +159,28 @@ class ReportReviewController extends Notifier<ReportReviewState> {
     final mode = requestedMode ?? ref.read(aiSettingsProvider).mode;
 
     try {
-      final result = await aiService.analyze(
-        image: File(draft.photoPath),
-        location: draft.location,
-        language: language,
-        requestedMode: mode,
-      );
+      void onProviderChanged(AiProvider provider) {
+        if (ref.mounted &&
+            requestGeneration == _analysisGeneration &&
+            _activeSessionId == sessionId) {
+          state = state.copyWith(activeProvider: provider);
+        }
+      }
+
+      final result = aiService is AiAnalysisServiceImpl
+          ? await aiService.analyze(
+              image: File(draft.photoPath),
+              location: draft.location,
+              language: language,
+              requestedMode: mode,
+              onProviderChanged: onProviderChanged,
+            )
+          : await aiService.analyze(
+              image: File(draft.photoPath),
+              location: draft.location,
+              language: language,
+              requestedMode: mode,
+            );
 
       if (!ref.mounted ||
           requestGeneration != _analysisGeneration ||
@@ -160,12 +193,12 @@ class ReportReviewController extends Notifier<ReportReviewState> {
         isAnalyzing: false,
         aiResult: result,
         clearAiError: true,
-        confirmedHazard:
-            draft.confirmedHazard ?? result.hazardType ?? state.confirmedHazard,
-        confirmedSeverity:
-            draft.confirmedSeverity ??
-            result.severity ??
-            state.confirmedSeverity,
+        confirmedHazard: _hazardEdited
+            ? state.confirmedHazard
+            : (result.hazardType ?? state.confirmedHazard),
+        confirmedSeverity: _severityEdited
+            ? state.confirmedSeverity
+            : (result.severity ?? state.confirmedSeverity),
       );
     } catch (e) {
       if (!ref.mounted ||
@@ -178,7 +211,10 @@ class ReportReviewController extends Notifier<ReportReviewState> {
       state = state.copyWith(
         isAnalyzing: false,
         aiResult: null,
-        aiErrorMessage: e.toString().replaceAll('Exception: ', ''),
+        aiErrorMessage: AiErrorMapper.getLocalizedMessage(
+          e,
+          lookupAppLocalizations(Locale(language.code)),
+        ),
       );
     }
   }
@@ -188,10 +224,12 @@ class ReportReviewController extends Notifier<ReportReviewState> {
   }
 
   void setConfirmedHazard(HazardType hazard) {
+    _hazardEdited = true;
     state = state.copyWith(confirmedHazard: hazard);
   }
 
   void setConfirmedSeverity(Severity severity) {
+    _severityEdited = true;
     state = state.copyWith(confirmedSeverity: severity);
   }
 
@@ -254,6 +292,7 @@ class ReportReviewController extends Notifier<ReportReviewState> {
       final repo = ref.read(reportRepositoryProvider);
 
       await repo.clearDraft();
+      await ref.read(reportCaptureControllerProvider.notifier).resetCapture();
 
       try {
         await LocalMediaStorage().deleteDraftMedia(draft);
@@ -327,6 +366,7 @@ class ReportReviewController extends Notifier<ReportReviewState> {
       // Save locally first so a network failure never loses the report.
       await repo.saveReport(report);
       await repo.clearDraft();
+      await ref.read(reportCaptureControllerProvider.notifier).resetCapture();
 
       ref.invalidate(pendingReportsCountProvider);
 

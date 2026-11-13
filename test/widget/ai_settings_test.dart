@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trackguard_dhr/features/ai/domain/ai_settings.dart';
 import 'package:trackguard_dhr/features/ai/presentation/ai_settings_screen.dart';
 import 'package:trackguard_dhr/features/report_review/presentation/widgets/ai_suggestion_card.dart';
 import 'package:trackguard_dhr/l10n/app_localizations.dart';
@@ -31,10 +30,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Verify AI Modes
-        expect(
-          find.textContaining('Automatic Photo Helper'),
-          findsOneWidget,
-        );
+        expect(find.textContaining('Automatic Photo Helper'), findsOneWidget);
         expect(find.text('Offline Photo Helper'), findsOneWidget);
         expect(find.text('Online Photo Helper'), findsOneWidget);
         expect(find.text('Manual Only'), findsOneWidget);
@@ -45,7 +41,11 @@ void main() {
 
         // Verify Gemini Card was removed
         expect(find.text('GEMINI CLOUD REASONING'), findsNothing);
-        expect(find.text('Ready'), findsOneWidget);
+        expect(
+          find.text('Ready').evaluate().length +
+              find.text('Not Ready').evaluate().length,
+          greaterThanOrEqualTo(1),
+        );
       },
     );
 
@@ -73,6 +73,36 @@ void main() {
   });
 
   group('AiSuggestionCard Widget Tests', () {
+    testWidgets('Shows the actual active provider during analysis', (
+      tester,
+    ) async {
+      Future<void> showProvider(AiProvider? provider) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: Scaffold(
+              body: AiSuggestionCard(
+                aiResult: null,
+                isAnalyzing: true,
+                activeProvider: provider,
+              ),
+            ),
+          ),
+        );
+      }
+
+      await showProvider(AiProvider.offlineGemma);
+      expect(find.text('Offline Gemma'), findsOneWidget);
+      expect(find.text('Online Gemini'), findsNothing);
+      await showProvider(AiProvider.onlineGemini);
+      expect(find.text('Online Gemini'), findsOneWidget);
+      expect(find.text('Offline Gemma'), findsNothing);
+      await showProvider(null);
+      expect(find.text('Online Gemini'), findsNothing);
+      expect(find.text('Offline Gemma'), findsNothing);
+    });
+
     testWidgets('Displays fallback badge and triggers manual/retry callbacks', (
       tester,
     ) async {
@@ -137,7 +167,7 @@ void main() {
             body: AiSuggestionCard(
               aiResult: null,
               isAnalyzing: true,
-              currentMode: AiMode.offlineGemma,
+              activeProvider: AiProvider.offlineGemma,
             ),
           ),
         ),

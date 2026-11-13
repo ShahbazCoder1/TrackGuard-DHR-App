@@ -13,7 +13,10 @@ class SupabaseReportDataSource {
 
     final row = SupabaseReportMapper.toRemoteRow(report, userId: user?.id);
 
-    await _client.from('reports').upsert(row, onConflict: 'id');
+    // A retry after a partial upload must not overwrite supervisor updates.
+    await _client
+        .from('reports')
+        .upsert(row, onConflict: 'id', ignoreDuplicates: true);
   }
 
   Future<List<HazardReport>> fetchReports({

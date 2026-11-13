@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/localization/l10n.dart';
 import '../l10n/app_localizations.dart';
+import '../features/reports/domain/report_repository_provider.dart';
 import 'router.dart';
 import 'theme.dart';
 
@@ -11,6 +12,7 @@ class TrackGuardApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(automaticReportSyncProvider);
     final router = ref.watch(appRouterProvider);
     final locale = ref.watch(currentLocaleProvider);
 
@@ -23,9 +25,8 @@ class TrackGuardApp extends ConsumerWidget {
       locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      builder: (context, child) => _AppFocusScope(
-        child: child ?? const SizedBox.shrink(),
-      ),
+      builder: (context, child) =>
+          _AppFocusScope(child: child ?? const SizedBox.shrink()),
     );
   }
 }

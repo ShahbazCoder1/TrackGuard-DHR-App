@@ -8,6 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../core/localization/railway_display_names.dart';
+import '../../../core/connectivity/connectivity_provider.dart';
+import '../../../core/sync/sync_error_message_mapper.dart';
 import '../../../core/utils/date_format_utils.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/ai_provider.dart';
@@ -149,6 +151,7 @@ class _GangmanReportDetailScreenState
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final liveReports = ref.watch(localReportsProvider).value;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -201,7 +204,11 @@ class _GangmanReportDetailScreenState
               return const Center(child: CircularProgressIndicator());
             }
 
-            final report = snapshot.data;
+            final report =
+                liveReports
+                    ?.where((r) => r.id == widget.reportId)
+                    .firstOrNull ??
+                snapshot.data;
             if (report == null) {
               return Center(
                 child: Padding(
@@ -687,7 +694,11 @@ class _GangmanReportDetailScreenState
   // 4. Sync Summary Card
   Widget _buildSyncSummaryCard(HazardReport report, AppLocalizations l10n) {
     final isSynced = report.syncStatus == SyncStatus.synced;
-    final isFailed = report.syncStatus == SyncStatus.failed;
+    final isOffline = ref.watch(isOnlineProvider).value == false;
+    final isFailed =
+        report.syncStatus == SyncStatus.failed &&
+        !isOffline &&
+        !SyncErrorMessageMapper.isNetworkError(report.lastSyncError);
 
     Color badgeBg;
     Color badgeBorder;
@@ -785,7 +796,11 @@ class _GangmanReportDetailScreenState
           Text(
             isSynced
                 ? l10n.syncSavedAndSynced
-                : (isFailed ? l10n.syncFailedRetry : l10n.syncQueuedAtStation),
+                : (isOffline
+                      ? l10n.syncOfflineSafe
+                      : (isFailed
+                            ? l10n.syncFailedRetry
+                            : l10n.syncQueuedAtStation)),
             style: const TextStyle(
               fontSize: 12.5,
               fontWeight: FontWeight.w400,
@@ -826,9 +841,10 @@ class _GangmanReportDetailScreenState
                     isSynced
                         ? l10n.syncVerifiedCurrent
                         : (isFailed
-                              ? l10n.syncErrorValue(
+                              ? SyncErrorMessageMapper.toUserMessage(
                                   report.lastSyncError ??
                                       l10n.networkErrorLabel,
+                                  l10n,
                                 )
                               : l10n.syncPendingCloudAtStation),
                     style: TextStyle(

@@ -12,11 +12,15 @@ class ReportSyncService {
     required this.repository,
     required this.remote,
     required this.media,
+    required this.isOnline,
+    required this.currentUserId,
   });
 
   final ReportRepository repository;
   final SupabaseReportDataSource remote;
   final SupabaseMediaDataSource media;
+  final Future<bool> Function() isOnline;
+  final String? Function() currentUserId;
 
   bool _isSyncing = false;
 
@@ -25,9 +29,11 @@ class ReportSyncService {
 
     _isSyncing = true;
     try {
+      if (!await isOnline() || currentUserId() == null) return;
       final reports = await repository.getLocalReports();
 
       for (final report in reports) {
+        if (currentUserId() != report.createdBy || !await isOnline()) continue;
         if (report.syncStatus != SyncStatus.pending &&
             report.syncStatus != SyncStatus.failed &&
             report.syncStatus != SyncStatus.syncing) {
@@ -40,13 +46,7 @@ class ReportSyncService {
 
         try {
           await remote.upsertReport(report);
-          try {
-            await media.uploadReportMedia(report);
-          } catch (mediaError) {
-            debugPrint(
-              '[ReportSyncService] Media upload note for ${report.id}: $mediaError',
-            );
-          }
+          await media.uploadReportMedia(report);
 
           await repository.saveReport(
             report.copyWith(
@@ -63,9 +63,12 @@ class ReportSyncService {
           debugPrint(
             '[ReportSyncService] Error syncing report ${report.id}: $error',
           );
+          final isConnectionError = _isConnectionError(error);
           await repository.saveReport(
             report.copyWith(
-              syncStatus: SyncStatus.failed,
+              syncStatus: isConnectionError
+                  ? SyncStatus.pending
+                  : SyncStatus.failed,
               retryCount: report.retryCount + 1,
               lastSyncError: error.toString(),
             ),
@@ -75,6 +78,14 @@ class ReportSyncService {
     } finally {
       _isSyncing = false;
     }
+  }
+
+  static bool _isConnectionError(Object error) {
+    final message = error.toString().toLowerCase();
+    return message.contains('socketexception') ||
+        message.contains('failed host lookup') ||
+        message.contains('no route to host') ||
+        message.contains('network is unreachable');
   }
 
   Future<List<HazardReport>> fetchRemoteReports({

@@ -8,5 +8,9 @@ final supabaseClientProvider = Provider<SupabaseClient?>((ref) {
     return null;
   }
 
-  return Supabase.instance.client;
+  try {
+    return Supabase.instance.client;
+  } catch (_) {
+    return null;
+  }
 });

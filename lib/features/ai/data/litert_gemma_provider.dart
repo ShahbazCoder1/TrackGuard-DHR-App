@@ -53,10 +53,10 @@ class LitertGemmaProvider {
     this.modelManager,
     this.modelName = AiProviderConfig.offlineGemmaModelName,
     this.modelSlug = AiProviderConfig.offlineGemmaSlug,
-  })  : _promptBuilder = promptBuilder ?? AiPromptBuilder(),
-        _validator = validator ?? AiResultValidator(),
-        // ignore: prefer_initializing_formals
-        _engine = engine {
+  }) : _promptBuilder = promptBuilder ?? AiPromptBuilder(),
+       _validator = validator ?? AiResultValidator(),
+       // ignore: prefer_initializing_formals
+       _engine = engine {
     _initAndSyncManager();
   }
 
@@ -114,7 +114,15 @@ class LitertGemmaProvider {
   Future<bool> isModelInstalled() async {
     final manager = modelManager;
     if (manager != null) {
-      final modelState = await manager.getState();
+      var modelState = await manager.getState();
+      if (modelState.status == OfflineModelStatus.checking ||
+          modelState.status == OfflineModelStatus.initializing) {
+        modelState = await manager.watchState().firstWhere(
+          (state) =>
+              state.status != OfflineModelStatus.checking &&
+              state.status != OfflineModelStatus.initializing,
+        );
+      }
       if (modelState.isReady) {
         if (manager is LitertOfflineModelManager) {
           _engine ??= manager.engine;
@@ -137,11 +145,11 @@ class LitertGemmaProvider {
 
     try {
       final dir = await _getModelDir();
-      final validation =
-          await const OfflineModelArtifactValidator().validateArtifact(
-        directoryPath: dir.path,
-        expectedFilename: AiProviderConfig.offlineGemmaFile,
-      );
+      final validation = await const OfflineModelArtifactValidator()
+          .validateArtifact(
+            directoryPath: dir.path,
+            expectedFilename: AiProviderConfig.offlineGemmaFile,
+          );
 
       if (validation.isValid) {
         if (_state == LitertGemmaState.notInstalled) {
@@ -318,11 +326,7 @@ class LitertGemmaProvider {
         ConversationConfig(
           systemMessage: Message.system(systemPrompt),
           sessionConfig: const SessionConfig(
-            samplerConfig: SamplerConfig(
-              topK: 40,
-              topP: 0.9,
-              temperature: 0.2,
-            ),
+            samplerConfig: SamplerConfig(topK: 40, topP: 0.9, temperature: 0.2),
           ),
         ),
       );
@@ -394,4 +398,3 @@ class LitertGemmaProvider {
     _engine?.dispose();
   }
 }
-

@@ -566,13 +566,11 @@ class AiSettingsScreen extends ConsumerWidget {
               onPressed: () async {
                 try {
                   await manager.initialize();
-                } catch (e) {
+                } catch (_) {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(
-                          l10n.offlineModelInitFailed(e.toString()),
-                        ),
+                        content: Text(l10n.aiModelInitializationFailed),
                         backgroundColor: AppTheme.statusRed,
                       ),
                     );

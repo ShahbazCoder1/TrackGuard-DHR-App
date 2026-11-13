@@ -11,11 +11,8 @@ import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/location_source.dart';
 import '../../../shared/widgets/loading_view.dart';
 import '../../../shared/widgets/primary_button.dart';
-import '../../../shared/widgets/trackguard_dialog.dart';
 import 'report_capture_controller.dart';
 import 'widgets/waypoint_picker.dart';
-
-enum _CaptureExitAction { saveDraft, discard }
 
 class ReportCaptureScreen extends ConsumerStatefulWidget {
   const ReportCaptureScreen({super.key});
@@ -28,7 +25,6 @@ class ReportCaptureScreen extends ConsumerStatefulWidget {
 class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
     with WidgetsBindingObserver {
   ReportCaptureController? _controller;
-  bool _isExitDialogOpen = false;
 
   @override
   void initState() {
@@ -97,71 +93,9 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
   }
 
   Future<void> _handleCaptureExit() async {
-    if (_isExitDialogOpen || !mounted) return;
-
     final controller = ref.read(reportCaptureControllerProvider.notifier);
-    final captureState = ref.read(reportCaptureControllerProvider);
-
-    if (captureState.capturedFile == null) {
-      await controller.stopCamera();
-      if (mounted) context.pop();
-      return;
-    }
-
-    _isExitDialogOpen = true;
-
-    final l10n = AppLocalizations.of(context)!;
-    final action = await showDialog<_CaptureExitAction>(
-      context: context,
-      barrierDismissible: false,
-      builder: (dialogContext) => TrackGuardDialog(
-        icon: Icons.edit_note_rounded,
-        iconBgColor: TrackGuardDialog.brandBlueSoft,
-        iconColor: TrackGuardDialog.brandBlue,
-        title: l10n.reportLeaveTitle,
-        message: l10n.reportLeaveWithDraftMessage,
-        primaryLabel: l10n.reportSaveDraft,
-        primaryIcon: Icons.bookmark_added_rounded,
-        primaryColor: TrackGuardDialog.brandBlue,
-        onPrimaryPressed: () =>
-            Navigator.pop(dialogContext, _CaptureExitAction.saveDraft),
-        secondaryLabel: l10n.reportDiscardAction,
-        secondaryIcon: Icons.delete_outline_rounded,
-        onSecondaryPressed: () =>
-            Navigator.pop(dialogContext, _CaptureExitAction.discard),
-        cancelLabel: l10n.reportKeepEditing,
-        onCancelPressed: () => Navigator.pop(dialogContext),
-      ),
-    );
-
-    _isExitDialogOpen = false;
-
-    if (!mounted || action == null) return;
-
-    final bool success;
-    switch (action) {
-      case _CaptureExitAction.saveDraft:
-        success = await controller.confirmDraftAndProceed();
-        break;
-      case _CaptureExitAction.discard:
-        success = await controller.discardCapturedPhoto();
-        break;
-    }
-
-    if (!mounted) return;
-
-    if (success) {
-      context.pop();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            ref.read(reportCaptureControllerProvider).errorMessage ??
-                AppLocalizations.of(context)!.reportDiscardFailed,
-          ),
-        ),
-      );
-    }
+    await controller.resetCapture();
+    if (mounted) context.go('/gangman/home');
   }
 
   @override
@@ -182,13 +116,9 @@ class _ReportCaptureScreenState extends ConsumerState<ReportCaptureScreen>
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: PopScope(
-        canPop: captureState.capturedFile == null,
+        canPop: false,
         onPopInvokedWithResult: (didPop, _) {
-          if (didPop) {
-            _controller?.stopCamera();
-          } else if (captureState.capturedFile != null) {
-            _handleCaptureExit();
-          }
+          if (!didPop) _handleCaptureExit();
         },
         child: Scaffold(
           backgroundColor: const Color(0xFFF4F6F8),

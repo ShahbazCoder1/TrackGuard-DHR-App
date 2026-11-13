@@ -66,12 +66,15 @@ class SupabaseMediaDataSource {
           .maybeSingle();
 
       if (existing != null) {
-        await _client.from('report_media').update({
-          'original_path': remoteOriginalPath,
-          'thumbnail_path': remoteThumbnailPath,
-          'mime_type': mimeType,
-          'file_size': await originalFile.length(),
-        }).eq('id', existing['id']);
+        await _client
+            .from('report_media')
+            .update({
+              'original_path': remoteOriginalPath,
+              'thumbnail_path': remoteThumbnailPath,
+              'mime_type': mimeType,
+              'file_size': await originalFile.length(),
+            })
+            .eq('id', existing['id']);
       } else {
         await _client.from('report_media').insert({
           'id': const Uuid().v4(),
@@ -92,7 +95,9 @@ class SupabaseMediaDataSource {
           'mime_type': mimeType,
           'file_size': await originalFile.length(),
         }, onConflict: 'report_id');
-      } catch (_) {}
+      } catch (_) {
+        rethrow;
+      }
     }
   }
 

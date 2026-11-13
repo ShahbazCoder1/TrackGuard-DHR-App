@@ -34,8 +34,9 @@ class _MockConnectivityService implements ConnectivityService {
 
 class _MockLitertGemmaProvider extends LitertGemmaProvider {
   final bool ready;
+  final bool fails;
 
-  _MockLitertGemmaProvider({this.ready = true});
+  _MockLitertGemmaProvider({this.ready = true, this.fails = false});
 
   @override
   bool get isReady => ready;
@@ -53,6 +54,9 @@ class _MockLitertGemmaProvider extends LitertGemmaProvider {
     required GeoLocation location,
     required AppLanguage language,
   }) async {
+    if (fails) {
+      throw const OfflineModelInitializationFailedException('bridge missing');
+    }
     return AiAnalysisResult(
       hazardType: HazardType.rockfall,
       severity: Severity.high,
@@ -67,8 +71,9 @@ class _MockLitertGemmaProvider extends LitertGemmaProvider {
 
 class _MockOnlineGeminiProvider extends OnlineGeminiProvider {
   final bool available;
+  final bool fails;
 
-  _MockOnlineGeminiProvider({this.available = true})
+  _MockOnlineGeminiProvider({this.available = true, this.fails = false})
     : super(connectivityService: _MockConnectivityService(available));
 
   @override
@@ -80,7 +85,7 @@ class _MockOnlineGeminiProvider extends OnlineGeminiProvider {
     required GeoLocation location,
     required AppLanguage language,
   }) async {
-    if (!available) {
+    if (!available || fails) {
       throw const GeminiUnavailableException('Device is offline');
     }
     return AiAnalysisResult(
@@ -314,24 +319,79 @@ void main() {
       expect(result.modelName, AiProviderConfig.offlineGemmaModelName);
     });
 
+    test('Offline Gemma mode reports unavailable when both providers are unavailable', () async {
+      final service = AiAnalysisServiceImpl(
+        litertGemma: _MockLitertGemmaProvider(ready: false),
+        onlineGemini: _MockOnlineGeminiProvider(available: false),
+      );
+
+      await expectLater(
+        () => service.analyze(
+          image: dummyFile,
+          location: testLocation,
+          language: AppLanguage.en,
+          requestedMode: AiMode.offlineGemma,
+        ),
+        throwsA(isA<AiUnavailableException>()),
+      );
+    });
+
     test(
-      'Offline Gemma mode throws when Gemma is not ready',
+      'Offline mode falls back to online and reports the active provider',
       () async {
         final service = AiAnalysisServiceImpl(
           litertGemma: _MockLitertGemmaProvider(ready: false),
+          onlineGemini: _MockOnlineGeminiProvider(available: true),
         );
-
-        await expectLater(
-          () => service.analyze(
-            image: dummyFile,
-            location: testLocation,
-            language: AppLanguage.en,
-            requestedMode: AiMode.offlineGemma,
-          ),
-          throwsA(isA<OfflineModelUnavailableException>()),
+        final attempts = <AiProvider>[];
+        final result = await service.analyze(
+          image: dummyFile,
+          location: testLocation,
+          language: AppLanguage.en,
+          requestedMode: AiMode.offlineGemma,
+          onProviderChanged: attempts.add,
         );
+        expect(attempts, [AiProvider.onlineGemini]);
+        expect(result.provider, AiProvider.onlineGemini);
+        expect(result.requestedProvider, AiProvider.offlineGemma);
       },
     );
+
+    for (final mode in [AiMode.offlineGemma, AiMode.automatic]) {
+      test('$mode falls back after offline initialization fails', () async {
+        final attempts = <AiProvider>[];
+        final service = AiAnalysisServiceImpl(
+          litertGemma: _MockLitertGemmaProvider(fails: true),
+          onlineGemini: _MockOnlineGeminiProvider(),
+        );
+        final result = await service.analyze(
+          image: dummyFile,
+          location: testLocation,
+          language: AppLanguage.en,
+          requestedMode: mode,
+          onProviderChanged: attempts.add,
+        );
+        expect(attempts, [AiProvider.offlineGemma, AiProvider.onlineGemini]);
+        expect(result.provider, AiProvider.onlineGemini);
+      });
+    }
+
+    test('Online request failure falls back to offline', () async {
+      final attempts = <AiProvider>[];
+      final service = AiAnalysisServiceImpl(
+        litertGemma: _MockLitertGemmaProvider(),
+        onlineGemini: _MockOnlineGeminiProvider(fails: true),
+      );
+      final result = await service.analyze(
+        image: dummyFile,
+        location: testLocation,
+        language: AppLanguage.en,
+        requestedMode: AiMode.onlineGemini,
+        onProviderChanged: attempts.add,
+      );
+      expect(attempts, [AiProvider.onlineGemini, AiProvider.offlineGemma]);
+      expect(result.provider, AiProvider.offlineGemma);
+    });
 
     test('Online Gemini mode uses Gemini cloud when available', () async {
       final service = AiAnalysisServiceImpl(

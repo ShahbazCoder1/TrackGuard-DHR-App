@@ -244,6 +244,13 @@ class ReportCaptureController extends Notifier<ReportCaptureState> {
     }
   }
 
+  Future<void> resetCapture() async {
+    await _cameraService.stopCamera();
+    if (ref.mounted) {
+      state = state.copyWith(isCameraReady: false, clearCapturedFile: true);
+    }
+  }
+
   Future<bool> discardCapturedPhoto() async {
     final capturedFile = state.capturedFile;
     if (capturedFile == null) return false;

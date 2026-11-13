@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/connectivity/connectivity_provider.dart';
@@ -5,6 +8,8 @@ import '../../../core/supabase/supabase_provider.dart';
 import '../../../shared/models/hazard_report.dart';
 import '../../../shared/models/sync_status.dart';
 import '../../../shared/models/sync_summary.dart';
+import '../../auth/domain/auth_state.dart';
+import '../../auth/presentation/auth_controller.dart';
 import '../data/report_repository.dart';
 import '../data/report_sync_service.dart';
 import '../data/sqlite_report_repository.dart';
@@ -99,5 +104,32 @@ final reportSyncServiceProvider = Provider<ReportSyncService?>((ref) {
     repository: ref.watch(reportRepositoryProvider),
     remote: SupabaseReportDataSource(client),
     media: SupabaseMediaDataSource(client),
+    isOnline: ref.read(connectivityServiceProvider).isOnline,
+    currentUserId: () => client.auth.currentUser?.id,
   );
+});
+
+/// Retry queued reports when an authenticated user has a connection.
+final automaticReportSyncProvider = Provider<void>((ref) {
+  final service = ref.watch(reportSyncServiceProvider);
+
+  void trySync() {
+    if (!ref.mounted) return;
+    final auth = ref.read(authControllerProvider);
+    if (service == null ||
+        ref.read(isOnlineProvider).value != true ||
+        (auth.status != AuthStatus.authorizedGangman &&
+            auth.status != AuthStatus.authorizedAdmin)) {
+      return;
+    }
+    unawaited(
+      service.syncPendingReports().catchError((Object error) {
+        debugPrint('Automatic report sync failed: $error');
+      }),
+    );
+  }
+
+  ref.listen(isOnlineProvider, (_, _) => scheduleMicrotask(trySync));
+  ref.listen(authControllerProvider, (_, _) => scheduleMicrotask(trySync));
+  scheduleMicrotask(trySync);
 });

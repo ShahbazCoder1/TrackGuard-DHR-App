@@ -539,7 +539,13 @@ class _OfflineModelDownloadScreenState
             ),
           ] else ...[
             if (state.errorMessage != null) ...[
-              _buildErrorNotice(state.errorMessage!),
+              _buildErrorNotice(
+                state.errorMessage!.startsWith(
+                      'Native LiteRT-LM initialization failed:',
+                    )
+                    ? l10n.aiModelInitializationFailed
+                    : l10n.offlineModelFailed,
+              ),
               const SizedBox(height: 12),
             ],
             _primaryActionButton(
@@ -787,11 +793,11 @@ class _OfflineModelDownloadScreenState
     setState(() => _isLoading = true);
     try {
       await manager.initialize();
-    } catch (e) {
+    } catch (_) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(l10n.offlineModelInitFailed(e.toString())),
+            content: Text(l10n.aiModelInitializationFailed),
             backgroundColor: AppTheme.statusRed,
           ),
         );

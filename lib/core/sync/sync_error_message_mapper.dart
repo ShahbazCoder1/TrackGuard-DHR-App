@@ -8,19 +8,21 @@ abstract class SyncErrorMessageMapper {
   static String getLocalizedMessage(Object? error, AppLocalizations l10n) =>
       toUserMessage(error, l10n);
 
-  static String toUserMessage(Object? error, AppLocalizations l10n) {
-    if (error == null) return '';
-    final raw = error.toString().toLowerCase();
-
-    if (raw.contains('socketexception') ||
+  static bool isNetworkError(Object? error) {
+    final raw = error?.toString().toLowerCase() ?? '';
+    return raw.contains('socketexception') ||
         raw.contains('network') ||
         raw.contains('offline') ||
         raw.contains('failed host lookup') ||
         raw.contains('no route to host') ||
         raw.contains('connection refused') ||
-        raw.contains('client not initialized')) {
-      return l10n.syncErrorOffline;
-    }
+        raw.contains('client not initialized');
+  }
+
+  static String toUserMessage(Object? error, AppLocalizations l10n) {
+    if (error == null) return '';
+    final raw = error.toString().toLowerCase();
+    if (isNetworkError(error)) return l10n.syncErrorOffline;
 
     if (raw.contains('timeoutexception') ||
         raw.contains('timed out') ||

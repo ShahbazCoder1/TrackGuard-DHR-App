@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/app.dart';
 import 'core/config/app_env.dart';
+import 'core/supabase/supabase_provider.dart';
 import 'features/ai/application/ai_startup_initializer.dart';
 import 'features/auth/data/supabase_auth_repository.dart';
 import 'features/auth/presentation/auth_controller.dart';
@@ -68,6 +69,7 @@ Future<void> _initializeServices(ProviderContainer container) async {
         publishableKey: AppEnv.supabaseAnonKey,
       );
 
+      container.invalidate(supabaseClientProvider);
       final repo = container.read(authRepositoryProvider);
       if (repo is SupabaseAuthRepository) {
         repo.onSupabaseReady();

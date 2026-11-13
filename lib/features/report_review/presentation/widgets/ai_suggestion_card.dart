@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:trackguard_dhr/features/ai/domain/ai_settings.dart';
 import 'package:trackguard_dhr/l10n/app_localizations.dart';
 import 'package:trackguard_dhr/shared/models/ai_analysis_result.dart';
 import 'package:trackguard_dhr/shared/models/ai_provider.dart';
@@ -11,7 +10,7 @@ class AiSuggestionCard extends StatelessWidget {
   final AiAnalysisResult? aiResult;
   final String? errorMessage;
   final bool isAnalyzing;
-  final AiMode? currentMode;
+  final AiProvider? activeProvider;
   final VoidCallback? onRetry;
   final VoidCallback? onSwitchToManual;
   final VoidCallback? onDownloadModel;
@@ -21,15 +20,15 @@ class AiSuggestionCard extends StatelessWidget {
     required this.aiResult,
     this.errorMessage,
     required this.isAnalyzing,
-    this.currentMode,
+    this.activeProvider,
     this.onRetry,
     this.onSwitchToManual,
     this.onDownloadModel,
   });
 
-  String _getProviderPillText(AiAnalysisResult? result, AppLocalizations l10n) {
-    if (result == null) return l10n.aiProviderOnlineGemini;
-    switch (result.provider) {
+  String? _getProviderPillText(AiProvider? provider, AppLocalizations l10n) {
+    if (provider == null) return null;
+    switch (provider) {
       case AiProvider.onlineGemini:
         return l10n.aiProviderOnlineGemini;
       case AiProvider.offlineGemma:
@@ -63,7 +62,10 @@ class AiSuggestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final providerText = _getProviderPillText(aiResult, l10n);
+    final providerText = _getProviderPillText(
+      aiResult?.provider ?? activeProvider,
+      l10n,
+    );
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -105,25 +107,26 @@ class AiSuggestionCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 3.5,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE8F1FA),
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: const Color(0xFFBFDBFE)),
-                ),
-                child: Text(
-                  providerText,
-                  style: const TextStyle(
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF074E95),
+              if (providerText != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3.5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE8F1FA),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: const Color(0xFFBFDBFE)),
+                  ),
+                  child: Text(
+                    providerText,
+                    style: const TextStyle(
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF074E95),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
           const SizedBox(height: 14),
@@ -148,9 +151,11 @@ class AiSuggestionCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      currentMode == AiMode.offlineGemma
+                      activeProvider == AiProvider.offlineGemma
                           ? l10n.aiAnalyzingOffline
-                          : l10n.aiAnalyzingOnline,
+                          : activeProvider == AiProvider.onlineGemini
+                          ? l10n.aiAnalyzingOnline
+                          : l10n.aiAnalyzing,
                       style: const TextStyle(
                         fontSize: 12.5,
                         color: Color(0xFF64748B),

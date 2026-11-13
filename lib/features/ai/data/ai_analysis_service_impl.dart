@@ -54,94 +54,57 @@ class AiAnalysisServiceImpl implements AiAnalysisService {
     required GeoLocation location,
     required AppLanguage language,
     AiMode? requestedMode,
+    void Function(AiProvider)? onProviderChanged,
   }) async {
     final mode = requestedMode ?? AiMode.automatic;
-
-    // Ensure model readiness is up-to-date before evaluating routing
-    if (!_litertGemma.isReady) {
-      await _litertGemma.isModelInstalled();
-    }
-
-    // Mode: Manual classification
     if (mode == AiMode.manual) {
-      final manual = await _manualAi.analyze(
+      onProviderChanged?.call(AiProvider.manual);
+      return (await _manualAi.analyze(
         location: location,
         language: language,
-      );
-      return manual.copyWith(requestedProvider: AiProvider.manual);
+      )).copyWith(requestedProvider: AiProvider.manual);
     }
 
-    // Mode: Offline Gemma explicitly selected
-    if (mode == AiMode.offlineGemma) {
-      final isAvailable =
-          _litertGemma.isReady || await _litertGemma.isModelInstalled();
-      if (isAvailable) {
-        final result = await _litertGemma.analyze(
-          image: image,
-          location: location,
-          language: language,
+    final requested = mode == AiMode.onlineGemini
+        ? AiProvider.onlineGemini
+        : AiProvider.offlineGemma;
+    final providers = mode == AiMode.onlineGemini
+        ? [AiProvider.onlineGemini, AiProvider.offlineGemma]
+        : [AiProvider.offlineGemma, AiProvider.onlineGemini];
+    Object? lastError;
+    for (final provider in providers) {
+      try {
+        final available = provider == AiProvider.offlineGemma
+            ? (_litertGemma.isReady || await _litertGemma.isModelInstalled())
+            : await _onlineGemini.isAvailable();
+        if (!available) continue;
+        onProviderChanged?.call(provider);
+        final result = provider == AiProvider.offlineGemma
+            ? await _litertGemma.analyze(
+                image: image,
+                location: location,
+                language: language,
+              )
+            : await _onlineGemini.analyze(
+                image: image,
+                location: location,
+                language: language,
+              );
+        return result.copyWith(
+          requestedProvider: requested,
+          fallbackReason: provider != requested
+              ? (requested == AiProvider.onlineGemini
+                    ? 'Online Gemini unavailable; using Offline Gemma.'
+                    : 'Offline Gemma unavailable; using Online Gemini.')
+              : null,
         );
-        return result.copyWith(requestedProvider: AiProvider.offlineGemma);
-      } else {
-        throw const OfflineModelUnavailableException(
-          'Offline Gemma model is not ready on this device.',
-        );
+      } catch (error) {
+        lastError = error;
       }
     }
-
-    // Mode: Online Gemini explicitly selected
-    if (mode == AiMode.onlineGemini) {
-      if (await _onlineGemini.isAvailable()) {
-        final result = await _onlineGemini.analyze(
-          image: image,
-          location: location,
-          language: language,
-        );
-        return result.copyWith(requestedProvider: AiProvider.onlineGemini);
-      } else {
-        if (_litertGemma.isReady) {
-          final gemmaResult = await _litertGemma.analyze(
-            image: image,
-            location: location,
-            language: language,
-          );
-          return gemmaResult.copyWith(
-            requestedProvider: AiProvider.onlineGemini,
-            fallbackReason:
-                'Online Gemini unavailable (offline). Fell back to Offline Gemma.',
-          );
-        }
-        throw const GeminiUnavailableException(
-          'Online Gemini requires connectivity or backend is unavailable.',
-        );
-      }
-    }
-
-    // Mode: Automatic
-    // 1. Prefer Offline Gemma for offline/privacy-first alignment operations
-    final canUseOffline =
-        _litertGemma.isReady || await _litertGemma.isModelInstalled();
-    if (canUseOffline) {
-      final result = await _litertGemma.analyze(
-        image: image,
-        location: location,
-        language: language,
-      );
-      return result.copyWith(requestedProvider: AiProvider.offlineGemma);
-    }
-
-    // 2. Try Online Gemini if online and ready
-    if (await _onlineGemini.isAvailable()) {
-      final result = await _onlineGemini.analyze(
-        image: image,
-        location: location,
-        language: language,
-      );
-      return result.copyWith(requestedProvider: AiProvider.onlineGemini);
-    }
-
+    if (lastError != null) throw lastError;
     throw const AiUnavailableException(
-      'No AI model available. Please download the offline Gemma model or switch to manual classification.',
+      'No AI model is available. Use manual classification.',
     );
   }
 }

@@ -18,7 +18,6 @@ import '../../../shared/widgets/error_view.dart';
 import '../../../shared/widgets/loading_view.dart';
 import '../../../shared/widgets/sync_status_badge.dart';
 import '../../../shared/widgets/trackguard_dialog.dart';
-import '../../ai/domain/ai_settings.dart';
 import '../../auth/presentation/auth_controller.dart';
 import 'report_review_controller.dart';
 import 'widgets/ai_suggestion_card.dart';
@@ -513,7 +512,7 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                     aiResult: reviewState.aiResult,
                     errorMessage: reviewState.aiErrorMessage,
                     isAnalyzing: reviewState.isAnalyzing,
-                    currentMode: ref.watch(aiSettingsProvider).mode,
+                    activeProvider: reviewState.activeProvider,
                     onRetry: () => controller.runAnalysis(),
                     onSwitchToManual: () => controller.switchToManual(),
                     onDownloadModel: () =>
