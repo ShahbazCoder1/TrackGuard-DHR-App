@@ -628,7 +628,8 @@ class _ReportReviewScreenState extends ConsumerState<ReportReviewScreen> {
                           children: [
                             Expanded(
                               child: Text(
-                                AppLocalizations.of(context)!.reportKmMarkerStep,
+                                AppLocalizations.of(context)!
+                                    .reportKmMarkerStep,
                                 style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
